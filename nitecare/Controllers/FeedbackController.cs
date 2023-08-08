@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using nitecare.Model;
-using nitecare.ViewModels.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +15,7 @@ namespace nitecare.Controllers
         {
             _context = context;
         }
+        [Route("feedback")]
         public IActionResult Index()
         {
             var feedback = _context.Feedbacks.Include(x=>x.User).OrderByDescending(x => x.FeedbackId).ToList();

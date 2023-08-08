@@ -18,23 +18,22 @@ namespace nitecare.Controllers
             _context = context;
         }
        [HttpGet]
+       [Route("login")]
         public IActionResult Login()
         {
-            if(HttpContext.Session.GetString("Email")!=null)
-            {
-            }
-            return View();
+                return View();
         }
-        [HttpPost]
 
 
         [HttpGet]
+        [Route("register")]
         public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("register")]
         public IActionResult Register(UserDto userDto)
         {
             if (ModelState.IsValid)

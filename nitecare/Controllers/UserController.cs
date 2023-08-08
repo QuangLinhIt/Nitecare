@@ -8,6 +8,7 @@ namespace nitecare.Controllers
 {
     public class UserController : Controller
     {
+        [Route("user")]
         public IActionResult Index()
         {
             return View();

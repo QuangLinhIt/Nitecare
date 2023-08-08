@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using nitecare.ViewModels.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +8,7 @@ namespace nitecare.Controllers
 {
     public class ContactController : Controller
     {
+        [Route("contact")]
         public IActionResult Index()
         {
             return View();

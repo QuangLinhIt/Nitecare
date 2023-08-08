@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using nitecare.Model;
-using nitecare.ViewModels.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +13,7 @@ namespace nitecare.Controllers
         public  ProductController (nitecareContext context){
             _context = context;
             }
+        [Route("product")]
         public IActionResult Index()
         {
             var product = _context.Products.OrderByDescending(x => x.ProductId).ToList();

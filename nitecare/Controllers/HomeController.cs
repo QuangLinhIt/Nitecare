@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using nitecare.Model;
 using nitecare.Models;
 using nitecare.ViewModels;
-using nitecare.ViewModels.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,6 +20,7 @@ namespace nitecare.Controllers
             _context = context;
             _logger = logger;
         }
+        
         public IActionResult Index()
         {
             var pageList = (from a in _context.Pages
