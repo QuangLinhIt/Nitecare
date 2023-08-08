@@ -1,0 +1,26 @@
+﻿@model IEnumerable<nitecare.Model.Category>
+
+
+    <ul class="menu-slide-sub">
+        @foreach (var item in Model)
+        {
+            if (item.ParentId == null)
+            {
+                <li>
+                    <a href="products.html" title="" alt="" target="_self">@item.CategoryName</a>
+                    <ul>
+                        @foreach (var child in Model)
+                        {
+                            if (child.ParentId == item.CategoryId)
+                            {
+                                <li>
+                                    <a href="products.html" title="" alt="" target="_self">@child.CategoryName</a>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </li>
+            }
+        }
+    </ul>

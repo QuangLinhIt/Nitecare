@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<main class="mainer">
+    <div class="block-bg block-user">
+        <div class="container py-4">
+            <div class="block-sidebar gy-3 mb-3" data-wrapper>
+                <div class="sidebar order-md-1 mb-4 mb-md-2" data-sidebar>
+                    <div data-stick data-width-fill>
+                        <div class="pane pane-menu pane-user">
+                            <div class="tt-xs tt-ball text-primary">Tài khoản</div>
+                            <ul class="menu-vertical">
+                                <li class="active">
+                                    <a href="user.html" title="" alt="" target="_self">
+                                        Thông tin cá nhân<i class="i-vertical fa fa-angle-right"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="manager.html" title="" alt="" target="_self">
+                                        Quản lý đơn hàng<i class="i-vertical fa fa-angle-right"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="login.html" title="" alt="" target="_self">Đăng xuất</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mainbody mb-4 mb-md-0 order-md-2" data-mainbody>
+                    <div class="d-sm-flex align-items-start justify-content-sm-between mb-3">
+                        <div class="tt-lg tt-icon fw-medium text-primary">Thông tin cá nhân</div>
+                        <a class="btn btn-edit" alt="" title="" href="change-info.html">
+                            <span class="mr-2 far fa-edit"></span>Chỉnh sửa
+                        </a>
+                    </div>
+                    <div class="row list-info">
+                        <div class="col-4 col-md-3 col-xl-2">
+                            <div class="desc mb-3">Họ tên</div>
+                        </div>
+                        <div class="col-8 col-md-9 col-xl-10">
+                            <div class="info mb-3">Dianne Russell</div>
+                        </div>
+                        <div class="col-4 col-md-3 col-xl-2">
+                            <div class="desc mb-3">Email</div>
+                        </div>
+                        <div class="col-8 col-md-9 col-xl-10">
+                            <div class="info mb-3">nevaeh.simmons@example.com</div>
+                        </div>
+                        <div class="col-4 col-md-3 col-xl-2">
+                            <div class="desc mb-3">Số điện thoại</div>
+                        </div>
+                        <div class="col-8 col-md-9 col-xl-10">
+                            <div class="info mb-3">(217) 555-0113</div>
+                        </div>
+                        <div class="col-4 col-md-3 col-xl-2">
+                            <div class="desc mb-3">Địa chỉ</div>
+                        </div>
+                        <div class="col-8 col-md-9 col-xl-10">
+                            <div class="info mb-3">8502 Preston Rd. Inglewood, Maine 98380</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="block-change-pwd">
+                        <div class="tt-md fw-medium text-primary">Đổi mật khẩu cũ</div>
+                        <form class="form-validate material-form">
+                            <div class="row gx-3">
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <input class="form-control" type="password" required>
+                                        <label class="label-text">Nhập mật khẩu cũ</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <input class="form-control" type="password" required>
+                                        <label class="label-text">Nhập mật khẩu mới</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <input class="form-control" type="password" required>
+                                        <label class="label-text">Xác nhận mật khẩu mới</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-right">
+                                    <button class="btn btn-secondary px-4" type="submit">Lưu thay đổi</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-customer py-3">
+        <div class="container">
+            <div class="carousel-logo-o">
+                <div class="carousel-logo">
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-2.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-3.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-4.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-5.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

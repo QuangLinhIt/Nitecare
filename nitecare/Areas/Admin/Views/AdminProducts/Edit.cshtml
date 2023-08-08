@@ -1,0 +1,85 @@
+﻿@model nitecare.BaseModel.ProductVm
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h3 class="mx-20">Chỉnh sửa sản phẩm</h3>
+<hr />
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="row mx-10">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ProductId" />
+        <div class="form-group col-md-8">
+            <label asp-for="ProductName" class="control-label">Tên sản phẩm</label>
+            <input asp-for="ProductName" class="form-control" />
+            <span asp-validation-for="ProductName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Price" class="control-label">Giá bán</label>
+            <input asp-for="Price" class="form-control" type="number" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Voucher" class="control-label">Giảm giá</label>
+            <input asp-for="Voucher" class="form-control" type="number"/>
+            <span asp-validation-for="Voucher" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="OriginalPrice" class="control-label">Giá nhập</label>
+            <input asp-for="OriginalPrice" class="form-control" type="number"/>
+            <span asp-validation-for="OriginalPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Stock" class="control-label">Số lượng hàng</label>
+            <input asp-for="Stock" class="form-control" type="number"/>
+            <span asp-validation-for="Stock" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-12">
+            <label asp-for="ShortDes" class="control-label">Mô tả ngắn</label>
+            <input asp-for="ShortDes" class="form-control" />
+            <span asp-validation-for="ShortDes" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-12">
+            <p>Hình ảnh sản phẩm</p>
+            <img decoding="async" src="~/image/@Model.ImageName" asp-append-version="true" width="400px" height="400px" />
+        </div>
+
+        <div class="form-group col-md-12">
+            <label asp-for="ImageFile" class="control-label">Chỉnh sửa hình ảnh sản phẩm</label><br />
+            <input asp-for="ImageFile" accept=".png, .jpg, .jpeg" type="file" />
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
+        </div>
+        <div class="col-md-12 my-15">
+            <p>Mô tả chi tiết</p>
+            <div class="tinymce-wrap">
+                <textarea id="description" asp-for="Description"></textarea>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <p>Sản phẩm thuộc danh mục</p>
+            <div class="col-sm-6">
+                @Html.ListBoxFor(model => model.CategoryIds, new MultiSelectList(Model.ListCategory, "Value", "Text"), new { @class = "form-control", multiple = "multiple", id = "Subjects_dropdown" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-12">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+        <div class="form-group col-md-12">
+            <a class="btn btn-dark" asp-action="Index">Back</a>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('#Subjects_dropdown').multiselect();
+        });
+    </script>
+}

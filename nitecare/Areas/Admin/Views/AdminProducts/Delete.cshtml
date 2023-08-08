@@ -1,0 +1,50 @@
+﻿@model nitecare.Model.Product
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="mx-10">
+    <div>
+        <h3>Xóa sản phẩm</h3>
+    </div>
+    <hr />
+    <div class="row">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group col-md-8">
+            <label asp-for="ProductName" class="control-label"></label>
+            <input asp-for="ProductName" class="form-control" />
+            <span asp-validation-for="ProductName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Price" class="control-label"></label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Voucher" class="control-label"></label>
+            <input asp-for="Voucher" class="form-control" />
+            <span asp-validation-for="Voucher" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="OriginalPrice" class="control-label"></label>
+            <input asp-for="OriginalPrice" class="form-control" />
+            <span asp-validation-for="OriginalPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Stock" class="control-label"></label>
+            <input asp-for="Stock" class="form-control" />
+            <span asp-validation-for="Stock" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-12">
+            <img decoding="async" src="~/image/@Model.ProductImage" asp-append-version="true" width="400px" height="400px" />
+        </div>
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ProductId" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a class="btn btn-dark" asp-action="Index">Back</a>
+    </form>
+</div>

@@ -1,0 +1,112 @@
+﻿<header class="header" id="header">
+    <div class="container d-flex">
+        <button class="btn-menu fa fa-bars" id="menu-toggle" role="button"></button>
+        <a class="logo-full" asp-controller="Home" asp-action="Index" title="" alt=""><img class="logo" src="~/css/skin/logo.png" alt=""></a>
+        <div class="header-center d-none d-lg-flex">
+            <div class="search-web">
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Tìm kiếm sản phẩm"/>
+                    <button class="icon-submit" type="button"><span class="far fa-search"></span></button>
+                </div>
+            </div>
+        </div>
+        <div class="header-right d-flex">
+            <div class="header-right-item search">
+                <button class="icon-group d-flex align-items-center search-toggle" id="search-toggle" role="button"
+                        type="button">
+                    <span class="icon fa fa-search"></span>
+                </button>
+            </div>
+            <div class="header-right-item dd-hover dropdown-user d-none d-lg-flex">
+                <div class="dd-toggle icon-group d-flex align-items-center">
+                    <a asp-controller="User" asp-action="Index" alt="" title=""
+                       class="icon icon-user bi bi-person-circle"></a>
+                </div>
+                <div class="dd-menu">
+                    <a class="dd-item" asp-controller="Account" asp-action="Login" title="" alt="">
+                        <span class="bi bi-box-arrow-in-right"></span>Đăng nhập
+                    </a><a class="dd-item" asp-controller="Account" asp-action="Register" title=""
+                           alt=""><span class="bi bi-unlock"></span>Đăng ký</a>
+                </div>
+            </div>
+            <div class="header-right-item dd-hover dropdown-cart">
+                <a class="dd-toggle icon icon-cart"
+                   asp-controller="Order" asp-action="Index"><span class="fal fa-shopping-bag"></span><span class="badge">2</span></a>
+                <div class="dd-noti active">Một sản phẩm đã được thêm vào giỏ hàng</div>
+            </div>
+
+        </div>
+        <div class="form-search" id="form-search">
+            <div class="form-group">
+                <input class="form-control" type="text" placeholder="Tìm kiếm">
+                <button class="icon-submit" type="button"><span class="far fa-search"></span></button>
+            </div>
+        </div>
+
+    </div>
+    <nav class="navigate-dym" id="navigate">
+        <div class="menu">
+            <div class="menu-header">
+                <a class="logo-full" alt="" asp-controller="Home" asp-action="Index" title="">
+                    <img class="logo" src="~/css/skin/logo.png">
+                </a>
+                <button class="btn-close" id="close-menu" type="button"></button>
+            </div>
+            <div class="menu-body">
+                <ul class="menu-slide">
+                    <li class="active d-lg-none">
+                        <a alt="" asp-controller="Home" asp-action="Index" title=""  target="_self">
+                            <span class="menu-icon far fa-home"></span>Trang chủ
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Product" asp-action="Index" title="" alt=""><span class="menu-icon far fa-moon-stars"></span>Sản phẩm</a>
+                        @await Component.InvokeAsync("CategoryComponent") 
+                    </li>
+                    <li>
+                        <a asp-controller="About" asp-action="Index" title="" alt="" target="_self">
+                            <span class="menu-icon far fa-rocket"></span>Giới
+                            thiệu
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="News" asp-action="Index" title="" alt="" target="_self">
+                            <span class="menu-icon far fa-newspaper"></span>Kiến thức
+                        </a>
+                        <ul class="menu-slide-sub">
+                            <li><a asp-controller="News" asp-action="GetListNews" asp-route-pagename="Cẩm nang" title="" alt="" target="_self">Cẩm nang</a></li>
+                            <li><a asp-controller="News" asp-action="GetListNews" asp-route-pagename="Sống khỏe" title="" alt="" target="_self">Sống khoẻ</a></li>
+                            <li><a asp-controller="News" asp-action="GetListNews" asp-route-pagename="Nhà cửa và đời sống" title="" alt="" target="_self">Nhà cửa và đời sống</a></li>
+                            <li><a asp-controller="News" asp-action="GetListNews" asp-route-pagename="FAQ's" title="" alt="" target="_self">FAQ’s</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="Feedback" asp-action="Index" title="" alt="" target="_self">
+                            <span class="menu-icon far fa-comment"></span>Chia sẻ hữu ích
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Contact" asp-action="Index" title="" alt="" target="_self">
+                            <span class="menu-icon far fa-address-card"></span>Liên hệ
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="menu-footer">
+                <div class="d-flex align-items-center login-group">
+                    <a class="btn btn-primary" alt="" title="" asp-controller="Account" asp-action="Login">Đăng nhập</a>
+                    <a class="btn btn-outline-primary" alt="" title="" asp-controller="Account" asp-action="Register" >Đăng ký</a>
+                </div>
+                <div class="d-flex align-items-center user">
+                    <span class="icon icon-user bi bi-person-circle"></span>
+                    <div class="info">
+                        <div class="text-desc">Chào</div>
+                        <div class="name-user">Văn A</div>
+                    </div>
+                    <a class="icon-settings" alt="" title="" asp-controller="User" asp-action="Index"><span class="fal fa-cog"></span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

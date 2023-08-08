@@ -1,0 +1,277 @@
+﻿@model IEnumerable<nitecare.Model.Page>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="banner-lg block-bg" style="background-image: url('css/skin/slider/banner-news.png')">
+    <div class="container d-flex align-items-center h-100">
+        <div class="text-banner">
+            <h1 class="tt-md text-uppercase">Tin tức</h1>
+            <nav arial-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index" title="" alt="" target="_self">
+                            Trang
+                            chủ
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <a asp-controller="News" asp-action="Index" title="" alt="" target="_self">
+                            Tin
+                            tức
+                        </a>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<main class="mainer">
+    <div class="block-bg block-primary">
+        <div class="container py-5">
+            <div class="tt-lg tt-icon text-primary">Tin nổi bật</div>
+            <div class="grid-news my-lg-3">
+                @foreach (var item in Model.Take(4))
+                {
+                        <div class="grid-news-item">
+                            <a class="absolute" alt="" title="" asp-controller="news" asp-action="Details" asp-route-id="@item.PageId"></a>
+                            <div class="thumb-res wide">
+                                <img class="fit-cover" src="~/news/@item.PageImagePath">
+                            </div>
+                            <div class="info">
+                                <div class="tt">
+                                    @item.Title
+                                </div>
+                                <div class="desc text-desc">
+                                    @item.Description
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+            </div>
+        </div>
+    </div>
+    <div class="block-bg">
+        <div class="container py-5">
+            <div class="block-sidebar" data-wrapper>
+                <div class="mainbody mb-4 mb-md-0 order-md-2" data-mainbody>
+                    <div class="block-bg mb-5">
+                        <div class="d-flex align-items-center justify-content-sm-between">
+                            <div class="tt-md tt-icon text-primary">Cẩm nang</div>
+                            <a class="btn btn-outline-primary d-none d-lg-inline-block" alt="" title=""
+                               asp-controller="News" asp-action="GetListNews" asp-route-pagename="Cẩm nang">Xem thêm</a>
+                        </div>
+                        <div class="list-news row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3 my-2">
+                            @foreach (var item in Model)
+                            {
+                                if (item.PageName == "Cẩm nang")
+                                {
+                                    <div class="col wow fadeIn">
+                                        <div class="block">
+                                            <a class="absolute" asp-controller="news" asp-action="Details" asp-route-id="@item.PageId" title="" alt=""
+                                               target="_self"></a>
+                                            <div class="thumb-res wide">
+                                                <img class="fit-cover"
+                                                     src="~/news/@item.PageImagePath" alt="@item.Title" />
+                                            </div>
+                                            <div class="info">
+                                                <div class="tt">@item.Title</div>
+                                                <div class="desc">
+                                                    @item.Description
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                        </div>
+
+                        <div class="text-center mb-3 d-lg-none">
+                            <a class="btn btn-outline-primary " alt="" title=""
+                               asp-controller="News" asp-action="GetListNews" asp-route-pagename="Cẩm nang">Xem thêm</a>
+                        </div>
+                    </div>
+                    <div class="block-bg mb-5">
+                        <div class="d-flex align-items-center justify-content-sm-between">
+                            <div class="tt-md tt-icon text-primary">Sống khỏe</div>
+                            <a class="btn btn-outline-primary d-none d-lg-inline-block" alt="" title=""
+                               asp-controller="News" asp-action="GetListNews" asp-route-pagename="Sống khỏe">Xem thêm</a>
+                        </div>
+                        <div class="list-news row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3 my-2">
+                            @foreach (var item in Model)
+                            {
+                                if (item.PageName == "Sống khỏe")
+                                {
+                                    <div class="col wow fadeIn">
+                                        <div class="block">
+                                            <a class="absolute" asp-controller="news" asp-action="Details" asp-route-id="@item.PageId" title="" alt=""
+                                               target="_self"></a>
+                                            <div class="thumb-res wide">
+                                                <img class="fit-cover"
+                                                     src="~/news/@item.PageImagePath" alt="@item.Title" />
+                                            </div>
+                                            <div class="info">
+                                                <div class="tt">@item.Title</div>
+                                                <div class="desc">
+                                                    @item.Description
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                            }
+
+                        </div>
+                        <div class="text-center mb-3 d-lg-none">
+                            <a class="btn btn-outline-primary " alt="" title=""
+                               asp-controller="News" asp-action="GetListNews" asp-route-pagename="Sống khỏe">Xem thêm</a>
+                        </div>
+                    </div>
+                    <div class="block-bg mb-5">
+                        <div class="d-flex align-items-center justify-content-sm-between">
+                            <div class="tt-md tt-icon text-primary">Nhà cửa đời sống</div>
+                            <a class="btn btn-outline-primary d-none d-lg-inline-block" alt="" title=""
+                               asp-controller="News" asp-action="GetListNews" asp-route-pagename="Nhà cửa đời sống">Xem thêm</a>
+                        </div>
+                        <div class="list-news row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3 my-2">
+                            @foreach (var item in Model)
+                            {
+                                if (item.PageName == "Nhà cửa và đời sống")
+                                {
+                                    <div class="col wow fadeIn">
+                                        <div class="block">
+                                            <a class="absolute" asp-controller="news" asp-action="Details" asp-route-id="@item.PageId" title="" alt=""
+                                               target="_self"></a>
+                                            <div class="thumb-res wide">
+                                                <img class="fit-cover"
+                                                     src="~/news/@item.PageImagePath" alt="@item.Title" />
+                                            </div>
+                                            <div class="info">
+                                                <div class="tt">@item.Title</div>
+                                                <div class="desc">
+                                                    @item.Description
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                            }
+
+                        </div>
+                        <div class="text-center mb-3 d-lg-none">
+                            <a class="btn btn-outline-primary " alt="" title=""
+                               asp-controller="News" asp-action="GetListNews" asp-route-pagename="Nhà cửa đời sống">Xem thêm</a>
+                        </div>
+                    </div>
+                    <div class="block-bg mb-5">
+                        <div class="d-flex align-items-center justify-content-sm-between">
+                            <div class="tt-md tt-icon text-primary">FAQ’s</div>
+                            <a class="btn btn-outline-primary d-none d-lg-inline-block" alt="" title=""
+                               asp-controller="News" asp-action="GetListNews" asp-route-pagename="FAQ's">Xem thêm</a>
+                        </div>
+                        <div class="list-news row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3 my-2">
+                            @foreach (var item in Model)
+                            {
+                                if (item.PageName == "FAQ's")
+                                {
+                                    <div class="col wow fadeIn">
+                                        <div class="block">
+                                            <a class="absolute" asp-controller="news" asp-action="Details" asp-route-id="@item.PageId" title="" alt=""
+                                               target="_self"></a>
+                                            <div class="thumb-res wide">
+                                                <img class="fit-cover"
+                                                     src="~/news/@item.PageImagePath" alt="@item.Title" />
+                                            </div>
+                                            <div class="info">
+                                                <div class="tt">@item.Title</div>
+                                                <div class="desc">
+                                                    @item.Description
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                            }
+
+                        </div>
+                        <div class="text-center mb-3 d-lg-none">
+                            <a class="btn btn-outline-primary " alt="" title=""
+                               asp-controller="News" asp-action="GetListNews" asp-route-pagename="FAQ's">Xem thêm</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar order-md-1" data-sidebar>
+                    <div data-stick data-width-fill>
+                        <div class="pane pane-menu pane-menu-news mb-4">
+                            <div class="tt-sm tt-ball text-primary">Danh mục</div>
+                            <ul class="menu-vertical">
+                                <li>
+                                    <a asp-controller="News" asp-action="GetListNews" asp-route-pagename="Cẩm nang" title="" alt="" target="_self">Cẩm nang</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="News" asp-action="GetListNews" asp-route-pagename="Sống khoẻ" title="" alt="" target="_self">Sống khoẻ</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="News" asp-action="GetListNews" asp-route-pagename="Nhà cửa và đời sống" title="" alt="" target="_self">Nhà cửa và đời sống</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="News" asp-action="GetListNews" asp-route-pagename="FAQ's" title="" alt="" target="_self">FAQ’s</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pane bannerqc mb-3">
+                            <a class="block" href="#" title="" alt=""
+                               target="_self"><img src="~/css/skin/theme/qc.png" alt="" /></a>
+                        </div>
+                        <div class="pane bannerqc mb-3">
+                            <a class="block" href="#" title="" alt=""
+                               target="_self"><img src="~/css/skin/theme/qc-2.png" alt="" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-customer py-3">
+        <div class="container">
+            <div class="carousel-logo-o">
+                <div class="carousel-logo">
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-2.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-3.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-4.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-5.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

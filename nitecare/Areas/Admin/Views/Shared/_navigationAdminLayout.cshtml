@@ -1,0 +1,153 @@
+﻿<nav class="hk-nav hk-nav-dark">
+    <a href="javascript:void(0);" id="hk_nav_close" class="hk-nav-close"><span class="feather-icon"><i data-feather="x"></i></span></a>
+    <div class="nicescroll-bar">
+        <div class="navbar-nav-wrap">
+            <ul class="navbar-nav flex-column">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Home" asp-action="Index" asp-area="Admin">
+                        <span class="feather-icon"><i data-feather="activity"></i></span>
+                        <span class="nav-link-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#auth_drp">
+                        <span class="feather-icon"><i data-feather="zap"></i></span>
+                        <span class="nav-link-text">Authentication</span>
+                    </a>
+                    <ul id="auth_drp" class="nav flex-column collapse collapse-level-1">
+                        <li class="nav-item">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);">
+                                        Sign Up
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);">
+                                        Login
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);">
+                                        Recover Password
+                                    </a>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="maintenance.html">
+                                        Maintenance
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#pages_drp">
+                        <span class="feather-icon"><i data-feather="file-text"></i></span>
+                        <span class="nav-link-text">Quản lí hệ thống</span>
+                    </a>
+                    <ul id="pages_drp" class="nav flex-column collapse collapse-level-1">
+                        <li class="nav-item">
+                            <ul class="nav flex-column">
+                                <li class="nav-item active">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">Quyền truy cập</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="AdminUsers" asp-action="Index">Tài khoản</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="AdminContacts" asp-action="Index" >Thông tin liên hệ cửa hàng</a>
+                                </li>
+                               
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <hr class="nav-separator">
+            <div class="nav-header">
+                <span>Web Modules</span>
+                <span>UI</span>
+            </div>
+            <ul class="navbar-nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#Components_drp">
+                        <span class="feather-icon"><i data-feather="layout"></i></span>
+                        <span class="nav-link-text">Quản lí sản phẩm</span>
+                    </a>
+                    <ul id="Components_drp" class="nav flex-column collapse collapse-level-1">
+                        <li class="nav-item">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="AdminCategories" asp-action="Index">Danh mục sản phẩm</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">Sản phẩm</a>
+                                </li>
+                               
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="Admin" asp-controller="AdminPages" asp-action="Index">
+                        <span class="feather-icon"><i data-feather="type"></i></span>
+                        <span class="nav-link-text">Quản lí tin tức</span>
+                    </a>
+                   
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#utilities_drp">
+                        <span class="feather-icon"><i data-feather="anchor"></i></span>
+                        <span class="nav-link-text">Quản lí khách hàng</span>
+                    </a>
+                    <ul id="utilities_drp" class="nav flex-column collapse collapse-level-1">
+                        <li class="nav-item">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index">Danh sách khách hàng</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="border.html">Tìm kiếm khách hàng</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#forms_drp">
+                        <span class="feather-icon"><i data-feather="server"></i></span>
+                        <span class="nav-link-text">Quản lí đơn hàng</span>
+                    </a>
+                    <ul id="forms_drp" class="nav flex-column collapse collapse-level-1">
+                        <li class="nav-item">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Orders" asp-action="Index">Danh sách đơn hàng</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="AdminProductItems">Chọn mua sản phẩm</a>
+                                </li>
+                               
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="Admin" asp-controller="AdminFeedbacks" asp-action="Index">
+                        <span class="feather-icon"><i data-feather="list"></i></span>
+                        <span class="nav-link-text">Feedback</span>
+                    </a>
+                   
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="Admin" asp-controller="AdminPayments" asp-index="Index">
+                        <span class="feather-icon"><i data-feather="pie-chart"></i></span>
+                        <span class="nav-link-text">Thanh toán</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

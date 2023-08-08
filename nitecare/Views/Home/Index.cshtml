@@ -1,0 +1,300 @@
+﻿@using nitecare.Model;
+@using nitecare.ViewModels;
+@{
+    ViewData["Title"] = "Trang chủ";
+    List<Page> pageList = ViewBag.PageList;
+    List<FeedbackDto> feedbackList = ViewBag.FeedBackList;
+    List<ProductDto> productList = ViewBag.ProductList;
+}
+
+<section class="home-slider-o">
+    <div class="home-slider">
+        <div class="carousel-cell">
+            <div class="img-slide">
+                <img src="~/css/skin/slider/slider-01.png" alt="" />
+            </div>
+            <div class="container absolute d-flex justify-content-start">
+                <div class="textbox text-left">
+                    <div class="tt-lg">
+                        Gối chống trào ngược dạ dày
+                    </div>
+                    <div class="desc">
+                        Nguyên lý trọng lực là điểm mấu chốt giúp sản phẩm này trở thành một giải pháp hữu hiệu
+                        cho người bị trào ngược, đặc biệt trào ngược dạ dày về đêm.
+                    </div>
+                    <a class="btn btn-secondary" href="about.html" alt="" title="" target="_blank">Tìm hiểu thêm</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-cell">
+            <div class="img-slide">
+                <img src="~/css/skin/slider/slider-02.jpg" alt="" />
+            </div>
+            <div class="container absolute d-flex justify-content-start">
+                <div class="textbox text-left">
+                    <div class="tt-lg">
+                        Gối chống trào ngược dạ dày
+                    </div>
+                    <div class="desc">
+                        Nguyên lý trọng lực là điểm mấu chốt giúp sản phẩm này trở thành một giải pháp hữu hiệu
+                        cho người bị trào ngược, đặc biệt trào ngược dạ dày về đêm.
+                    </div>
+                    <a class="btn btn-secondary" href="about.html" alt="" title="" target="_blank">Tìm hiểu thêm</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-cell">
+            <div class="img-slide">
+                <img src="~/css/skin/slider/slider-03.jpg" alt="" />
+            </div>
+            <div class="container absolute d-flex justify-content-start">
+                <div class="textbox text-left">
+                    <div class="tt-lg">
+                        Gối chống trào ngược dạ dày
+                    </div>
+                    <div class="desc">
+                        Nguyên lý trọng lực là điểm mấu chốt giúp sản phẩm này trở thành một giải pháp hữu hiệu
+                        cho người bị trào ngược, đặc biệt trào ngược dạ dày về đêm.
+                    </div>
+                    <a class="btn btn-secondary" href="about.html" alt="" title="" target="_blank">Tìm hiểu thêm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<main class="mainer">
+    <div class="block-bg block-primary py-4 pb-5">
+        <div class="container section-about">
+            <div class="row gy-3">
+                <div class="col-12 col-md-6 col-lg-5 wow fadeIn">
+                    <div class="content-post">
+                        <h2 class="tt-lg tt-icon text-primary mb-3">Về chúng tôi</h2>
+                        <div class="desc mb-3">
+                            Lorem ipsum dolor sit amet consectetur. Egestas ipsum neque tellus nibh at id quis. Pretium at neque
+                            blandit cum arcu morbi quisque diam. Quis orci diam ultricies sed tempus volutpat integer morbi. Vitae
+                            id nibh et orci. Eu id mattis mauris sit sit cursus. Aenean id ut bibendum suspendisse tristique
+                            posuere mauris mauris amet.
+                        </div>
+                        <a class="btn btn-outline-primary" alt="" href="about.html" title="">Xem thêm</a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7 wow fadeIn">
+                    <div class="thumb-res wide-lg">
+                        <img src="~/css/skin/theme/about.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-secondary py-4 pb-5">
+        <div class="container section-feature">
+            <div class="w-md-40">
+                <h2 class="tt-lg tt-icon text-primary">Vì sao nên sử dụng gối chống trào ngược?</h2>
+            </div>
+            <div class="row row-cols-2 row-cols-md-4 list-features g-3">
+                <div class="col wow fadeInDown">
+                    <div class="block">
+                        <div class="thumb-res square">
+                            <img src="~/css/skin/Icon/icon-01.png">
+                        </div>
+                        <div class="desc text-center">
+                            Cải thiện viêm họng, viêm xoang, khàn tiếng
+                        </div>
+                    </div>
+                </div>
+                <div class="col wow fadeInDown">
+                    <div class="block">
+                        <div class="thumb-res square">
+                            <img src="~/css/skin/Icon/icon-02.png">
+                        </div>
+                        <div class="desc text-center">
+                            Cải thiện giấc ngủ sau 1 tuần
+                        </div>
+                    </div>
+                </div>
+                <div class="col wow fadeInDown">
+                    <div class="block">
+                        <div class="thumb-res square">
+                            <img src="~/css/skin/Icon/icon-03.png">
+                        </div>
+                        <div class="desc text-center">
+                            Giảm hầu hết các triệu chứng trào ngược
+                        </div>
+                    </div>
+                </div>
+                <div class="col wow fadeInDown">
+                    <div class="block">
+                        <div class="thumb-res square">
+                            <img src="~/css/skin/Icon/icon-04.png">
+                        </div>
+                        <div class="desc text-center">
+                            An toàn không gây hại cho cơ thể
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-bg banner-lg bg-fixed py-4 pb-5" style="background-image:url('~/css/skin/theme/bg-fixed.png')">
+        <div class="container text-banner text-center w-75">
+            <h2 class="tt-lg fw-normal">
+                Sản phẩm được khuyên dùng bởi các bác sỹ tiêu hóa. Hơn 10.000 khách hàng đã sử
+                dụng và 90%
+                trong số họ cảm thấy hài lòng vì tác dụng của sản phẩm
+            </h2>
+        </div>
+    </div>
+    <div class="block-bg banner-lg bg-fixed py-4 pb-5 stack-fix"
+         style="background-image:url('~/css/skin/theme/bg-fixed-products.png')">
+        <div class="container d-block block">
+            <div class="d-flex align-items-center justify-content-between">
+                <h2 class="tt-lg tt-icon text-primary">Sản phẩm</h2>
+                <a class="btn btn-primary d-lg-inline-block" alt="" title="" href="products.html">Xem thêm</a>
+            </div>
+            <div class="carousel-product-o">
+                <div class="carousel-products list-products">
+                    @if (productList.Count > 0)
+                    {
+                        @foreach (var item in productList)
+                        {
+                            <div class="carousel-cell">
+                                <div class="block">
+                                    <a class="absolute" alt="" title="" href="products-detail.html"></a>
+                                    <div class="thumb-res square">
+                                        <img src="~/css/skin/products/products-1.png">
+                                    </div>
+                                    <div class="info">
+                                        <div class="tt">@item.ProductName</div>
+                                        <div class="price">
+                                            <div class="price-origin">
+                                                @item.Price<u>đ</u>
+                                            </div>
+                                            <del class="price-sale">
+                                                @item.OriginalPrice<u>đ</u>
+                                            </del>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-feedback pt-4 pb-5 pb-lg-6">
+        <div class="container">
+            <h2 class="tt-lg tt-icon text-white">Khách hàng nói gì về sản phẩm</h2>
+            <div class="swiper-feedbacks-o">
+                <div class="swiper-feedbacks">
+                    <div class="swiper-wrapper">
+                        @foreach (var feedback in feedbackList)
+                        {
+                            <div class="swiper-slide">
+                                <div class="block">
+                                    <div class="thumb-res square">
+                                        <img class="fit-cover" src="~/feedback/image/@feedback.FeedbackImage" />
+                                    </div>
+                                    <div class="info">
+                                        <div class="avatar">
+                                            <img src="~/feedback/avatar/@feedback.FeedbackAvatar">
+                                        </div>
+                                        <div class="content">
+                                            <div class="name-ava">
+                                               @feedback.UserName
+                                            </div>
+                                            <div class="rated-star">
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                            </div>
+                                            <div class="desc">
+                                               @feedback.FeedbackContent
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-white py-4 pb-5">
+        <div class="container">
+            <div class="d-md-flex align-items-center justify-content-between">
+                <h2 class="tt-lg tt-icon text-primary">Kiến thức</h2>
+                <a class="btn btn-outline-primary d-none d-lg-inline-block" alt="" title="" asp-controller="News" asp-action="Index">Xem thêm</a>
+            </div>
+            <div class="grid-news my-3">
+                @if (pageList.Count > 0)
+                {
+                    @foreach (var item in pageList)
+                    {
+                        <div class="grid-news-item">
+                            <a class="absolute" alt="" title="" asp-controller="News" asp-action="Details" asp-route-id="@item.PageId"></a>
+                            <div class="thumb-res wide">
+                                <img class="fit-cover" src="~/news/@item.PageImagePath">
+                            </div>
+                            <div class="info">
+                                <div class="tt">
+                                    @item.Title
+                                </div>
+                                <div class="desc text-desc">
+                                   @item.Description
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+
+            </div>
+            <div class="text-center mb-3 d-lg-none">
+                <a class="btn btn-outline-primary " alt="" title=""
+                   asp-controller="News" asp-action="Index">Xem thêm</a>
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-customer py-3">
+        <div class="container">
+            <div class="carousel-logo-o">
+                <div class="carousel-logo">
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-2.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-3.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-4.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-5.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

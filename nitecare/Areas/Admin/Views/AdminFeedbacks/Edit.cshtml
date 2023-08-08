@@ -1,0 +1,53 @@
+﻿@model nitecare.BaseModel.FeedbackVm
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3 class="hk-sec-title">Chỉnh sửa phản hồi</h3>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="row mx-10">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="FeedbackId" />
+        <div class="form-group col-md-4">
+            <label asp-for="UserId" class="control-label"></label>
+            <select asp-for="UserId" class="form-control" asp-items="ViewBag.NguoiDung"></select>
+        </div>
+        <div class="form-group col-md-6 mx-20">
+            <p>Avatar</p>
+            <img decoding="async" src="~/feedback/avatar/@Model.AvatarName" asp-append-version="true" width="150px" height="150px" class="circle" />
+        </div>
+        <div class="form-group col-md-8">
+            <label asp-for="AvatarFile" class="control-label"></label>
+            <input asp-for="AvatarFile" type="file" accept=".jpg,.png,.jpeg" />
+            <span asp-validation-for="AvatarFile" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-8">
+            <label asp-for="FeedbackContent" class="control-label"></label>
+            <input asp-for="FeedbackContent" class="form-control" />
+            <span asp-validation-for="FeedbackContent" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-12">
+            <p>Hình ảnh</p>
+            <img decoding="async" src="~/feedback/image/@Model.ImageName" asp-append-version="true" width="300px" height="300px" />
+        </div>
+        <div class="form-group col-md-8">
+            <label asp-for="ImageFile" class="control-label"></label>
+            <input asp-for="ImageFile" type="file" accept=".jpg,.png, .jpeg" />
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-12">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+        <div class="form-group col-md-12">
+            <a class="btn btn-dark" asp-action="Index">Back</a>
+        </div>
+    </div>
+</form>
+
+
+

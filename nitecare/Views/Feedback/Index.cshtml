@@ -1,0 +1,127 @@
+﻿@model IEnumerable<nitecare.Model.Feedback>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="banner-lg block-bg" style="background-image: url('css/skin/slider/banner-about.png')">
+    <div class="container d-flex align-items-center h-100">
+        <div class="text-banner">
+            <h1 class="tt-md text-uppercase">Chia sẻ hữu ích</h1>
+            <nav arial-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index" title="" alt="" target="_self">
+                            Trang
+                            chủ
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active"><a asp-controller="Feedback" asp-action="Index" title="" alt="" target="_self">Chia sẻ hữu ích</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<main class="mainer">
+    <div class="block-bg">
+        <div class="container py-5">
+            <div class="tt-lg tt-ball text-primary fw-medium">Chia sẻ hữu ích</div>
+            <div class="list-feedback row row-cols-1 gy-3">
+                @foreach (var item in Model)
+                {
+                    <div class="col wow fadeIn">
+                        <div class="block">
+                            <a class="absolute" alt="" title="" href="#"></a>
+                            <div class="thumb-res square">
+                                <img class="fit-cover" src="~/feedback/image/@item.FeedbackImage"></img>
+                            </div>
+                            <div class="info">
+                                <div class="avatar">
+                                    <img src="~/feedback/avatar/@item.FeedbackAvatar">
+                                </div>
+                                <div class="content">
+                                    <div class="name-ava">
+                                        @item.User.UserName
+                                    </div>
+                                    <div class="rated-star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                    <div class="desc">
+                                      @item.FeedbackContent
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+            <nav class="pagination justify-content-center my-45">
+                <div class="page-item prev">
+                    <a href="#" title="" alt="" target="_self">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                </div>
+                <div class="page-item active">
+                    <a class="page-counter" alt="" title="" href="#">1</a>
+                </div>
+                <div class="page-item">
+                    <a class="page-counter" alt="" title="" href="#">2</a>
+                </div>
+                <div class="page-item">
+                    <a class="page-counter" alt="" title="" href="#">...</a>
+                </div>
+                <div class="page-item">
+                    <a class="page-counter" alt="" title="" href="#">9</a>
+                </div>
+                <div class="page-item">
+                    <a class="page-counter" alt="" title="" href="#">10</a>
+                </div>
+                <div class="page-item next">
+                    <a href="#" title="" alt="" target="_self">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="block-bg block-customer py-3">
+        <div class="container">
+            <div class="carousel-logo-o">
+                <div class="carousel-logo">
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-2.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-3.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-4.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-5.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

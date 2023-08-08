@@ -1,0 +1,169 @@
+﻿@using nitecare.Model;
+@model Page
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Page> pageList = ViewBag.PageList;
+    List<Feedback> feedbackList = ViewBag.FeedbackList;
+
+}
+
+<div class="banner-lg block-bg" style="background-image: url('css/skin/slider/banner-news.png')">
+
+    <div class="container d-flex align-items-center h-100">
+        <div class="text-banner">
+            <h1 class="tt-md text-uppercase">Tin tức</h1>
+            <nav arial-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index" title="" alt="" target="_self">
+                            Trang
+                            chủ
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-controller="News" asp-action="Index" title="" alt="" target="_self">
+                            Tin
+                            tức
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <a asp-controller="News" asp-action="GetListNews" asp-route-pagename="@Model.PageName" title="" alt=""
+                           target="_self">@Model.PageName</a>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<main class="mainer">
+    <div class="block-bg mb-5">
+        <div class="container py-5">
+            <div class="block-sidebar" data-wrapper>
+                <div class="mainbody mb-4 mb-md-0 order-md-2" data-mainbody="">
+                    <div class="list-share-icon mb-3">
+                        <a class="btn rounded-circle btn-twitter fab fa-twitter" href="#"></a>
+                        <a class="btn rounded-circle btn-facebook fab fa-facebook-f" href="#"></a>
+                    </div>
+                    <div class="content-master">
+                        <h1 class="tt-lg text-primary text-title">
+                            @Model.Title
+                        </h1>
+                        <div class="d-width border-bottom border-3 border-content mb-3" width="32"
+                             style="width: 32px;"></div>
+                        <div class="desc text-desc">
+                            @Model.Description
+                        </div>
+
+                        <div class="content-post" id="description">
+                            @Html.Raw(Model.PageContent)
+                        </div>
+
+                    </div>
+                </div>
+                <div class="sidebar order-md-1" data-sidebar>
+                    <div data-stick data-width-fill>
+                        <div class="pane pane-menu pane-menu-news mb-4">
+                            <div class="tt-sm tt-ball text-primary">Danh mục</div>
+                            <ul class="menu-vertical">
+                                <li class="@(Model.PageName=="Cẩm nang"?"active":"")">
+                                    <a asp-controller="News" asp-action="GetListNews" asp-route-pagename="Cẩm nang" title="" alt="" target="_self">Cẩm nang</a>
+                                </li>
+                                <li class="@(Model.PageName=="Sống khỏe"?"active":"")">
+                                    <a asp-controller="News" asp-action="GetListNews" asp-route-pagename="Sống khỏe" title="" alt="" target="_self">Sống khoẻ</a>
+                                </li>
+                                <li class="@(Model.PageName=="Nhà cửa và đời sống"?"active":"")">
+                                    <a asp-controller="News" asp-action="GetListNews" asp-route-pagename="Nhà cửa và đời sống" title="" alt="" target="_self">Nhà cửa và đời sống</a>
+                                </li>
+                                <li class="@(Model.PageName=="FAQ's"?"active":"")">
+                                    <a asp-controller="News" asp-action="GetListNews" asp-route-pagename="FAQ's" title="" alt="" target="_self">FAQ’s</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pane bannerqc mb-3">
+                            <a class="block" href="#" title="" alt=""
+                               target="_self"><img src="~/~/css/skin/theme/qc.png" alt="" /></a>
+                        </div>
+                        <div class="pane bannerqc mb-3">
+                            <a class="block" href="#" title="" alt=""
+                               target="_self"><img src="~/~/css/skin/theme/qc-2.png" alt="" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (pageList.Count() > 0)
+        {
+    <div class="block-bg block-other-post block-secondary py-5">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-sm-between">
+                <div class="tt-md tt-icon text-primary">Bài viết khác</div>
+                <a class="btn btn-outline-primary d-none d-lg-inline-block" alt="" title=""
+                   asp-controller="News" asp-action="Index">Xem thêm</a>
+            </div>
+            <div class="list-news row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 my-2">
+                @foreach (var item in pageList)
+                {
+                    <div class="col wow fadeIn">
+                        <div class="block">
+                            <a class="absolute" asp-controller="News" asp-action="Details" asp-route-id="@item.PageId" title="" alt="" target="_self"></a>
+                            <div class="thumb-res wide">
+                                <img class="fit-cover" src="~/news/@item.PageImagePath"
+                                     alt="" />
+                            </div>
+                            <div class="info">
+                                <div class="tt">@item.Title</div>
+                                <div class="desc">
+                                    @item.Description
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+            <div class="text-center my-3 d-lg-none">
+                <a class="btn btn-outline-primary " alt="" title="" asp-controller="News" asp-action="Index">Xem thêm</a>
+            </div>
+        </div>
+    </div>
+     } 
+
+
+    <div class="block-bg block-customer py-3">
+        <div class="container">
+            <div class="carousel-logo-o">
+                <div class="carousel-logo">
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/~/css/skin/Company logo/Company logo.png" />
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/~/css/skin/Company logo/Company logo-2.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/~/css/skin/Company logo/Company logo-3.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/~/css/skin/Company logo/Company logo-4.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/~/css/skin/Company logo/Company logo-5.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

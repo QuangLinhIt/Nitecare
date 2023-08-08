@@ -1,0 +1,122 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<nitecare.Model.User>
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Index" + CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+
+    <div class="row">
+        <div class="col-xl-12">
+            <p>
+                <a class="btn btn-info my-4" asp-action="Create">Add new user</a>
+            </p>
+            <div class="form-row">
+                <div class="col-auto form-group">
+                    <select class="form-control nice-select" id="txtRoleId" name="txtRoleId" asp-items="ViewBag.Quyentruycap">
+                        <option value="0" selected>Danh sách tất cả người dùng</option>
+                    </select>
+                </div>
+            </div>
+            <section class="hk-sec-wrapper">
+                <h5 class="hk-sec-title">Danh sách người dùng :Page @CurrentPage</h5>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-wrap">
+                            <table class="table tablesaw table-bordered table-hover  mb-0" data-tablesaw-mode="swipe" data-tablesaw-sortable data-tablesaw-sortable-switch data-tablesaw-minimap data-tablesaw-mode-switch>
+                                <thead>
+                                    <tr>
+                                        <th scope="col" data-tablesaw-sortable-col>UserId</th>
+                                        <th scope="col" data-tablesaw-sortable-col>UserName</th>
+                                        <th scope="col" data-tablesaw-sortable-col>Email</th>
+                                        <th scope="col" data-tablesaw-sortable-col>Phone</th>
+                                        <th scope="col" data-tablesaw-sortable-col>RoleId</th>
+                                        <th scope="col" data-tablesaw-sortable-col>RoleName</th>
+                                        <th scope="col" data-tablesaw-sortable-col>Active</th>
+                                        <th scope="col" data-tablesaw-sortable-col>CreateDate</th>
+                                        <th scope="col" data-tablesaw-sortable-col>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.UserId</td>
+                                                <td>@item.UserName</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.Phone</td>
+                                                <td>@item.RoleId</td>
+                                                <td>@item.Role.RoleName</td>
+                                                <td>@item.Active</td>
+                                                <td>@item.CreateDate</td>
+                                                <td>
+                                                    <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.UserId">Edit</a>
+                                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.UserId">Delete</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div aria-label="Page navigation example">
+                <ul class="pagination">
+                    <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminUsers" asp-action="Index" asp-route-RoleId="@ViewBag.CurrrentRoleId" />
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- /Container -->
+<!-- Footer -->
+<div class="hk-footer-wrap container-fluid px-lg-4">
+    <footer class="footer">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <p> © 2019. Powerd by<a href="//bizmac.com.vn" class="text-dark" target="_blank">BizMaC</a></p>
+            </div>
+        </div>
+    </footer>
+</div>
+<!-- /Footer -->
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            jQuery("#txtRoleId").change(function () {
+                var roleId = jQuery(this).children(":selected").attr("value");
+                roleId = parseFloat(roleId);
+                $('#txtRoleId option').removeAttr('selected');
+                $("txtRoleId > [value=" + roleId + "]").attr("selected", "true");
+                $.ajax({
+                    url: '/Admin/AdminUsers/Filtter',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        RoleId: roleId
+                    },
+                    async: true,
+                    success: function (results) {
+                        if (results.status == "success") {
+                            window.location.href = results.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        alert("error");
+                    }
+                });
+            });
+        })
+    </script>
+}

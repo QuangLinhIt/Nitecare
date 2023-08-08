@@ -1,0 +1,105 @@
+﻿@model nitecare.ViewModels.UserDto
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="mainer">
+    <div class="block-bg block-login">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-5 wow fadeIn">
+                    <div class="card-form">
+                        <div class="tt-lg tt-icon text-primary text-uppercase fw-medium">Đăng ký</div>
+                        <form class="form-validate material-form" method="post">
+                            <div class="row gx-3">
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <input asp-for="UserName" class="form-control" type="text" required>
+                                        <label asp-for="UserName" class="label-text">Họ tên</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <input asp-for="Phone" class="form-control" type="tel" required>
+                                        <label asp-for="Phone" class="label-text">Số điện thoại</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <input asp-for="Email" class="form-control" type="email" required>
+                                        <label asp-for="Email" class="label-text">Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <input asp-for="Password" class="form-control" type="password" required>
+                                        <label asp-for="Password" class="label-text">Mật khẩu</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center">
+                                    <button class="btn btn-secondary w-100 px-4" type="submit">Đăng ký</button>
+                                </div>
+                            </div>
+                        </form>
+                        <hr>
+                        <div class="group-btn-login">
+                            <a class="btn btn-login-gg" alt="" title="" href="#">
+                                <span class="bi bi-google icon"></span>Sign in
+                                with Google
+                            </a>
+                            <a class="btn btn-login-gg" alt="" title="" href="#">
+                                <span class="bi bi-facebook icon"></span>Sign in
+                                with Facebook
+                            </a>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <div class="register-link">
+                                Bạn đã có tài khoản?<a alt="" title="" asp-controller="Account" asp-action="Login">Đăng nhập</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 d-none d-md-block col-md-7 wow fadeIn">
+                    <div class="thumb-res square mb-0">
+                        <img class="fit-cover" src="~/css/skin/register.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-customer py-3">
+        <div class="container">
+            <div class="carousel-logo-o">
+                <div class="carousel-logo">
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-2.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-3.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-4.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-5.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

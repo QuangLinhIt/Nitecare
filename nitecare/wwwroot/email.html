@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Email</title>
+    <link href="css/library.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <header class="e-header border-bottom">
+      <div class="container-fluid h-100 px-4 d-flex align-items-center justify-content-between">
+        <div class="tt-xs mb-0 text-nowrap">Email Template</div>
+        <div class="item text-muted fs-15 d-none d-md-block"><a href="index.html">Home</a>   -   About   -   Login   -   Register   -   User Manager   -   Profile</div>
+      </div>
+    </header>
+    <div class="e-wrapper">
+      <aside class="e-sidebar border-end d-flex pl-2">
+        <div class="nav list-group list-group-flush"><a class="nav-link active" href="#email-admin" data-bs-toggle="tab" aria-selected="true">Email Admin</a><a class="nav-link" href="#email-customer" data-bs-toggle="tab" aria-selected="false">Email Customer</a><a class="nav-link" href="#email-invoid" data-bs-toggle="tab" aria-selected="false">Email Invoid</a><a class="nav-link" href="#email-marketing" data-bs-toggle="tab" aria-selected="false">Email Marketing</a></div>
+      </aside>
+      <main class="e-mainer">
+        <div class="tab-content p-0 m-0 h-100 w-100">
+          <div class="h-100 tab-pane fade active show" id="email-admin">
+            <iframe src="email/email-admin.html" width="100%" height="100%"></iframe>
+          </div>
+          <div class="h-100 tab-pane fade" id="email-customer">
+            <iframe src="email/email-customer.html" width="100%" height="100%"></iframe>
+          </div>
+          <div class="h-100 tab-pane fade" id="email-invoid">
+            <iframe src="email/email-invoid.html" width="100%" height="100%"></iframe>
+          </div>
+          <div class="h-100 tab-pane fade" id="email-marketing">
+            <iframe src="email/email-marketing.html" width="100%" height="100%"></iframe>
+          </div>
+        </div>
+      </main>
+    </div>
+    <style>
+      .e-header {
+      	height: 70px;
+      	border-bottom: 1px solid #ddd;
+      }
+      .e-wrapper {
+      	display: grid;
+      	grid-template-columns: 250px auto;
+      	height: calc(100% - 70px);
+      }
+    </style>
+  </body>
+</html>

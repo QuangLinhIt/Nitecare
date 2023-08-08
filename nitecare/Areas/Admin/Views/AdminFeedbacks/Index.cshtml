@@ -1,0 +1,77 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<nitecare.Model.Feedback>
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Index" + CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<!-- Container -->
+<div class="container-fluid px-lg-4">
+
+    <div class="row">
+        <div class="col-xl-12">
+            <p>
+                <a class="btn btn-info my-4" asp-action="Create">Add new feedback</a>
+            </p>
+
+            <section class="hk-sec-wrapper">
+                <h5 class="hk-sec-title">Danh sách phản hồi: Page @CurrentPage</h5>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-wrap">
+                            <table class="table tablesaw table-bordered table-hover  mb-0" data-tablesaw-mode="swipe" data-tablesaw-sortable data-tablesaw-sortable-switch data-tablesaw-minimap data-tablesaw-mode-switch>
+                                <thead>
+                                    <tr>
+                                        <th scope="col" data-tablesaw-sortable-col>FeedbackId</th>
+                                        <th scope="col" data-tablesaw-sortable-col>UserName</th>
+                                        <th scope="col" data-tablesaw-sortable-col>FeedbackContent</th>
+                                        <th scope="col" data-tablesaw-sortable-col>FeedbackAvatar</th>
+                                        <th scope="col" data-tablesaw-sortable-col>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                    <tr>
+                                        <td>@item.FeedbackId</td>
+                                        <td>@item.User.UserName</td>
+                                        <td>@item.FeedbackContent</td>
+                                        <td><img class="circle" src="~/feedback/avatar/@item.FeedbackAvatar" width="100px" height="100px"/></td>
+
+                                        <td>
+                                            <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.FeedbackId">Edit</a>
+                                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FeedbackId">Delete</a>
+                                        </td>
+                                    </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div aria-label="Page navigation example">
+                <ul class="pagination">
+                    <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminFeedbacks" asp-action="Index" />
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Container -->
+<!-- Footer -->
+<div class="hk-footer-wrap container-fluid px-lg-4">
+    <footer class="footer">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <p> © 2019. Powerd by<a href="//bizmac.com.vn" class="text-dark" target="_blank">BizMaC</a></p>
+            </div>
+        </div>
+    </footer>
+</div>
+<!-- /Footer -->
