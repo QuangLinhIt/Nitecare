@@ -20,9 +20,12 @@ namespace nitecare.Controllers
        [HttpGet]
         public IActionResult Login()
         {
+            if(HttpContext.Session.GetString("Email")!=null)
+            {
+            }
             return View();
         }
-
+        [HttpPost]
 
 
         [HttpGet]
@@ -30,23 +33,29 @@ namespace nitecare.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Register(UserDto userDto)
         {
             if (ModelState.IsValid)
             {
-                var user = new User();
-                user.UserId = userDto.UserId;
-                user.UserName = userDto.UserName;
-                user.Email = userDto.Email;
-                user.Phone = userDto.Phone;
-                user.Password = HashPassword.Hash(userDto.Password);
-                user.CreateDate = DateTime.Now;
-                user.Active = true;
-                user.RoleId = 2;
-                _context.Users.Add(user);
-                _context.SaveChanges();
-                return RedirectToAction("Login", "Account");
+                var checkEmail = _context.Users.Where(x => x.Email == userDto.Email).FirstOrDefault();
+                if (checkEmail == null)
+                {
+                    var user = new User();
+                    user.UserId = userDto.UserId;
+                    user.UserName = userDto.UserName;
+                    user.Email = userDto.Email;
+                    user.Phone = userDto.Phone;
+                    user.Password = HashPassword.Hash(userDto.Password);
+                    user.CreateDate = DateTime.Now;
+                    user.Active = true;
+                    user.RoleId = 2;
+                    _context.Users.Add(user);
+                    _context.SaveChanges();
+                    return RedirectToAction("Login", "Account");
+                }
+               
             }
             return View(userDto);
         }
