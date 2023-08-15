@@ -1,0 +1,61 @@
+﻿@model IEnumerable<nitecare.Model.Store>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container-fluid px-lg-4">
+
+    <div class="row">
+        <div class="col-xl-12">
+            <p>
+                <a class="btn btn-info my-4" asp-action="Create">Thêm mới thông tin liên hệ của hàng</a>
+            </p>
+
+            <section class="hk-sec-wrapper">
+                <h5 class="hk-sec-title">Danh sách thông tin liên hệ cửa hàng</h5>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-wrap">
+                            <table class="table tablesaw table-bordered table-hover  mb-0" data-tablesaw-mode="swipe" data-tablesaw-sortable data-tablesaw-sortable-switch data-tablesaw-minimap data-tablesaw-mode-switch>
+                                <thead>
+                                    <tr>
+                                        <th scope="col" data-tablesaw-sortable-col>Tên cửa hàng</th>
+                                        <th scope="col" data-tablesaw-sortable-col>Số điện thoại</th>
+                                        <th scope="col" data-tablesaw-sortable-col>Email</th>
+                                        <th scope="col" data-tablesaw-sortable-col>Địa chỉ</th>
+                                        <th scope="col" data-tablesaw-sortable-col>Actions</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                    <tr>
+                                        <td>@item.StoreName</td>
+                                        <td>@item.Phone</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.Address</td>
+                                        <td>
+                                            <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        </td>
+                                    </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+

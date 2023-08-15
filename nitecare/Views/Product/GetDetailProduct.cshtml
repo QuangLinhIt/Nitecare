@@ -1,0 +1,718 @@
+﻿@using nitecare.Model
+@using nitecare.ViewModels
+@model nitecare.Model.ProductDetail
+@{
+    ViewData["Title"] = "GetDetailProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Category> listCategory = ViewBag.DanhMuc;
+    List<ProductDto> listProduct = ViewBag.ProductList;
+    List<FeedbackDto> listFeeback = ViewBag.FeedBackList;
+}
+
+<div class="banner-lg block-bg" style="background-image: url('css/skin/slider/banner-cart.png')">
+    <div class="container d-flex align-items-center h-100">
+        <div class="text-banner">
+            <h1 class="tt-md text-uppercase">Sản phẩm</h1>
+            <nav arial-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index" title="" alt="" target="_self">
+                            Trang
+                            chủ
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Product" asp-action="Index" title="" alt="" target="_self">
+                            Sản
+                            phẩm
+                        </a>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<main class="mainer">
+    <div class="block-bg">
+        <div class="container py-5">
+            <div class="block-sidebar" data-wrapper>
+                <div class="mainbody mb-4 mb-md-0 order-md-2" data-mainbody>
+                    <div class="block-bg mb-5">
+                        <div class="row brief gy-3">
+                            <div class="col-12 col-lg-6">
+                                <div class="carousel-wrapper">
+                                    <div class="carousel-main-products-o">
+                                        <div class="list-badge">
+                                            <div class="badge badge-hot">HOT</div>
+                                            <div class="badge badge-new">NEW</div>
+                                            <div class="badge badge-discount">-10%</div>
+                                        </div>
+                                        <div class="carousel-main-products">
+                                            <div class="carousel-cell">
+                                                <a class="thumb-res square" alt="" title=""
+                                                   data-fancybox="gallery"
+                                                   href="~/css/skin/products/products-1.png">
+                                                    <img src="~/product/@Model.Product.ProductImage">
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="carousel-nav-products-o">
+                                        <div class="carousel-nav-products">
+                                            <div class="carousel-cell">
+                                                <div class="thumb-res square">
+                                                    <img src="~/product/@Model.Product.ProductImage">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-cell">
+                                                <div class="thumb-res square">
+                                                    <img src="~/css/skin/products/products-detail.png">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-cell">
+                                                <div class="thumb-res square">
+                                                    <img src="~/css/skin/products/products-detail-2.png">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-cell">
+                                                <div class="thumb-res square">
+                                                    <img src="~/css/skin/products/products-detail-3.png">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-cell">
+                                                <div class="thumb-res square">
+                                                    <img src="~/css/skin/products/products-detail-4.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-share-icon mb-md-3">
+                                    <a class="btn rounded-circle btn-twitter fab fa-twitter" href="#"></a>
+                                    <a class="btn rounded-circle btn-facebook fab fa-facebook-f" href="#"></a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="code mb-3">
+                                    Mã sản phẩm: <span class="text-uppercase">@Model.ProductId</span>
+                                </div>
+                                <div class="tt-lg text-body mb-3">@Model.Product.ProductName</div>
+                                <div class="brand mb-3">
+                                    Thương hiệu: Casalaa
+                                </div>
+                                <div class="d-width border-bottom border-3 border-content mb-3" width="32"
+                                     style="width: 32px;"></div>
+                                <div class="price mb-3">
+                                    <div class="price-origin">
+                                        @Model.Product.Price<u>đ</u>
+                                    </div>
+                                    <del class="price-sale">
+                                        @Model.Product.OriginalPrice<u>đ</u>
+                                    </del>
+                                </div>
+                                <div class="desc mb-3">
+                                    @Model.Title
+                                </div>
+                                <div class="list-options row g-3 align-items-center mb-3">
+                                    <div class="col-4">
+                                        <div class="size fw-bold fs-18">
+                                            Kích thước:
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <select class="form-select">
+                                                <option selected>S - 73cm x 63cm x 22cm</option>
+                                                <option>M - 73cm x 63cm x 22cm</option>
+                                                <option>L - 73cm x 63cm x 22cm</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="color fw-bold fs-18">
+                                            Màu sắc:
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="list-color">
+                                            <div class="ball active" style="--ball-color:#ECC2C7"></div>
+                                            <div class="ball" style="--ball-color:#ACDBE5;"></div>
+                                            <div class="ball" style="--ball-color:#ACDBE5;"></div>
+                                            <div class="ball" style="--ball-color:#927E86;"></div>
+                                            <div class="ball" style="--ball-color:#C2C7EC;"></div>
+                                            <div class="ball" style="--ball-color:#FAF2F0;"></div>
+                                            <div class="ball" style="--ball-color:#C7C7C7;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="count fw-bold fs-18">
+                                            Số lượng:
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="form-quantity">
+                                            <input class="form-control" type="text" id="number">
+                                            <a class="control-down fa fa-minus" role="button" onclick="DecreaseQuantity(document.getElementById('number').value)"></a>
+                                            <a class="control-up fa fa-plus" role="button" onclick="IncreaseQuantity(document.getElementById('number').value)"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="group-button mb-3">
+                                    <button type="button" role="button" class="btn btn-secondary w-100"
+                                            onclick="AddToCart(@Model.ProductId,@Model.Product.Price,@Model.Product.OriginalPrice, document.getElementById('number').value)">
+                                        Thêm vào
+                                        giỏ hàng
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-bg mb-5">
+                        <div class="block-buy my-3">
+                            <div class="tt fw-medium mb-3">
+                                Bạn có thể mua các sản phẩm chính hãng của Nitecare
+                                tại đây
+                            </div>
+                            <div class="book-collapsed collapse show" id="bookpaper01">
+                                <div class="row row-cols-2 row-cols-md-4 row-cols-lg-5 g-3">
+                                    <div class="col">
+                                        <a class="thumb-res wide-sm mb-0 rounded" href="#" title=""
+                                           alt="" target="_self">
+                                            <img class="p-2"
+                                                 src="https://static.ybox.vn/2017/9/8/650ebff8-94a1-11e7-afa1-56c566ee3692.jpg"
+                                                 alt="">
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <a class="thumb-res wide-sm mb-0 rounded" href="#" title=""
+                                           alt="" target="_self">
+                                            <img class="p-2"
+                                                 src="https://laz-img-cdn.alicdn.com/images/ims-web/TB1T7K2d8Cw3KVjSZFuXXcAOpXa.png"
+                                                 alt="">
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <a class="thumb-res wide-sm mb-0 rounded" href="#" title=""
+                                           alt="" target="_self">
+                                            <img class="p-2"
+                                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Shopee.svg/1024px-Shopee.svg.png"
+                                                 alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-bg mb-5">
+                        <div class="nav-nowrap nav-details">
+                            <div class="nav nav-tab-details">
+                                <a class="nav-link active" alt="" title="" href="#tab01" data-bs-toggle="tab"
+                                   data-bs-target="#tab01">Mô tả</a>
+                                <a class="nav-link" alt="" title="" href="#tab02" data-bs-toggle="tab"
+                                   data-bs-target="#tab02">Thông tin chi tiết</a>
+                                <a class="nav-link" alt="" title="" href="#tab03" data-bs-toggle="tab"
+                                   data-bs-target="#tab03">Bình luận</a>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="tab01">
+                                <div class="content-ellips clearfix text-justify" id="toggleContent">
+                                    <div class="gradient"></div>
+                                    <div>@Html.Raw(Model.Description)</div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn-toggle-content" id="btn-detail-content" data-clickjs
+                                            data-active="toggleContent" data-fs="Xem thêm"
+                                            data-en="Ẩn bớt"></button>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab02">
+                                <div class="content-ellips clearfix text-justify" id="toggleContent">
+                                    <div class="gradient"></div>
+                                    <div>@Html.Raw(Model.ProductContent)</div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn-toggle-content" id="btn-detail-content" data-clickjs
+                                            data-active="toggleContent" data-fs="Xem thêm"
+                                            data-en="Ẩn bớt"></button>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade " id="tab03">
+                                <div class="block-review">
+                                    <div class="review-body">
+                                        <div class="review-body-item d-flex">
+                                            <div class="avatar rounded-circle mr-2"
+                                                 style="background-image:url('https://play-lh.googleusercontent.com/0x9dPQAT_gMD7u_M58QmOv9xcWic6Wb7vayoWCxnoSC88YLHAiVmvLuaNvKHuGPTGDRE')">
+                                            </div>
+                                            <div class="info">
+                                                <div class="title-group d-flex flex-wrap justify-content-between">
+                                                    <div class="tt fw-medium">Devon Lane</div>
+                                                </div>
+                                                <div class="review-content">
+                                                    Được bác sĩ giới thiệu gối trào
+                                                    ngược của Yorokobi, tôi đã thử dùng và mất khoảng 1 tuần để
+                                                    làm quen với việc ngủ trên gối. Lúc đầu, tôi đã nghĩ rằng do
+                                                    kích thước và trọng lượng của mình, chiếc gối sẽ dễ dàng mất
+                                                    đi độ cứng và giảm kích thước nhưng điều đó hoàn toàn không
+                                                    xảy ra. Gối rất thoải mái và giúp tôi giữ nguyên vị trí.
+                                                </div>
+                                                <div class="review-action d-flex lh-base">
+                                                    <div class="reply-action">Trả lời</div>
+                                                </div>
+                                                <div class="form-reply">
+                                                    <div class="block">
+                                                        <div class="left">
+                                                            <div class="avatar rounded-circle mr-2"
+                                                                 style="background-image:url('https://play-lh.googleusercontent.com/0x9dPQAT_gMD7u_M58QmOv9xcWic6Wb7vayoWCxnoSC88YLHAiVmvLuaNvKHuGPTGDRE')">
+                                                            </div>
+                                                            <textarea class="form-control" rows="1"
+                                                                      placeholder="Nhận xét của bạn"></textarea>
+                                                        </div>
+                                                        <div class="right">
+                                                            <button class="btn btn-submit" type="submit"
+                                                                    role="button">
+                                                                Trả lời
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="review-action review-toggle" role="button">
+                                                    <i class="bi bi-arrow-return-right mr-2"> </i>
+                                                    <div class="text" data-text="1 câu trả
+                                                                lời " data-hidden="Ẩn câu trả lời"></div>
+                                                </div>
+                                                <div class="reply-group">
+                                                    <div class="review-body-item d-flex">
+                                                        <div class="avatar rounded-circle mr-2"
+                                                             style="background-image:url('https://gpihefp.com/wp-content/uploads/2021/05/male_boy_person_people_avatar_icon_159358.png')">
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="title-group d-flex flex-wrap justify-content-between">
+                                                                <div class="tt fw-medium">Dianne Russell</div>
+                                                            </div>
+                                                            <div class="review-content">
+                                                                Vợ tôi đã sử dụng chiếc
+                                                                gối này để giúp bớt ợ chua và khó chịu dạ dày
+                                                                khi ngủ và nói gối rất tốt. Vợ có thói quen ngủ
+                                                                nằm nghiêng và chiếc gối này đủ rộng để cố ấy có
+                                                                thể lăn qua và không rơi ra. Vợ tôi nói rằng
+                                                                chiếc gối này rất bền và nhẹ có thể mang nó theo
+                                                                mọi lúc mọi nơi, khi đi du lịch hoặc công tác.
+                                                            </div>
+                                                            <div class="review-action d-flex lh-base">
+                                                                <div class="reply-action">Trả lời</div>
+                                                            </div>
+                                                            <div class="form-reply">
+                                                                <div class="block">
+                                                                    <div class="left">
+                                                                        <div class="avatar rounded-circle mr-2"
+                                                                             style="background-image:url('https://play-lh.googleusercontent.com/0x9dPQAT_gMD7u_M58QmOv9xcWic6Wb7vayoWCxnoSC88YLHAiVmvLuaNvKHuGPTGDRE')">
+                                                                        </div>
+                                                                        <textarea class="form-control" rows="1"
+                                                                                  placeholder="Nhận xét của bạn"></textarea>
+                                                                    </div>
+                                                                    <div class="right">
+                                                                        <button class="btn btn-submit"
+                                                                                type="submit" role="button">
+                                                                            Trả
+                                                                            lời
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="review-body-item d-flex">
+                                            <div class="avatar rounded-circle mr-2"
+                                                 style="background-image:url('https://play-lh.googleusercontent.com/0x9dPQAT_gMD7u_M58QmOv9xcWic6Wb7vayoWCxnoSC88YLHAiVmvLuaNvKHuGPTGDRE')">
+                                            </div>
+                                            <div class="info">
+                                                <div class="title-group d-flex flex-wrap justify-content-between">
+                                                    <div class="tt fw-medium">Jenny Wilson</div>
+                                                </div>
+                                                <div class="review-content">
+                                                    Chồng tôi làm nghề lái taxi đường
+                                                    dài, thường đưa khách từ tỉnh lên Hà Nội. Công việc vất vả,
+                                                    có hôm 3h đêm đã phải dậy đi đón khách. Ăn uống thì cơm
+                                                    đường cháo chợ, dân lái xe uống rất nhiều, trào ngược mấy
+                                                    năm nay rồi nhưng không chừa. Tôi có đưa cho ông chồng tôi
+                                                    xem gối trào ngược, thì ông gạt phắt đi, nói: vớ vẩn, khỏi
+                                                    sao được. Tôi kệ, cứ mua về cho ông nằm. Nằm được thời gian
+                                                    thì giờ đâm thích, cứ đi không sao về đến nhà là leo lên
+                                                    giường nằm gối xem TV. Kêu là dễ chịu và không còn ợ chua
+                                                    nữa, ông làm lái xe mà cự ợ ợ là cũng ngại với khách. Tôi
+                                                    nhất định giới thiệu gối cho hàng xóm xung quanh xem ai có
+                                                    bệnh thì coi như có thứ hỗ trợ.
+                                                </div>
+                                                <div class="review-action d-flex lh-base">
+                                                    <div class="reply-action">Trả lời</div>
+                                                </div>
+                                                <div class="form-reply">
+                                                    <div class="block">
+                                                        <div class="left">
+                                                            <div class="avatar rounded-circle mr-2"
+                                                                 style="background-image:url('https://play-lh.googleusercontent.com/0x9dPQAT_gMD7u_M58QmOv9xcWic6Wb7vayoWCxnoSC88YLHAiVmvLuaNvKHuGPTGDRE')">
+                                                            </div>
+                                                            <textarea class="form-control" rows="1"
+                                                                      placeholder="Nhận xét của bạn"></textarea>
+                                                        </div>
+                                                        <div class="right">
+                                                            <button class="btn btn-submit" type="submit"
+                                                                    role="button">
+                                                                Trả lời
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="review-action review-toggle" role="button">
+                                                    <i class="bi bi-arrow-return-right mr-2"> </i>
+                                                    <div class="text" data-text="1 câu trả
+                                                                lời " data-hidden="Ẩn câu trả lời"></div>
+                                                </div>
+                                                <div class="reply-group">
+                                                    <div class="review-body-item d-flex">
+                                                        <div class="avatar rounded-circle mr-2"
+                                                             style="background-image:url('https://gpihefp.com/wp-content/uploads/2021/05/male_boy_person_people_avatar_icon_159358.png')">
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="title-group d-flex flex-wrap justify-content-between">
+                                                                <div class="tt fw-medium">Dianne Russell</div>
+                                                            </div>
+                                                            <div class="review-content">
+                                                                Vợ tôi đã sử dụng chiếc
+                                                                gối này để giúp bớt ợ chua và khó chịu dạ dày
+                                                                khi ngủ và nói gối rất tốt. Vợ có thói quen ngủ
+                                                                nằm nghiêng và chiếc gối này đủ rộng để cố ấy có
+                                                                thể lăn qua và không rơi ra. Vợ tôi nói rằng
+                                                                chiếc gối này rất bền và nhẹ có thể mang nó theo
+                                                                mọi lúc mọi nơi, khi đi du lịch hoặc công tác.
+                                                            </div>
+                                                            <div class="review-action d-flex lh-base">
+                                                                <div class="reply-action">Trả lời</div>
+                                                            </div>
+                                                            <div class="form-reply">
+                                                                <div class="block">
+                                                                    <div class="left">
+                                                                        <div class="avatar rounded-circle mr-2"
+                                                                             style="background-image:url('https://play-lh.googleusercontent.com/0x9dPQAT_gMD7u_M58QmOv9xcWic6Wb7vayoWCxnoSC88YLHAiVmvLuaNvKHuGPTGDRE')">
+                                                                        </div>
+                                                                        <textarea class="form-control" rows="1"
+                                                                                  placeholder="Nhận xét của bạn"></textarea>
+                                                                    </div>
+                                                                    <div class="right">
+                                                                        <button class="btn btn-submit"
+                                                                                type="submit" role="button">
+                                                                            Trả
+                                                                            lời
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="review-body-item d-flex">
+                                            <div class="avatar rounded-circle mr-2"
+                                                 style="background-image:url('https://play-lh.googleusercontent.com/0x9dPQAT_gMD7u_M58QmOv9xcWic6Wb7vayoWCxnoSC88YLHAiVmvLuaNvKHuGPTGDRE')">
+                                            </div>
+                                            <div class="info">
+                                                <div class="title-group d-flex flex-wrap justify-content-between">
+                                                    <div class="tt fw-medium">Albert Flores</div>
+                                                </div>
+                                                <div class="review-content">
+                                                    Tôi làm may cho các xưởng quần áo,
+                                                    tối và cuối tuần lại nhận hàng về nhà làm. Tôi theo công
+                                                    việc này gần 10 năm nay rồi. Cả ngày ngồi nhiều, chân tê
+                                                    buốt, châm chích rất khó chịu. Dạo này còn nổi nhiều gân
+                                                    xanh ngoằn nghèo rất gớm nên tôi mùa hè cũng không dám mặc
+                                                    quần ngắn. Mấy tháng trước sang nhà hàng xóm chơi, chị ấy
+                                                    nhìn chân tôi kêu là ghê quá, bị giãn tĩnh mạch rồi, mua gối
+                                                    về gác ngay đi. Hóa ra chị đó cũng bị đau lưng, nên mua gối
+                                                    về kê dựa lưng. Tôi thử thấy thích quá, liền order luôn. Đêm
+                                                    ngủ kê chân lên gối thấy rất dễ chịu, chân sáng ra nhẹ nhõm,
+                                                    không còn cuồng chân, co giật như trước, cũng không còn ngứa
+                                                    ngáy gãi sột soạt nữa. Tôi chọn loại cao 28cm vì thích kê
+                                                    chân cao, ban ngày ngồi may thì kê ngả lưng, rất tiện lợi.
+                                                </div>
+                                                <div class="review-action d-flex lh-base">
+                                                    <div class="reply-action">Trả lời</div>
+                                                </div>
+                                                <div class="form-reply">
+                                                    <div class="block">
+                                                        <div class="left">
+                                                            <div class="avatar rounded-circle mr-2"
+                                                                 style="background-image:url('https://play-lh.googleusercontent.com/0x9dPQAT_gMD7u_M58QmOv9xcWic6Wb7vayoWCxnoSC88YLHAiVmvLuaNvKHuGPTGDRE')">
+                                                            </div>
+                                                            <textarea class="form-control" rows="1"
+                                                                      placeholder="Nhận xét của bạn"></textarea>
+                                                        </div>
+                                                        <div class="right">
+                                                            <button class="btn btn-submit" type="submit"
+                                                                    role="button">
+                                                                Trả lời
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="review-action review-toggle" role="button">
+                                                    <i class="bi bi-arrow-return-right mr-2"> </i>
+                                                    <div class="text" data-text="1 câu trả
+                                                                lời " data-hidden="Ẩn câu trả lời"></div>
+                                                </div>
+                                                <div class="reply-group">
+                                                    <div class="review-body-item d-flex">
+                                                        <div class="avatar rounded-circle mr-2"
+                                                             style="background-image:url('https://gpihefp.com/wp-content/uploads/2021/05/male_boy_person_people_avatar_icon_159358.png')">
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="title-group d-flex flex-wrap justify-content-between">
+                                                                <div class="tt fw-medium">Dianne Russell</div>
+                                                            </div>
+                                                            <div class="review-content">
+                                                                Vợ tôi đã sử dụng chiếc
+                                                                gối này để giúp bớt ợ chua và khó chịu dạ dày
+                                                                khi ngủ và nói gối rất tốt. Vợ có thói quen ngủ
+                                                                nằm nghiêng và chiếc gối này đủ rộng để cố ấy có
+                                                                thể lăn qua và không rơi ra. Vợ tôi nói rằng
+                                                                chiếc gối này rất bền và nhẹ có thể mang nó theo
+                                                                mọi lúc mọi nơi, khi đi du lịch hoặc công tác.
+                                                            </div>
+                                                            <div class="review-action d-flex lh-base">
+                                                                <div class="reply-action">Trả lời</div>
+                                                            </div>
+                                                            <div class="form-reply">
+                                                                <div class="block">
+                                                                    <div class="left">
+                                                                        <div class="avatar rounded-circle mr-2"
+                                                                             style="background-image:url('https://play-lh.googleusercontent.com/0x9dPQAT_gMD7u_M58QmOv9xcWic6Wb7vayoWCxnoSC88YLHAiVmvLuaNvKHuGPTGDRE')">
+                                                                        </div>
+                                                                        <textarea class="form-control" rows="1"
+                                                                                  placeholder="Nhận xét của bạn"></textarea>
+                                                                    </div>
+                                                                    <div class="right">
+                                                                        <button class="btn btn-submit"
+                                                                                type="submit" role="button">
+                                                                            Trả
+                                                                            lời
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="review-submit">
+                                        <div class="tt fw-medium">Viết bình luận</div>
+                                        <textarea class="form-control" placeholder="Bình luận"
+                                                  rows="4"></textarea>
+                                        <div class="text-right mt-3">
+                                            <button class="btn btn-submit" type="submit" role="button">
+                                                Gửi bình
+                                                luận
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="sidebar order-md-1" data-sidebar>
+                    <div data-stick data-width-fill>
+                        <div class="pane pane-menu pane-menu-products mb-4">
+                            <div class="tt-sm tt-ball text-primary">Danh mục</div>
+                            <ul class="menu-vertical">
+                                @foreach (var item in listCategory)
+                                {
+                                    if (item.ParentId == null)
+                                    {
+                                        <li>
+                                            <a asp-controller="Product" asp-action="GetProductByCategory" asp-route-categoryId="@item.CategoryId" title="" alt="" target="_self">
+                                                @item.CategoryName
+                                            </a>
+                                            <ul class="menu-vertical-sub">
+                                                @foreach (var child in listCategory)
+                                                {
+                                                    if (child.ParentId == item.CategoryId)
+                                                    {
+                                                        <li>
+                                                            <a asp-controller="Product" asp-action="GetProductByCategory" asp-route-categoryId="@child.CategoryId" title="" alt=""
+                                                               target="_self">@child.CategoryName</a>
+                                                        </li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <div class="pane bannerqc mb-3">
+                            <a class="block" href="#" title="" alt=""
+                               target="_self"><img src="~/css/skin/theme/qc.png" alt="" /></a>
+                        </div>
+                        <div class="pane bannerqc mb-3">
+                            <a class="block" href="#" title="" alt=""
+                               target="_self"><img src="~/css/skin/theme/qc-2.png" alt="" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-feedback block-feedback-2 pt-4 pb-5 pb-lg-6">
+        <div class="container">
+            <h2 class="tt-lg tt-icon text-white">Khách hàng nói gì về sản phẩm</h2>
+            <div class="swiper-feedbacks-o">
+                <div class="swiper-feedbacks">
+                    <div class="swiper-wrapper">
+                        @foreach (var item in listFeeback)
+                        {
+                            <div class="swiper-slide">
+                                <div class="block">
+                                    <a class="absolute" alt="" title="" href="#"></a>
+                                    <div class="thumb-res square">
+                                        <img class="fit-cover" src="~/feedback/avatar/@item.FeedbackAvatar">
+                                    </div>
+                                    <div class="info">
+                                        <div class="avatar">
+                                            <img src="~/feedback/image/@item.FeedbackImage">
+                                        </div>
+                                        <div class="content">
+                                            <div class="name-ava">
+                                                Devon Lane
+                                            </div>
+                                            <div class="rated-star">
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                            </div>
+                                            <div class="desc">
+                                                @item.FeedbackContent
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-secondary">
+        <div class="container py-5">
+            <div class="d-flex align-items-center justify-content-sm-between">
+                <div class="tt-md tt-icon text-primary">Sản phẩm tương tự</div>
+                <a class="btn btn-outline-primary d-none d-lg-inline-block" alt="" title=""
+                   href="product">Xem thêm</a>
+            </div>
+            <div class="list-products row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 my-3">
+                @foreach (var item in listProduct)
+                {
+                    <div class="col wow fadeIn">
+                        <div class="block">
+                            <a class="absolute" alt="" title="" asp-controller="Product" asp-action="GetDetailProduct" asp-route-productId="@item.ProductId"></a>
+                            <div class="list-badge">
+                                <div class="badge badge-hot">HOT</div>
+                                <div class="badge badge-new">NEW</div>
+                                <div class="badge badge-discount">-10%</div>
+                            </div>
+                            <div class="thumb-res square">
+                                <img src="~/product/@item.ProductImage">
+                            </div>
+                            <div class="info">
+                                <div class="tt">@item.ProductName</div>
+                                <div class="price">
+                                    <div class="price-origin">
+                                        @item.Price<u>đ</u>
+                                    </div>
+                                    <del class="price-sale">
+                                        @item.OriginalPrice<u>đ</u>
+                                    </del>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+            <div class="text-center mb-3 d-lg-none">
+                <a class="btn btn-outline-primary " alt="" title=""
+                   href="product">Xem thêm</a>
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-customer py-3">
+        <div class="container">
+            <div class="carousel-logo-o">
+                <div class="carousel-logo">
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-2.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-3.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-4.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="~/css/skin/Company logo/Company logo-5.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@section Scripts{
+    <script src="~/localstorage/function.js"></script>
+    <script>
+        document.getElementById('number').value = 1;
+        var number = document.getElementById('number').value();
+        function IncreaseQuantity(number) {
+            number++;
+            document.getElementById('number').value = number;
+        }
+        function DecreaseQuantity(number) {
+            if (number > 1) {
+                number--;
+                document.getElementById('number').value = number;
+            }
+            else {
+                document.getElementById('number').value = number;
+            }
+        }
+    </script>
+}

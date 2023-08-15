@@ -16,5 +16,9 @@ namespace nitecare.ViewModels
         public string ProductImage { get; set; }
         public string ShortDes { get; set; }
         public string Description { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public int? ParentId { get; set; }
+        public string CateDes { get; set; }
     }
 }

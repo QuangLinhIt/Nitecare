@@ -13,7 +13,7 @@ namespace nitecare.Helpper
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (context.HttpContext.Session.GetString("UserName") == null)
+            if (context.HttpContext.Session.GetString("Email") == null)
             {
                 context.Result = new RedirectToRouteResult(
                     new RouteValueDictionary

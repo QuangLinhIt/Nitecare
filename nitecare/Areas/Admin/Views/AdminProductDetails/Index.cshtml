@@ -1,0 +1,57 @@
+﻿@model IEnumerable<nitecare.Model.ProductDetail>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid px-lg-4">
+
+    <div class="row">
+        <div class="col-xl-12">
+            <p>
+                <a class="btn btn-info my-4" asp-action="Create">Thêm thông tin chi tiết sản phẩm</a>
+            </p>
+
+            <section class="hk-sec-wrapper">
+                <h5 class="hk-sec-title ">Danh sách thông tin chi tiết sản phẩm</h5>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-wrap">
+                            <table class="table tablesaw table-bordered table-hover  mb-0" data-tablesaw-mode="swipe" data-tablesaw-sortable data-tablesaw-sortable-switch data-tablesaw-minimap data-tablesaw-mode-switch>
+                                <thead>
+                                    <tr>
+                                        <th scope="col" data-tablesaw-sortable-col>Mã sản phẩm</th>
+                                        <th scope="col" data-tablesaw-sortable-col>Tiêu đề</th>
+
+                                        <th scope="col" data-tablesaw-sortable-col>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="product">
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.ProductId</td>
+                                            <td>@item.Title</td>
+
+
+                                            <td>
+                                                <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.ProductDetailId">Edit</a>
+                                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ProductDetailId">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+

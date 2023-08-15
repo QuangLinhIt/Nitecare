@@ -1,7 +1,9 @@
-﻿@model IEnumerable<nitecare.Model.Product>
+﻿@using nitecare.Model
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Product> listProduct = ViewBag.SanPham;
+    List<Category> listCategory = ViewBag.DanhMuc;
 }
 
 
@@ -34,264 +36,38 @@
             <div class="block-sidebar" data-wrapper>
                 <div class="mainbody mb-4 mb-md-0 order-md-2" data-mainbody>
                     <div class="block-bg mb-5">
-                        <div class="tt-lg tt-icon text-primary fw-medium">Gối Cao Su</div>
+                        <div class="tt-lg tt-icon text-primary fw-medium">Sản phẩm của chúng tôi</div>
                         <div class="list-products row row-cols-2 row-cols-sm-3 row-cols-md-2 row-cols-lg-3 g-3">
-                            <div class="col wow fadeIn">
-                                <div class="block">
-                                    <a class="absolute" alt="" title="" href="products-detail.html"></a>
-                                    <div class="list-badge">
-                                        <div class="badge badge-hot">HOT</div>
-                                        <div class="badge badge-new">NEW</div>
-                                        <div class="badge badge-discount">-10%</div>
-                                    </div>
-                                    <div class="thumb-res square">
-                                        <img src="~/css/skin/products/products-1.png">
-                                    </div>
-                                    <div class="info">
-                                        <div class="tt">
-                                            Bộ Gối Chống Trào Ngược Người Lớn Casalaa Cao Cấp Size L
+                            @foreach (var item in listProduct)
+                            {
+                                <div class="col wow fadeIn">
+                                    <div class="block">
+                                        <a class="absolute" alt="" title="" asp-controller="Product" asp-action="GetDetailProduct" asp-route-productId="@item.ProductId"></a>
+                                        <div class="list-badge">
+                                            <div class="badge badge-hot">HOT</div>
+                                            <div class="badge badge-new">NEW</div>
+                                            <div class="badge badge-discount">@item.Voucher<u>%</u></div>
                                         </div>
-                                        <div class="price">
-                                            <div class="price-origin">
-                                                950.000<u>đ</u>
+                                        <div class="thumb-res square">
+                                            <img src="~/product/@item.ProductImage">
+                                        </div>
+                                        <div class="info">
+                                            <div class="tt">
+                                                @item.ProductName
                                             </div>
-                                            <del class="price-sale">
-                                                1.550.000<u>đ</u>
-                                            </del>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col wow fadeIn">
-                                <div class="block">
-                                    <a class="absolute" alt="" title="" href="products-detail.html"></a>
-                                    <div class="thumb-res square">
-                                        <img src="~/css/skin/products/products-2.png">
-                                    </div>
-                                    <div class="info">
-                                        <div class="tt">
-                                            Bộ Gối Chống Trào Ngược Người Lớn Casalaa Cao Cấp Size L
-                                        </div>
-                                        <div class="price">
-                                            <div class="price-origin">
-                                                950.000<u>đ</u>
+                                            <div class="price">
+                                                <div class="price-origin">
+                                                    @item.Price<u>đ</u>
+                                                </div>
+                                                <del class="price-sale">
+                                                    @item.OriginalPrice<u>đ</u>
+                                                </del>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col wow fadeIn">
-                                <div class="block">
-                                    <a class="absolute" alt="" title="" href="products-detail.html"></a>
-                                    <div class="thumb-res square">
-                                        <img src="~/css/skin/products/products-1.png">
-                                    </div>
-                                    <div class="info">
-                                        <div class="tt">
-                                            Bộ Gối Chống Trào Ngược Người Lớn Casalaa Cao Cấp Size L
-                                        </div>
-                                        <div class="price">
-                                            <div class="price-origin">
-                                                950.000<u>đ</u>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col wow fadeIn">
-                                <div class="block">
-                                    <a class="absolute" alt="" title="" href="products-detail.html"></a>
-                                    <div class="list-badge">
-                                        <div class="badge badge-hot">HOT</div>
-                                        <div class="badge badge-new">NEW</div>
-                                        <div class="badge badge-discount">-10%</div>
-                                    </div>
-                                    <div class="thumb-res square">
-                                        <img src="~/css/skin/products/products-1.png">
-                                    </div>
-                                    <div class="info">
-                                        <div class="tt">
-                                            Bộ Gối Chống Trào Ngược Người Lớn Casalaa Cao Cấp Size L
-                                        </div>
-                                        <div class="price">
-                                            <div class="price-origin">
-                                                950.000<u>đ</u>
-                                            </div>
-                                            <del class="price-sale">
-                                                1.550.000<u>đ</u>
-                                            </del>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col wow fadeIn">
-                                <div class="block">
-                                    <a class="absolute" alt="" title="" href="products-detail.html"></a>
-                                    <div class="list-badge">
-                                        <div class="badge badge-hot">HOT</div>
-                                        <div class="badge badge-new">NEW</div>
-                                        <div class="badge badge-discount">-10%</div>
-                                    </div>
-                                    <div class="thumb-res square">
-                                        <img src="~/css/skin/products/products-2.png">
-                                    </div>
-                                    <div class="info">
-                                        <div class="tt">
-                                            Bộ Gối Chống Trào Ngược Người Lớn Casalaa Cao Cấp Size L
-                                        </div>
-                                        <div class="price">
-                                            <div class="price-origin">
-                                                950.000<u>đ</u>
-                                            </div>
-                                            <del class="price-sale">
-                                                1.550.000<u>đ</u>
-                                            </del>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col wow fadeIn">
-                                <div class="block">
-                                    <a class="absolute" alt="" title="" href="products-detail.html"></a>
-                                    <div class="thumb-res square">
-                                        <img src="~/css/skin/products/products-1.png">
-                                    </div>
-                                    <div class="info">
-                                        <div class="tt">
-                                            Bộ Gối Chống Trào Ngược Người Lớn Casalaa Cao Cấp Size L
-                                        </div>
-                                        <div class="price">
-                                            <div class="price-origin">
-                                                950.000<u>đ</u>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col wow fadeIn">
-                                <div class="block">
-                                    <a class="absolute" alt="" title="" href="products-detail.html"></a>
-                                    <div class="list-badge">
-                                        <div class="badge badge-hot">HOT</div>
-                                        <div class="badge badge-new">NEW</div>
-                                        <div class="badge badge-discount">-10%</div>
-                                    </div>
-                                    <div class="thumb-res square">
-                                        <img src="~/css/skin/products/products-1.png">
-                                    </div>
-                                    <div class="info">
-                                        <div class="tt">
-                                            Bộ Gối Chống Trào Ngược Người Lớn Casalaa Cao Cấp Size L
-                                        </div>
-                                        <div class="price">
-                                            <div class="price-origin">
-                                                950.000<u>đ</u>
-                                            </div>
-                                            <del class="price-sale">
-                                                1.550.000<u>đ</u>
-                                            </del>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col wow fadeIn">
-                                <div class="block">
-                                    <a class="absolute" alt="" title="" href="products-detail.html"></a>
-                                    <div class="thumb-res square">
-                                        <img src="~/css/skin/products/products-2.png">
-                                    </div>
-                                    <div class="info">
-                                        <div class="tt">
-                                            Bộ Gối Chống Trào Ngược Người Lớn Casalaa Cao Cấp Size L
-                                        </div>
-                                        <div class="price">
-                                            <div class="price-origin">
-                                                950.000<u>đ</u>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col wow fadeIn">
-                                <div class="block">
-                                    <a class="absolute" alt="" title="" href="products-detail.html"></a>
-                                    <div class="thumb-res square">
-                                        <img src="~/css/skin/products/products-1.png">
-                                    </div>
-                                    <div class="info">
-                                        <div class="tt">
-                                            Bộ Gối Chống Trào Ngược Người Lớn Casalaa Cao Cấp Size L
-                                        </div>
-                                        <div class="price">
-                                            <div class="price-origin">
-                                                950.000<u>đ</u>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col wow fadeIn">
-                                <div class="block">
-                                    <a class="absolute" alt="" title="" href="products-detail.html"></a>
-                                    <div class="list-badge">
-                                        <div class="badge badge-hot">HOT</div>
-                                        <div class="badge badge-new">NEW</div>
-                                        <div class="badge badge-discount">-10%</div>
-                                    </div>
-                                    <div class="thumb-res square">
-                                        <img src="~/css/skin/products/products-1.png">
-                                    </div>
-                                    <div class="info">
-                                        <div class="tt">
-                                            Bộ Gối Chống Trào Ngược Người Lớn Casalaa Cao Cấp Size L
-                                        </div>
-                                        <div class="price">
-                                            <div class="price-origin">
-                                                950.000<u>đ</u>
-                                            </div>
-                                            <del class="price-sale">
-                                                1.550.000<u>đ</u>
-                                            </del>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col wow fadeIn">
-                                <div class="block">
-                                    <a class="absolute" alt="" title="" href="products-detail.html"></a>
-                                    <div class="thumb-res square">
-                                        <img src="~/css/skin/products/products-2.png">
-                                    </div>
-                                    <div class="info">
-                                        <div class="tt">
-                                            Bộ Gối Chống Trào Ngược Người Lớn Casalaa Cao Cấp Size L
-                                        </div>
-                                        <div class="price">
-                                            <div class="price-origin">
-                                                950.000<u>đ</u>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col wow fadeIn">
-                                <div class="block">
-                                    <a class="absolute" alt="" title="" href="products-detail.html"></a>
-                                    <div class="thumb-res square">
-                                        <img src="~/css/skin/products/products-1.png">
-                                    </div>
-                                    <div class="info">
-                                        <div class="tt">
-                                            Bộ Gối Chống Trào Ngược Người Lớn Casalaa Cao Cấp Size L
-                                        </div>
-                                        <div class="price">
-                                            <div class="price-origin">
-                                                950.000<u>đ</u>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+                            }
                         </div>
                         <nav class="pagination justify-content-center my-45">
                             <div class="page-item prev">
@@ -327,96 +103,31 @@
                         <div class="pane pane-menu pane-menu-products mb-4">
                             <div class="tt-sm tt-ball text-primary">Danh mục</div>
                             <ul class="menu-vertical">
-                                <li class="active">
-                                    <a href="products.html" title="" alt="" target="_self">
-                                        Gối
-                                        trào ngược dạ dày
-                                    </a>
-                                    <ul class="menu-vertical-sub">
-                                        <li class="active">
-                                            <a href="products.html" title="" alt=""
-                                               target="_self">Gối cao su</a>
-                                        </li>
-                                        <li>
-                                            <a href="products.html" title="" alt="" target="_self">Gối gòn</a>
-                                        </li>
-                                        <li>
-                                            <a href="products.html" title="" alt="" target="_self">
-                                                Gối kháng
-                                                khuẩn
+                                @foreach (var item in listCategory)
+                                {
+                                    if (item.ParentId == null)
+                                    {
+                                        <li >
+                                            <a asp-controller="Product" asp-action="GetProductByCategory" asp-route-categoryId="@item.CategoryId" title="" alt="" target="_self">
+                                                @item.CategoryName
                                             </a>
+                                            <ul class="menu-vertical-sub">
+                                                @foreach (var child in listCategory)
+                                                {
+                                                    if (child.ParentId == item.CategoryId)
+                                                    {
+                                                        <li>
+                                                            <a asp-controller="Product" asp-action="GetProductByCategory" asp-route-categoryId="@child.CategoryId" title="" alt=""
+                                                               target="_self">@child.CategoryName</a>
+                                                        </li>
+                                                    }
+                                                }
+
+                                            </ul>
                                         </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="products.html" title="" alt="" target="_self">
-                                        Gối giãn tĩnh mạch
-                                        chân
-                                    </a>
-                                    <ul class="menu-vertical-sub">
-                                        <li>
-                                            <a href="products.html" title="" alt="" target="_self">
-                                                Gối cao
-                                                su
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="products.html" title="" alt="" target="_self">Gối gòn</a>
-                                        </li>
-                                        <li>
-                                            <a href="products.html" title="" alt="" target="_self">
-                                                Gối kháng
-                                                khuẩn
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="products.html" title="" alt="" target="_self">
-                                        Gối trào ngược dạ
-                                        dày
-                                    </a>
-                                    <ul class="menu-vertical-sub">
-                                        <li>
-                                            <a href="products.html" title="" alt="" target="_self">
-                                                Gối cao
-                                                su
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="products.html" title="" alt="" target="_self">Gối gòn</a>
-                                        </li>
-                                        <li>
-                                            <a href="products.html" title="" alt="" target="_self">
-                                                Gối kháng
-                                                khuẩn
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="products.html" title="" alt="" target="_self">
-                                        Gối giãn tĩnh mạch
-                                        chân
-                                    </a>
-                                    <ul class="menu-vertical-sub">
-                                        <li>
-                                            <a href="products.html" title="" alt="" target="_self">
-                                                Gối cao
-                                                su
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="products.html" title="" alt="" target="_self">Gối gòn</a>
-                                        </li>
-                                        <li>
-                                            <a href="products.html" title="" alt="" target="_self">
-                                                Gối kháng
-                                                khuẩn
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+
+                                    }
+                                }
                             </ul>
                         </div>
                         <div class="pane bannerqc mb-3">

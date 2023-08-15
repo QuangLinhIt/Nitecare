@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using nitecare.Helpper;
 using nitecare.Model;
@@ -13,15 +14,53 @@ namespace nitecare.Controllers
     public class AccountController : Controller
     {
         private readonly nitecareContext _context;
-        public AccountController(nitecareContext context)
+        public INotyfService _notyfService { get; }
+        public AccountController(nitecareContext context, INotyfService notyfService)
         {
+            _notyfService = notyfService;
             _context = context;
         }
-       [HttpGet]
-       [Route("login")]
+        [HttpGet]
+        [Route("login")]
         public IActionResult Login()
         {
+            if (HttpContext.Session.GetString("Email") == null)
+            {
                 return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpPost]
+        [Route("login")]
+        public IActionResult Login(UserDto userDto)
+        {
+            if (HttpContext.Session.GetString("Email") == null)
+            {
+                var user = _context.Users.Where(x => x.Email == userDto.Email).FirstOrDefault();
+                if (user != null)
+                {
+                    var result = HashPassword.Verify(userDto.Password, user.Password);
+                    if (result == true)
+                    {
+                        HttpContext.Session.SetString("Email", user.Email.ToString());
+                        _notyfService.Success("Đăng nhập thành công");
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        _notyfService.Error("Mật khẩu không đúng!");
+                    }
+                }
+                else
+                {
+                    _notyfService.Error("Email không hợp lệ!");
+                    return View(userDto);
+                }
+            }
+            return View(userDto);
         }
 
 
@@ -54,9 +93,21 @@ namespace nitecare.Controllers
                     _context.SaveChanges();
                     return RedirectToAction("Login", "Account");
                 }
-               
+
             }
             return View(userDto);
+        }
+        [HttpGet]
+        [Route("forgot")]
+        public IActionResult Forgot()
+        {
+            return View();
+        }
+        [HttpPost]
+        [Route("forgot")]
+        public IActionResult Forgot(UserDto userDto)
+        {
+            return View();
         }
     }
 }

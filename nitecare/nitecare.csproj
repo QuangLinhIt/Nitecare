@@ -27,7 +27,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\feedback\avatar\" />
     <Folder Include="wwwroot\feedback\image\" />
-    <Folder Include="wwwroot\image\" />
+    <Folder Include="wwwroot\product\" />
     <Folder Include="wwwroot\news\" />
   </ItemGroup>
 

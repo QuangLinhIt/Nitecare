@@ -1,4 +1,4 @@
-﻿
+﻿@model nitecare.ViewModels.UserDto
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,7 +15,7 @@
                             <div class="tt-xs tt-ball text-primary">Tài khoản</div>
                             <ul class="menu-vertical">
                                 <li class="active">
-                                    <a href="user.html" title="" alt="" target="_self">
+                                    <a href="user" title="" alt="" target="_self">
                                         Thông tin cá nhân<i class="i-vertical fa fa-angle-right"></i>
                                     </a>
                                 </li>
@@ -25,7 +25,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="login.html" title="" alt="" target="_self">Đăng xuất</a>
+                                    <a asp-controller="User" asp-action="Logout" title="" alt="" target="_self">Đăng xuất</a>
                                 </li>
                             </ul>
                         </div>
@@ -43,48 +43,45 @@
                             <div class="desc mb-3">Họ tên</div>
                         </div>
                         <div class="col-8 col-md-9 col-xl-10">
-                            <div class="info mb-3">Dianne Russell</div>
+                            <div class="info mb-3">@Model.UserName</div>
                         </div>
                         <div class="col-4 col-md-3 col-xl-2">
                             <div class="desc mb-3">Email</div>
                         </div>
                         <div class="col-8 col-md-9 col-xl-10">
-                            <div class="info mb-3">nevaeh.simmons@example.com</div>
+                            <div class="info mb-3">@Model.Email</div>
                         </div>
                         <div class="col-4 col-md-3 col-xl-2">
                             <div class="desc mb-3">Số điện thoại</div>
                         </div>
                         <div class="col-8 col-md-9 col-xl-10">
-                            <div class="info mb-3">(217) 555-0113</div>
-                        </div>
-                        <div class="col-4 col-md-3 col-xl-2">
-                            <div class="desc mb-3">Địa chỉ</div>
-                        </div>
-                        <div class="col-8 col-md-9 col-xl-10">
-                            <div class="info mb-3">8502 Preston Rd. Inglewood, Maine 98380</div>
+                            <div class="info mb-3">@Model.Phone</div>
                         </div>
                     </div>
                     <hr>
                     <div class="block-change-pwd">
                         <div class="tt-md fw-medium text-primary">Đổi mật khẩu cũ</div>
-                        <form class="form-validate material-form">
+                        <form class="form-validate material-form" method="post">
                             <div class="row gx-3">
+                                <input type="hidden" asp-for="Email" />
+                                <input type="hidden" asp-for="UserName" />
+                                <input type="hidden" asp-for="Phone" />
                                 <div class="col-12">
                                     <div class="form-group mb-3">
-                                        <input class="form-control" type="password" required>
-                                        <label class="label-text">Nhập mật khẩu cũ</label>
+                                        <input asp-for="Password" class="form-control" type="password" required>
+                                        <label asp-for="Password" class="label-text">Nhập mật khẩu cũ</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group mb-3">
-                                        <input class="form-control" type="password" required>
-                                        <label class="label-text">Nhập mật khẩu mới</label>
+                                        <input asp-for="NewPassword" class="form-control" type="password" required>
+                                        <label asp-for="NewPassword" class="label-text">Nhập mật khẩu mới</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group mb-3">
-                                        <input class="form-control" type="password" required>
-                                        <label class="label-text">Xác nhận mật khẩu mới</label>
+                                        <input asp-for="ConfirmNewPassword" class="form-control" type="password" required>
+                                        <label asp-for="ConfirmNewPassword" class="label-text">Xác nhận mật khẩu mới</label>
                                     </div>
                                 </div>
                                 <div class="col-12 text-right">

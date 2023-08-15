@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,12 +13,10 @@ namespace nitecare.Areas.Admin.Controllers
     public class AdminContactsController : Controller
     {
         private readonly nitecareContext _context;
-        public INotyfService _notyfService { get; }
 
-        public AdminContactsController(nitecareContext context,INotyfService notyfService )
+        public AdminContactsController(nitecareContext context)
         {
             _context = context;
-            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminContacts
@@ -27,7 +24,7 @@ namespace nitecare.Areas.Admin.Controllers
         {
             return View(await _context.Contacts.ToListAsync());
         }
-        
+
 
         // GET: Admin/AdminContacts/Create
         public IActionResult Create()
@@ -40,13 +37,12 @@ namespace nitecare.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Contact contact)
+        public async Task<IActionResult> Create( Contact contact)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
-                _notyfService.Success("Tạo mới liên hệ của hàng thành công");
                 return RedirectToAction(nameof(Index));
             }
             return View(contact);
@@ -73,7 +69,7 @@ namespace nitecare.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,Contact contact)
+        public async Task<IActionResult> Edit(int id, Contact contact)
         {
             if (id != contact.ContactId)
             {
@@ -86,7 +82,6 @@ namespace nitecare.Areas.Admin.Controllers
                 {
                     _context.Update(contact);
                     await _context.SaveChangesAsync();
-                    _notyfService.Success("Chỉnh sửa liên lạc của hàng thành công");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -130,7 +125,6 @@ namespace nitecare.Areas.Admin.Controllers
             var contact = await _context.Contacts.FindAsync(id);
             _context.Contacts.Remove(contact);
             await _context.SaveChangesAsync();
-            _notyfService.Success("xóa liên lạc cửa hàng thành công");
             return RedirectToAction(nameof(Index));
         }
 

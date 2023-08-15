@@ -1,4 +1,4 @@
-﻿
+﻿@model nitecare.Model.Contact;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -30,35 +30,35 @@
                 </div>
             </div>
             <div class="col-md-6 col-xl-7 mb-4 order-md-1">
-                <form class="form-validate material-form">
+                <form class="form-validate material-form" method="post">
                     <div class="row gx-2">
                         <div class="col-lg-6">
                             <div class="form-group mb-3">
-                                <input class="form-control" type="text" required>
+                                <input asp-for="Name" class="form-control" type="text" required>
                                 <label class="label-text">Họ tên</label>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-3">
-                                <input class="form-control" type="email" required>
+                                <input asp-for="Email" class="form-control" type="email" required>
                                 <label class="label-text">Email</label>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-3">
-                                <input class="form-control" type="tel">
+                                <input asp-for="Phone" class="form-control" type="tel">
                                 <label class="label-text">Số điện thoại</label>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-3">
-                                <input class="form-control" type="text" required>
+                                <input asp-for="Title" class="form-control" type="text" required>
                                 <label class="label-text">Tiêu đề</label>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group mb-3">
-                                <textarea class="form-control" rows="5" required></textarea>
+                                <textarea asp-for="Description" class="form-control" rows="5" required></textarea>
                                 <label class="label-text">Nội dung</label>
                             </div>
                         </div>

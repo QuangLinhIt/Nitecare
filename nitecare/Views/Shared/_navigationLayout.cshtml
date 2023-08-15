@@ -5,7 +5,7 @@
         <div class="header-center d-none d-lg-flex">
             <div class="search-web">
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Tìm kiếm sản phẩm"/>
+                    <input class="form-control" type="text" placeholder="Tìm kiếm sản phẩm" />
                     <button class="icon-submit" type="button"><span class="far fa-search"></span></button>
                 </div>
             </div>
@@ -30,11 +30,11 @@
                 </div>
             </div>
             <div class="header-right-item dd-hover dropdown-cart">
-                <a class="dd-toggle icon icon-cart"
-                   asp-controller="Order" asp-action="Index"><span class="fal fa-shopping-bag"></span><span class="badge">2</span></a>
-                <div class="dd-noti active">Một sản phẩm đã được thêm vào giỏ hàng</div>
+                <a class="dd-toggle icon icon-cart" asp-controller="Order" asp-action="Index">
+                    <span class="fal fa-shopping-bag"></span>
+                    <span class="badge" id="orderCountSpan"></span>
+                </a>
             </div>
-
         </div>
         <div class="form-search" id="form-search">
             <div class="form-group">
@@ -55,13 +55,13 @@
             <div class="menu-body">
                 <ul class="menu-slide">
                     <li class="active d-lg-none">
-                        <a alt="" asp-controller="Home" asp-action="Index" title=""  target="_self">
+                        <a alt="" asp-controller="Home" asp-action="Index" title="" target="_self">
                             <span class="menu-icon far fa-home"></span>Trang chủ
                         </a>
                     </li>
                     <li>
                         <a asp-controller="Product" asp-action="Index" title="" alt=""><span class="menu-icon far fa-moon-stars"></span>Sản phẩm</a>
-                        @await Component.InvokeAsync("CategoryComponent") 
+                        @await Component.InvokeAsync("CategoryComponent")
                     </li>
                     <li>
                         <a asp-controller="About" asp-action="Index" title="" alt="" target="_self">
@@ -96,7 +96,7 @@
             <div class="menu-footer">
                 <div class="d-flex align-items-center login-group">
                     <a class="btn btn-primary" alt="" title="" asp-controller="Account" asp-action="Login">Đăng nhập</a>
-                    <a class="btn btn-outline-primary" alt="" title="" asp-controller="Account" asp-action="Register" >Đăng ký</a>
+                    <a class="btn btn-outline-primary" alt="" title="" asp-controller="Account" asp-action="Register">Đăng ký</a>
                 </div>
                 <div class="d-flex align-items-center user">
                     <span class="icon icon-user bi bi-person-circle"></span>
@@ -110,3 +110,4 @@
         </div>
     </nav>
 </header>
+  

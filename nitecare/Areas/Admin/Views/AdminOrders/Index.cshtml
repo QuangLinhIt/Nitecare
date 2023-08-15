@@ -17,16 +17,19 @@
                 @Html.DisplayNameFor(model => model.ShipDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Voucher)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Total)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Deleted)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer)
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Feedback)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Payment)
@@ -41,16 +44,19 @@
                 @Html.DisplayFor(modelItem => item.ShipDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Voucher)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Total)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Deleted)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Customer.Address)
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Feedback.FeedbackContent)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Payment.PaymentContent)

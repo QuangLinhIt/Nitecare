@@ -1,0 +1,248 @@
+﻿@using nitecare.Model
+@model nitecare.ViewModels.OrderDto
+
+@{
+    ViewData["Title"] = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Payment> listPayment = ViewBag.Payment;
+}
+
+<div class="banner-lg block-bg" style="background-image: url('css/skin/slider/banner-cart.png')">
+    <div class="container d-flex align-items-center h-100">
+        <div class="text-banner">
+            <h1 class="tt-md text-uppercase">Giỏ hàng</h1>
+            <nav arial-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html" title="" alt="" target="_self">
+                            Trang
+                            chủ
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <a href="index.html" title="" alt="" target="_self">
+                            Giỏ
+                            hàng
+                        </a>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<main class="mainer">
+    <div class="block-bg block-user">
+        <div class="container py-5">
+            <div class="row gy-4">
+                <div class="col-md-5 order-md-2">
+                    <div class="block-color block-cart">
+                        <div class="d-sm-flex justify-content-between mb-3">
+                            <div class="tt-ball tt-xs text-primary fw-medium">Đơn hàng</div>
+                            @*<div class="text-desc">#12345</div>*@
+                        </div>
+                        <div class="list-order">
+                            <div class="block-order">
+                                <div class="info">
+                                    <div class="tt">
+                                        Gối Chống Trào Ngược Người Lớn Cao cấp
+                                    </div>
+                                    <div class="flex-info">
+                                        <div class="color">
+                                            <span class="ball"></span>Hồng đất
+                                        </div>
+                                        <div class="size">
+                                            M - 73cm x 63cm x 22cm
+                                        </div>
+                                        <div class="count">
+                                            x1
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="price-origin">
+                                    950.000<u>đ</u>
+                                </div>
+                            </div>
+                            <div class="block-order">
+                                <div class="info">
+                                    <div class="tt">
+                                        Gối Chống Trào Ngược Người Lớn Cao cấp
+                                    </div>
+                                    <div class="flex-info">
+                                        <div class="color">
+                                            <span class="ball"></span>Hồng đất
+                                        </div>
+                                        <div class="size">
+                                            M - 73cm x 63cm x 22cm
+                                        </div>
+                                        <div class="count">
+                                            x1
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="price-origin">
+                                    950.000<u>đ</u>
+                                </div>
+                            </div>
+                            <div class="block-order">
+                                <div class="info">
+                                    <div class="tt">
+                                        Gối Chống Trào Ngược Người Lớn Cao cấp
+                                    </div>
+                                    <div class="flex-info">
+                                        <div class="color">
+                                            <span class="ball"></span>Hồng đất
+                                        </div>
+                                        <div class="size">
+                                            M - 73cm x 63cm x 22cm
+                                        </div>
+                                        <div class="count">
+                                            x1
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="price-origin">
+                                    950.000<u>đ</u>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start justify-content-between mb-3">
+                            <div class="tt text-body fw-medium">Thành tiền</div>
+                            <div class="right text-right">
+                                <div class="price-origin fs-24 fw-medium">2.850.000<u>đ</u></div>
+                                <div class="text-desc">(Giá trên chưa tính phí vận chuyển và VAT)</div>
+                            </div>
+                        </div>
+                        <div class="block block-note">
+                            <div class="text-center">
+                                Lưu ý: Sau khi thanh toán thành công, nếu bạn không nhận được e-mail xác
+                                nhận đơn hàng, bạn vui lòng liên hệ với Nitecare qua số hotline:
+                                <div class="fw-medium fs-24">0912 345 678</div>
+                                để được hỗ trợ ngay nhé!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7 order-md-1">
+                    <div class="tt-lg tt-icon text-primary">Đặt hàng</div>
+                    <form class="form-validate material-form form-info">
+                        <div class="row gx-3">
+                            <div class="col-12">
+                                <div class="tt-md text-primary fw-medium mb-3">Thông tin cá nhân</div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <input class="form-control" type="text" required asp-for="Name">
+                                    <label class="label-text">Họ tên</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <input class="form-control" type="email" required asp-for="Email">
+                                    <label class="label-text">Email</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <input class="form-control" type="tel" required asp-for="Phone">
+                                    <label class="label-text">Số điện thoại</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="tt-md text-primary fw-medium mb-3">Địa chỉ nhận hàng</div>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group mb-3">
+                                    <input class="form-control" type="text" asp-for="City">
+                                    <label class="label-text">Tỉnh/Thành Phố</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group mb-3">
+                                    <input class="form-control" type="text" asp-for="District">
+                                    <label class="label-text">Quận/Huyện</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group mb-3">
+                                    <input class="form-control" type="text" asp-for="Ward">
+                                    <label class="label-text">Phường/Xã</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group mb-3">
+                                    <input class="form-control" type="text" asp-for="Road">
+                                    <label class="label-text">Số nhà, tên đường</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="tt-md text-primary fw-medium mb-3">Phương thức thanh toán</div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @foreach (var item in listPayment)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input" id="radio1b" type="radio"
+                                                   name="flexRadioDefault" >
+                                            <label class="form-check-label" for="radio1b">
+                                               @item.PaymentName
+                                            </label>
+                                            <div class="form-tax-o">
+                                                <div class="form-tax">
+                                                    <div class="text-dark mb-2">
+                                                        @item.PaymentContent
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-12 text-right">
+                                <button class="btn btn-secondary px-4" type="submit">Đặt hàng</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-customer py-3">
+        <div class="container">
+            <div class="carousel-logo-o">
+                <div class="carousel-logo">
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-2.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-3.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-4.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-5.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

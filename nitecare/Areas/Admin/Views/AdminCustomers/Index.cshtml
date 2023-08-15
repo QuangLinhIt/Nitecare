@@ -25,11 +25,12 @@
                                 <thead>
                                     <tr>
                                         <th scope="col" data-tablesaw-sortable-col>CustomerId</th>
-                                        <th scope="col" data-tablesaw-sortable-col>FullName</th>
                                         <th scope="col" data-tablesaw-sortable-col>Email</th>
                                         <th scope="col" data-tablesaw-sortable-col>Phone</th>
-                                        <th scope="col" data-tablesaw-sortable-col>Address</th>
-                                        <th scope="col" data-tablesaw-sortable-col>Birthday</th>
+                                        <th scope="col" data-tablesaw-sortable-col>City</th>
+                                        <th scope="col" data-tablesaw-sortable-col>District</th>
+                                        <th scope="col" data-tablesaw-sortable-col>Ward</th>
+                                        <th scope="col" data-tablesaw-sortable-col>Road</th>
                                         <th scope="col" data-tablesaw-sortable-col>Actions</th>
                                     </tr>
                                 </thead>
@@ -40,11 +41,12 @@
                                         {
                                     <tr>
                                         <td>@item.CustomerId</td>
-                                        <td>@item.CustomerName</td>
                                         <td>@item.Email</td>
                                         <td>@item.Phone</td>
-                                        <td>@item.Address</td>
-                                        <td>@item.Birthday</td>
+                                        <td>@item.City</td>
+                                        <td>@item.District</td>
+                                        <td>@item.Ward</td>
+                                        <td>@item.Road</td>
                                         <td>
                                             <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a>
                                             <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>

@@ -10,23 +10,23 @@ using nitecare.Model;
 namespace nitecare.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class OrdersController : Controller
+    public class AdminOrdersController : Controller
     {
         private readonly nitecareContext _context;
 
-        public OrdersController(nitecareContext context)
+        public AdminOrdersController(nitecareContext context)
         {
             _context = context;
         }
 
-        // GET: Admin/Orders
+        // GET: Admin/AdminOrders
         public async Task<IActionResult> Index()
         {
-            var nitecareContext = _context.Orders.Include(o => o.Customer).Include(o => o.Payment);
+            var nitecareContext = _context.Orders.Include(o => o.Feedback).Include(o => o.Payment);
             return View(await nitecareContext.ToListAsync());
         }
 
-        // GET: Admin/Orders/Details/5
+        // GET: Admin/AdminOrders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,7 +35,7 @@ namespace nitecare.Areas.Admin.Controllers
             }
 
             var order = await _context.Orders
-                .Include(o => o.Customer)
+                .Include(o => o.Feedback)
                 .Include(o => o.Payment)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
@@ -46,39 +46,33 @@ namespace nitecare.Areas.Admin.Controllers
             return View(order);
         }
 
-        // GET: Admin/Orders/Create
+        // GET: Admin/AdminOrders/Create
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Address");
+            ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent");
             ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentContent");
             return View();
         }
 
-        // POST: Admin/Orders/Create
+        // POST: Admin/AdminOrders/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,CustomerId,ShipDate,PaymentId,Voucher,Total,Deleted")] Order order, List<OrderDetail> orderDetails)
+        public async Task<IActionResult> Create([Bind("OrderId,ShipDate,PaymentId,Total,Deleted,Status,FeedbackId,CustomerId")] Order order)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(order);
-
-                foreach(var orderDetail in orderDetails)
-                {
-                    orderDetail.OrderId = order.OrderId;
-                    _context.OrderDetails.Add(orderDetail);
-                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Address", order.CustomerId);
+            ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent", order.FeedbackId);
             ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentContent", order.PaymentId);
             return View(order);
         }
 
-        // GET: Admin/Orders/Edit/5
+        // GET: Admin/AdminOrders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -91,17 +85,17 @@ namespace nitecare.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Address", order.CustomerId);
+            ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent", order.FeedbackId);
             ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentContent", order.PaymentId);
             return View(order);
         }
 
-        // POST: Admin/Orders/Edit/5
+        // POST: Admin/AdminOrders/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,CustomerId,ShipDate,PaymentId,Voucher,Total,Deleted")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ShipDate,PaymentId,Total,Deleted,Status,FeedbackId,CustomerId")] Order order)
         {
             if (id != order.OrderId)
             {
@@ -128,12 +122,12 @@ namespace nitecare.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Address", order.CustomerId);
+            ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent", order.FeedbackId);
             ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentContent", order.PaymentId);
             return View(order);
         }
 
-        // GET: Admin/Orders/Delete/5
+        // GET: Admin/AdminOrders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -142,7 +136,7 @@ namespace nitecare.Areas.Admin.Controllers
             }
 
             var order = await _context.Orders
-                .Include(o => o.Customer)
+                .Include(o => o.Feedback)
                 .Include(o => o.Payment)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
@@ -153,7 +147,7 @@ namespace nitecare.Areas.Admin.Controllers
             return View(order);
         }
 
-        // POST: Admin/Orders/Delete/5
+        // POST: Admin/AdminOrders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

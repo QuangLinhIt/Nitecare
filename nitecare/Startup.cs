@@ -27,7 +27,7 @@ namespace nitecare
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
+            services.AddNotyf(config => { config.DurationInSeconds = 2; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
             services.AddDbContextPool<nitecareContext>(options => options.UseSqlServer(Configuration.GetConnectionString("nitecareConnectString")));
             services.AddSession();
         }

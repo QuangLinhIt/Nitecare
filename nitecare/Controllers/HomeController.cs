@@ -46,17 +46,16 @@ namespace nitecare.Controllers
                                    Voucher = p.Voucher,
                                    Stock = p.Stock,
                                    ProductImage = p.ProductImage,
-                                   ShortDes = p.ShortDes,
-                                   Description = p.Description
                                }).Take(4).ToList();
             ViewBag.ProductList = productList;
-            var feedbackList = (from f in _context.Feedbacks
-                                join u in _context.Users on f.UserId equals u.UserId
+            var feedbackList = (from c in _context.Customers
+                                join o in _context.Orders on c.OrderId equals o.OrderId
+                                join f in _context.Feedbacks on o.FeedbackId equals f.FeedbackId
                                 orderby f.FeedbackId descending
                                 select new FeedbackDto()
                                 {
                                     FeedbackId = f.FeedbackId,
-                                    UserName = u.UserName,
+                                    Name = c.Email,
                                     FeedbackContent = f.FeedbackContent,
                                     FeedbackImage = f.FeedbackImage,
                                     FeedbackAvatar = f.FeedbackAvatar

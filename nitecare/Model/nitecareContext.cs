@@ -8,7 +8,8 @@ namespace nitecare.Model
 {
     public partial class nitecareContext : DbContext
     {
-       
+      
+
         public nitecareContext(DbContextOptions<nitecareContext> options)
             : base(options)
         {
@@ -24,12 +25,14 @@ namespace nitecare.Model
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+        public virtual DbSet<ProductDetail> ProductDetails { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,66 +42,69 @@ namespace nitecare.Model
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.Property(e => e.CategoryName).HasMaxLength(100);
-
-                entity.Property(e => e.Description).HasMaxLength(500);
             });
 
             modelBuilder.Entity<Contact>(entity =>
             {
-                entity.ToTable("Contact");
+                entity.Property(e => e.Description).IsRequired();
 
-                entity.Property(e => e.Address)
+                entity.Property(e => e.Email)
                     .IsRequired()
                     .HasMaxLength(200);
 
-                entity.Property(e => e.ContactName)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                entity.Property(e => e.Name).IsRequired();
 
                 entity.Property(e => e.Phone)
                     .IsRequired()
-                    .HasMaxLength(20);
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Title).IsRequired();
             });
 
             modelBuilder.Entity<Customer>(entity =>
             {
-                entity.Property(e => e.Address)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                entity.Property(e => e.City).IsRequired();
 
-                entity.Property(e => e.CustomerName).HasMaxLength(200);
+                entity.Property(e => e.District).IsRequired();
 
                 entity.Property(e => e.Email)
                     .IsRequired()
                     .HasMaxLength(100);
 
+                entity.Property(e => e.Name).IsRequired();
+
                 entity.Property(e => e.Phone)
                     .IsRequired()
-                    .HasMaxLength(20);
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Road).IsRequired();
+
+                entity.Property(e => e.Ward).IsRequired();
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.Customers)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Customers_Orders");
             });
 
             modelBuilder.Entity<Feedback>(entity =>
             {
                 entity.Property(e => e.FeedbackContent).IsRequired();
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Feedbacks)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Feedbacks_Users1");
             });
 
             modelBuilder.Entity<Order>(entity =>
             {
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
                 entity.Property(e => e.Total).HasColumnType("decimal(18, 0)");
 
-                entity.Property(e => e.Voucher).HasColumnType("decimal(18, 0)");
-
-                entity.HasOne(d => d.Customer)
+                entity.HasOne(d => d.Feedback)
                     .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Orders_Customers");
+                    .HasForeignKey(d => d.FeedbackId)
+                    .HasConstraintName("FK_Orders_Feedbacks");
 
                 entity.HasOne(d => d.Payment)
                     .WithMany(p => p.Orders)
@@ -144,8 +150,6 @@ namespace nitecare.Model
 
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.Property(e => e.Description).IsRequired();
-
                 entity.Property(e => e.OriginalPrice).HasColumnType("decimal(18, 0)");
 
                 entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
@@ -155,8 +159,6 @@ namespace nitecare.Model
                 entity.Property(e => e.ProductName)
                     .IsRequired()
                     .HasMaxLength(100);
-
-                entity.Property(e => e.ShortDes).IsRequired();
 
                 entity.Property(e => e.Voucher).HasColumnType("decimal(18, 0)");
             });
@@ -176,6 +178,21 @@ namespace nitecare.Model
                     .HasConstraintName("FK_ProductCategories_Products");
             });
 
+            modelBuilder.Entity<ProductDetail>(entity =>
+            {
+                entity.Property(e => e.Description).IsRequired();
+
+                entity.Property(e => e.ProductContent).IsRequired();
+
+                entity.Property(e => e.Title).IsRequired();
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductDetails)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductDetails_Products");
+            });
+
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.Property(e => e.RoleId).ValueGeneratedNever();
@@ -183,6 +200,25 @@ namespace nitecare.Model
                 entity.Property(e => e.RoleName)
                     .IsRequired()
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Store>(entity =>
+            {
+                entity.Property(e => e.Address).IsRequired();
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.Phone)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.StoreName).IsRequired();
+
+                entity.Property(e => e.Website)
+                    .IsRequired()
+                    .HasMaxLength(200);
             });
 
             modelBuilder.Entity<User>(entity =>

@@ -31,7 +31,7 @@ namespace nitecare.Areas.Admin.Controllers
             var pageSize = 20;
             var ListFeedback = _context.Feedbacks
                 .AsNoTracking()
-                .Include(x => x.User)
+                .Include(x => x.Orders)
                 .OrderByDescending(x => x.FeedbackId);
             PagedList<Feedback> models = new PagedList<Feedback>(ListFeedback, pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
@@ -57,7 +57,6 @@ namespace nitecare.Areas.Admin.Controllers
                 ViewData["NguoiDung"] = new SelectList(_context.Users, "UserId", "UserName",feedbackVm.UserId);
                 var feedback = new Feedback();
                 feedback.FeedbackId = feedbackVm.FeedbackId;
-                feedback.UserId = feedbackVm.UserId;
                 feedback.FeedbackContent = feedbackVm.FeedbackContent;
                 feedback.FeedbackAvatar = ProcessUploadedAvatar(feedbackVm);
                 feedback.FeedbackImage = ProcessUploadedFile(feedbackVm);
@@ -79,7 +78,6 @@ namespace nitecare.Areas.Admin.Controllers
             var feedback = await _context.Feedbacks.FindAsync(id);
             var feedbackVm = new FeedbackVm();
             feedbackVm.FeedbackId = feedback.FeedbackId;
-            feedbackVm.UserId = feedback.UserId;
             feedbackVm.FeedbackContent = feedback.FeedbackContent;
             feedbackVm.AvatarName = feedback.FeedbackAvatar;
             feedbackVm.ImageName = feedback.FeedbackImage;
@@ -122,7 +120,6 @@ namespace nitecare.Areas.Admin.Controllers
                         feedback.FeedbackAvatar = ProcessUploadedAvatar(feedbackVm);
                     }
                     feedback.FeedbackId = feedbackVm.FeedbackId;
-                    feedback.UserId = feedbackVm.UserId;
                     feedback.FeedbackContent = feedbackVm.FeedbackContent;
                     _context.Update(feedback);
                     await _context.SaveChangesAsync();

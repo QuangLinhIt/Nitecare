@@ -7,11 +7,6 @@ namespace nitecare.Model
 {
     public partial class User
     {
-        public User()
-        {
-            Feedbacks = new HashSet<Feedback>();
-        }
-
         public int UserId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
@@ -22,6 +17,5 @@ namespace nitecare.Model
         public string UserName { get; set; }
 
         public virtual Role Role { get; set; }
-        public virtual ICollection<Feedback> Feedbacks { get; set; }
     }
 }

@@ -1,0 +1,79 @@
+﻿@model nitecare.ViewModels.UserDto
+@{
+    ViewData["Title"] = "Forgot";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="mainer">
+    <div class="block-bg block-login">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-5 wow fadeIn">
+                    <div class="card-form">
+                        <div class="tt-lg tt-icon text-primary text-uppercase">Quên mật khẩu</div>
+                        <div class="text-desc desc mb-3">Nhập địa chỉ email liên kết với tài khoản của bạn. Chúng tôi sẽ gửi cho bạn một liên kết để đặt lại mật khẩu của bạn.</div>
+                        <form class="form-validate material-form" method="post">
+                            <div class="row gx-3">
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <input asp-for="Email" class="form-control" type="email" required>
+                                        <label asp-for="Email" class="label-text">Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center">
+                                    <div class="mb-3">
+                                        <button class="btn btn-secondary w-100 px-4" type="submit">Xác nhận</button>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center">
+                                    <div class="text-right mb-3">
+                                        <a class="text-secondary" alt="" title="" href="login.html">Quay về đăng nhập</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-12 d-none d-md-block col-md-7 wow fadeIn">
+                    <div class="thumb-res square mb-0">
+                        <img class="fit-cover" src="css/skin/login.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-customer py-3">
+        <div class="container">
+            <div class="carousel-logo-o">
+                <div class="carousel-logo">
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-2.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-3.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-4.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-5.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+

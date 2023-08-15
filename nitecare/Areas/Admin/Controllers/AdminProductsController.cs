@@ -55,8 +55,6 @@ namespace nitecare.Areas.Admin.Controllers
 
             product.ProductId = productVm.ProductId;
             product.ProductName = productVm.ProductName;
-            product.ShortDes = productVm.ShortDes;
-            product.Description = productVm.Description;
             product.Price = productVm.Price;
             product.OriginalPrice = productVm.OriginalPrice;
             product.Stock = productVm.Stock;
@@ -92,8 +90,6 @@ namespace nitecare.Areas.Admin.Controllers
                 productVm.ListCategory = _context.Categories.Select(x => new SelectListItem { Text = x.CategoryName, Value = x.CategoryId.ToString() }).ToList();
                 productVm.ProductId = product.ProductId;
                 productVm.ProductName = product.ProductName;
-                productVm.ShortDes = product.ShortDes;
-                productVm.Description = product.Description;
                 productVm.Price = product.Price;
                 productVm.OriginalPrice = product.OriginalPrice;
                 productVm.Stock = product.Stock;
@@ -132,15 +128,13 @@ namespace nitecare.Areas.Admin.Controllers
             //now update product
             product.ProductId = productVm.ProductId;
             product.ProductName = productVm.ProductName;
-            product.ShortDes = productVm.ShortDes;
-            product.Description = productVm.Description;
             product.Price = productVm.Price;
             product.OriginalPrice = productVm.OriginalPrice;
             product.Stock = productVm.Stock;
             product.Voucher = productVm.Voucher;
             if (productVm.ImageFile != null)
             {
-                string filePath = Path.Combine(_hostEnvironment.WebRootPath, "image", product.ProductImage);
+                string filePath = Path.Combine(_hostEnvironment.WebRootPath, "product", product.ProductImage);
                 System.IO.File.Delete(filePath);
                 product.ProductImage = ProcessUploadedFile(productVm);
             }
@@ -187,7 +181,7 @@ namespace nitecare.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             var product = await _context.Products.FindAsync(id);
             //delete from wwwroot
-            var CurrentImage = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\image", product.ProductImage);
+            var CurrentImage = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\product", product.ProductImage);
             _context.Products.RemoveRange(product);
             if (await _context.SaveChangesAsync() > 0)
             {
@@ -207,7 +201,7 @@ namespace nitecare.Areas.Admin.Controllers
         {
             if (productVm.ImageFile != null)
             {
-                string uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "image");
+                string uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "product");
                 productVm.ImageName = Guid.NewGuid().ToString() + "_" + productVm.ImageFile.FileName;
                 string filePath = Path.Combine(uploadsFolder, productVm.ImageName);
                 using var fileStream = new FileStream(filePath, FileMode.Create);

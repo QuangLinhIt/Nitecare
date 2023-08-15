@@ -34,7 +34,7 @@ namespace nitecare.Areas.Admin.Controllers
         // GET: Admin/AdminPages/Create
         public IActionResult Create()
         {
-            List<SelectListItem> pageName = new List<SelectListItem>()
+            var pageName = new List<SelectListItem>()
             {
                 new SelectListItem { Value = "Cẩm nang", Text = "Cẩm nang" },
                 new SelectListItem { Value = "Sống khỏe", Text = "Sống khỏe" },

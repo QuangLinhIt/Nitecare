@@ -4,7 +4,7 @@ $(function () {
 	"use strict";
 
 	tinymce.init({
-		selector: '#description',
+		selector: '.description',
 		height: 500,
 		plugins: [
 			'advlist autolink lists link image charmap print preview anchor',

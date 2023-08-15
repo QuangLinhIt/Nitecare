@@ -1,0 +1,46 @@
+﻿@model nitecare.Model.ProductDetail
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="mx-10">
+    <div>
+        <h3>Xóa thông tin chi tiết sản phẩm</h3>
+    </div>
+    <hr />
+    <div class="row">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group col-md-3">
+            <label asp-for="ProductId" class="control-label"></label>
+            <select asp-for="ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
+        </div>
+       
+        <div class="form-group col-md-7">
+            <label asp-for="Title" class="control-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="col-md-12 my-15">
+            <p>Mô tả</p>
+            <div class="tinymce-wrap">
+                <textarea id="description" asp-for="Description"></textarea>
+            </div>
+        </div>
+        <div class="col-md-12 my-15">
+            <p>Thông tin chi tiết</p>
+            <div class="tinymce-wrap">
+                <textarea id="description" asp-for="ProductContent"></textarea>
+            </div>
+        </div>
+
+    </div>
+    Z
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ProductDetailId" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a class="btn btn-dark" asp-action="Index">Back</a>
+    </form>
+</div>

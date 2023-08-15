@@ -6,36 +6,46 @@
 }
 
 
-<div class="row mx-5">
-    <div class="col-md-6">
-        <h3 class="hk-sec-title">Chỉnh sửa thông tin liên hệ cửa hàng</h3>
+<h3 class="mx-20">Chỉnh sửa liên hệ</h3>
+<hr />
+<form asp-action="Edit">
+    <div class="row mx-10">
 
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ContactId" />
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactName" class="control-label"></label>
-                <input asp-for="ContactName" class="form-control" />
-                <span asp-validation-for="ContactName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-            <div class="form-group">
-                <a class="btn btn-dark" asp-action="Index">Back</a>
-            </div>
-        </form>
-    </div>
-</div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ContactId" />
+        <div class="form-group col-md-5">
+            <label asp-for="Name" class="control-label">Tên khách hàng</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-5">
+            <label asp-for="Email" class="control-label">Email</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-5">
+            <label asp-for="Phone" class="control-label">Số điện thoại</label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-5">
+            <label asp-for="Title" class="control-label">Tiêu đề</label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-10">
+            <label asp-for="Description" class="control-label">Nội dung</label>
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-12">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+        <div class="form-group col-md-12">
+            <a class="btn btn-dark" asp-action="Index">Back</a>
+        </div>
+        </div>
+</form>
+    
 
 
