@@ -48,19 +48,19 @@ namespace nitecare.Controllers
                                    ProductImage = p.ProductImage,
                                }).Take(4).ToList();
             ViewBag.ProductList = productList;
-            var feedbackList = (from c in _context.Customers
-                                join o in _context.Orders on c.OrderId equals o.OrderId
-                                join f in _context.Feedbacks on o.FeedbackId equals f.FeedbackId
-                                orderby f.FeedbackId descending
-                                select new FeedbackDto()
-                                {
-                                    FeedbackId = f.FeedbackId,
-                                    Name = c.Email,
-                                    FeedbackContent = f.FeedbackContent,
-                                    FeedbackImage = f.FeedbackImage,
-                                    FeedbackAvatar = f.FeedbackAvatar
-                                }).ToList();
-            ViewBag.FeedBackList = feedbackList;
+            //var feedbackList = (from c in _context.Customers
+            //                    join o in _context.Orders on c.OrderId equals o.OrderId
+            //                    join f in _context.Feedbacks on o.FeedbackId equals f.FeedbackId
+            //                    orderby f.FeedbackId descending
+            //                    select new FeedbackDto()
+            //                    {
+            //                        FeedbackId = f.FeedbackId,
+            //                        Name = c.Email,
+            //                        FeedbackContent = f.FeedbackContent,
+            //                        FeedbackImage = f.FeedbackImage,
+            //                        FeedbackAvatar = f.FeedbackAvatar
+            //                    }).ToList();
+            //ViewBag.FeedBackList = feedbackList;
             return View();
         }
 

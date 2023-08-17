@@ -18,7 +18,7 @@ namespace nitecare.Controllers
         [Route("feedback")]
         public IActionResult Index()
         {
-            var feedback = _context.Feedbacks.Include(x=>x.Orders).ThenInclude(x=>x.Customers).OrderByDescending(x => x.FeedbackId).ToList();
+            var feedback = _context.Feedbacks.Include(x=>x.Orders).OrderByDescending(x => x.FeedbackId).ToList();
             return View(feedback);
         }
     }

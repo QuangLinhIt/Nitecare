@@ -27,7 +27,10 @@
                 <div class="col-md-7 col-lg-8">
                     <div class="d-sm-flex align-items-center justify-content-between mb-3">
                         <div class="tt-icon text-primary tt-lg fw-medium">Sản phẩm của bạn</div>
-                        <div class="desc text-desc text-right mb-4" id="countItem"></div>
+                        <div class="desc text-desc text-right mb-4">
+                            <span id="countItem"></span>
+                            <span> sản phẩm</span>
+                        </div>
                     </div>
                     <div id="cartItemsList">
                         @*script list item*@
@@ -47,7 +50,7 @@
                             </div>
                         </div>
                         <div class="text-center mb-3">
-                            <a class="btn btn-secondary w-100" alt="" title="" href="order.html">Mua hàng</a>
+                            <a class="btn btn-secondary w-100" alt="" title="" href="#" onclick="CheckCountCart()">Mua hàng</a>
                         </div>
                         <div class="block block-note">
                             <div class="text-center">
@@ -138,7 +141,15 @@
         var cartItems = GetCarts();
         var count = cartItems.length;
         var countItem = document.getElementById('countItem');
-        countItem.textContent = count + " sản phẩm";
+        countItem.textContent = count;
+        function CheckCountCart() {
+            if (count > 0) {
+                location.href = "/order"
+            } else {
+                location.href = "/cart"
+            }
+        }
+
         // Get the reference to the <div> element with id "cartItemsList"
         var cartItemsList = document.getElementById('cartItemsList');
 
@@ -155,56 +166,56 @@
 
             // Create the inner HTML structure for the cart item
             cartItemDiv.innerHTML = `
-                                                        <div class="cell cell-del">
-                                                          <a class="btn-del" alt="" title="" onclick="RemoveCart(${item.productId})" > <span class="fal fa-times"></span></a>
-                                                        </div>
-                                                        <div class="cell cell-img">
-                                                          <div class="thumb-res square">
-                                                              <img >
-                                                          </div>
-                                                        </div>
-                                                        <div class="cell cell-info">
-                                                          <div class="tt fw-medium" data-productId="${item.productId}"></div>
-                                                          <div class="row gy-3 align-items-center">
-                                                             <div class="col-4">
-                                                                 <div class="info">
-                                                                     Màu
+                                                            <div class="cell cell-del">
+                                                              <a class="btn-del" alt="" title="" onclick="RemoveCart(${item.productId})" > <span class="fal fa-times"></span></a>
+                                                            </div>
+                                                            <div class="cell cell-img">
+                                                              <div class="thumb-res square">
+                                                                  <img >
+                                                              </div>
+                                                            </div>
+                                                            <div class="cell cell-info">
+                                                              <div class="tt fw-medium" data-productId="${item.productId}"></div>
+                                                              <div class="row gy-3 align-items-center">
+                                                                 <div class="col-4">
+                                                                     <div class="info">
+                                                                         Màu
+                                                                     </div>
                                                                  </div>
-                                                             </div>
-                                                          <div class="col-8">
-                                                            <div class="color">
-                                                               <span class="ball" style="--color-ball:#ECC2C7;"></span>Hồng đất
-                                                            </div>
-                                                          </div>
-                                                          <div class="col-4">
-                                                             <div class="info">
-                                                                 Kích thước
+                                                              <div class="col-8">
+                                                                <div class="color">
+                                                                   <span class="ball" style="--color-ball:#ECC2C7;"></span>Hồng đất
+                                                                </div>
                                                               </div>
-                                                          </div>
-                                                          <div class="col-8">
-                                                            <div class="size">
-                                                                 M - 73cm x 63cm x 22cm
-                                                            </div>
-                                                          </div>
-                                                            <div class="col-4">
-                                                              <div class="info">
-                                                                Số lượng
+                                                              <div class="col-4">
+                                                                 <div class="info">
+                                                                     Kích thước
+                                                                  </div>
+                                                              </div>
+                                                              <div class="col-8">
+                                                                <div class="size">
+                                                                     M - 73cm x 63cm x 22cm
+                                                                </div>
+                                                              </div>
+                                                                <div class="col-4">
+                                                                  <div class="info">
+                                                                    Số lượng
+                                                                  </div>
+                                                                </div>
+                                                                <div class="col-8">
+                                                                  <div class="form-quantity">
+                                                                    <input class="form-control" type="text" value="${item.quantity}">
+                                                                    <a class="control-down fa fa-minus" role="button" onclick="DecreaseQuantity(${item.productId},${item.quantity})"></a>
+                                                                    <a class="control-up fa fa-plus" role="button" onclick="IncreaseQuantity(${item.productId},${item.quantity})"></a>
+                                                                  </div>
+                                                                </div>
                                                               </div>
                                                             </div>
-                                                            <div class="col-8">
-                                                              <div class="form-quantity">
-                                                                <input class="form-control" type="text" value="${item.quantity}">
-                                                                <a class="control-down fa fa-minus" role="button" onclick="DecreaseQuantity(${item.productId},${item.quantity})"></a>
-                                                                <a class="control-up fa fa-plus" role="button" onclick="IncreaseQuantity(${item.productId},${item.quantity})"></a>
-                                                              </div>
+                                                            <div class="cell cell-price">
+                                                              <div class="price-origin">${item.price}<u>đ</u></div>
+                                                              <del class="price-sale">${item.originalPrice}<u>đ</u></del>
                                                             </div>
-                                                          </div>
-                                                        </div>
-                                                        <div class="cell cell-price">
-                                                          <div class="price-origin">${item.price}<u>đ</u></div>
-                                                          <del class="price-sale">${item.originalPrice}<u>đ</u></del>
-                                                        </div>
-                                                  `;
+                                                      `;
 
             // Append the cart item <div> to the cartItemsList <div>
             cartItemsList.appendChild(cartItemDiv);

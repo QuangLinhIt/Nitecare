@@ -3,10 +3,9 @@
 @{
     ViewData["Title"] = "Trang chủ";
     List<Page> pageList = ViewBag.PageList;
-    List<FeedbackDto> feedbackList = ViewBag.FeedBackList;
+    @*List<FeedbackDto> feedbackList = ViewBag.FeedBackList;*@
     List<ProductDto> productList = ViewBag.ProductList;
 }
-
 <section class="home-slider-o">
     <div class="home-slider">
         <div class="carousel-cell">
@@ -189,36 +188,36 @@
             <div class="swiper-feedbacks-o">
                 <div class="swiper-feedbacks">
                     <div class="swiper-wrapper">
-                        @foreach (var feedback in feedbackList)
-                        {
-                            <div class="swiper-slide">
-                                <div class="block">
-                                    <div class="thumb-res square">
-                                        <img class="fit-cover" src="~/feedback/image/@feedback.FeedbackImage" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="avatar">
-                                            <img src="~/feedback/avatar/@feedback.FeedbackAvatar">
+                        @*@foreach (var feedback in feedbackList)
+                            {
+                                <div class="swiper-slide">
+                                    <div class="block">
+                                        <div class="thumb-res square">
+                                            <img class="fit-cover" src="~/feedback/image/@feedback.FeedbackImage" />
                                         </div>
-                                        <div class="content">
-                                            <div class="name-ava">
+                                        <div class="info">
+                                            <div class="avatar">
+                                                <img src="~/feedback/avatar/@feedback.FeedbackAvatar">
                                             </div>
-                                            <div class="rated-star">
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            </div>
-                                            <div class="desc">
-                                               @feedback.FeedbackContent
+                                            <div class="content">
+                                                <div class="name-ava">
+                                                </div>
+                                                <div class="rated-star">
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                </div>
+                                                <div class="desc">
+                                                   @feedback.FeedbackContent
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                        }
+                            }*@
                     </div>
 
                 </div>
@@ -248,7 +247,7 @@
                                     @item.Title
                                 </div>
                                 <div class="desc text-desc">
-                                   @item.Description
+                                    @item.Description
                                 </div>
                             </div>
                         </div>

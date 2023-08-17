@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<Category> listCategory = ViewBag.DanhMuc;
     List<ProductDto> listProduct = ViewBag.ProductList;
-    List<FeedbackDto> listFeeback = ViewBag.FeedBackList;
+    @*List<FeedbackDto> listFeeback = ViewBag.FeedBackList;*@
 }
 
 <div class="banner-lg block-bg" style="background-image: url('css/skin/slider/banner-cart.png')">
@@ -579,7 +579,7 @@
             <div class="swiper-feedbacks-o">
                 <div class="swiper-feedbacks">
                     <div class="swiper-wrapper">
-                        @foreach (var item in listFeeback)
+                        @*@foreach (var item in listFeeback)
                         {
                             <div class="swiper-slide">
                                 <div class="block">
@@ -610,7 +610,7 @@
                                 </div>
                             </div>
 
-                        }
+                        }*@
                     </div>
 
                 </div>
@@ -700,18 +700,18 @@
     <script src="~/localstorage/function.js"></script>
     <script>
         document.getElementById('number').value = 1;
-        var number = document.getElementById('number').value();
-        function IncreaseQuantity(number) {
-            number++;
-            document.getElementById('number').value = number;
+        var quantity = document.getElementById('number').value();
+        function IncreaseQuantity(quantity) {
+            quantity++;
+            document.getElementById('number').value = quantity;
         }
-        function DecreaseQuantity(number) {
-            if (number > 1) {
-                number--;
-                document.getElementById('number').value = number;
+        function DecreaseQuantity(quantity) {
+            if (quantity > 1) {
+                quantity--;
+                document.getElementById('number').value = quantity;
             }
             else {
-                document.getElementById('number').value = number;
+                document.getElementById('number').value = quantity;
             }
         }
     </script>

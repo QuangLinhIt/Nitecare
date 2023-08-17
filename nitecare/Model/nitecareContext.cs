@@ -8,7 +8,6 @@ namespace nitecare.Model
 {
     public partial class nitecareContext : DbContext
     {
-      
 
         public nitecareContext(DbContextOptions<nitecareContext> options)
             : base(options)
@@ -32,7 +31,6 @@ namespace nitecare.Model
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -80,12 +78,6 @@ namespace nitecare.Model
                 entity.Property(e => e.Road).IsRequired();
 
                 entity.Property(e => e.Ward).IsRequired();
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.Customers)
-                    .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Customers_Orders");
             });
 
             modelBuilder.Entity<Feedback>(entity =>
@@ -100,6 +92,12 @@ namespace nitecare.Model
                     .HasMaxLength(100);
 
                 entity.Property(e => e.Total).HasColumnType("decimal(18, 0)");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Orders_Customers");
 
                 entity.HasOne(d => d.Feedback)
                     .WithMany(p => p.Orders)

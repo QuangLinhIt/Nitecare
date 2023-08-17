@@ -9,7 +9,6 @@ namespace nitecare.Model
     {
         public Order()
         {
-            Customers = new HashSet<Customer>();
             OrderDetails = new HashSet<OrderDetail>();
         }
 
@@ -22,9 +21,9 @@ namespace nitecare.Model
         public int? FeedbackId { get; set; }
         public int CustomerId { get; set; }
 
+        public virtual Customer Customer { get; set; }
         public virtual Feedback Feedback { get; set; }
         public virtual Payment Payment { get; set; }
-        public virtual ICollection<Customer> Customers { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

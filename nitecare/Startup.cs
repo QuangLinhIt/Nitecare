@@ -1,4 +1,5 @@
 using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,7 +28,7 @@ namespace nitecare
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.AddNotyf(config => { config.DurationInSeconds = 2; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
+            services.AddNotyf(config => { config.DurationInSeconds = 3; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
             services.AddDbContextPool<nitecareContext>(options => options.UseSqlServer(Configuration.GetConnectionString("nitecareConnectString")));
             services.AddSession();
         }
@@ -48,7 +49,8 @@ namespace nitecare
             app.UseHttpsRedirection();
             app.UseSession();
             app.UseStaticFiles();
-
+            app.UseNotyf();
+           
             app.UseRouting();
 
             app.UseAuthorization();

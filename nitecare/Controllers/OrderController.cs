@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -14,21 +15,24 @@ namespace nitecare.Controllers
     public class OrderController : Controller
     {
         private readonly nitecareContext _context;
-        public OrderController(nitecareContext context)
+        public INotyfService _notyfService { get; }
+
+        public OrderController(nitecareContext context,INotyfService notyfService)
         {
+            _notyfService = notyfService;
             _context = context;
         }
         [HttpGet]
         [Route("cart")]
-        public IActionResult Index()
+        public IActionResult Cart()
         {
             return View();
         }
         [HttpGet]
         [Route("order")]
-        public IActionResult Order()
+        public IActionResult SaveOrder()
         {
-            var orderDto =new OrderDto();
+            var orderDto = new OrderDto();
             var listPayment = (from p in _context.Payments
                                select new Payment()
                                {
@@ -36,88 +40,102 @@ namespace nitecare.Controllers
                                    PaymentName = p.PaymentName,
                                    PaymentContent = p.PaymentContent
                                }).ToList();
-            ViewBag.Payment = listPayment;
+            ViewBag.ThanhToan = listPayment;
             var email = HttpContext.Session.GetString("Email");
             var user = _context.Users.Where(x => x.Email == email).FirstOrDefault();
             var customer = _context.Customers.Where(x => x.Email == email).FirstOrDefault();
-            if (email != null)
+            if (user != null)
             {
-                orderDto.CustomerId = customer.CustomerId;
+                orderDto.Email = user.Email;
+                orderDto.Name = user.UserName;
+                orderDto.Phone = user.Phone;
+            }
+            if (customer != null)
+            {
                 orderDto.City = customer.City;
                 orderDto.District = customer.District;
                 orderDto.Ward = customer.Ward;
                 orderDto.Road = customer.Road;
-                orderDto.Email = user.Email;
-                orderDto.Name = user.UserName;
-                orderDto.Phone = user.Phone;
             }
             return View(orderDto);
         }
         [HttpPost]
         [Route("order")]
-        public IActionResult Order(OrderDto orderDto)
+        public IActionResult SaveOrder(OrderDto orderDto)
         {
-            var listPayment = (from p in _context.Payments
-                               select new Payment()
-                               {
-                                   PaymentId = p.PaymentId,
-                                   PaymentName = p.PaymentName,
-                                   PaymentContent = p.PaymentContent
-                               }).ToList();
-            ViewBag.Payment = listPayment;
-            var email = HttpContext.Session.GetString("Email");
-            var existingCustomer = _context.Customers.Where(x => x.Email == email).FirstOrDefault();
-            if (existingCustomer != null)
+            if (orderDto.ProductItems !=null)
             {
-                existingCustomer.CustomerId = orderDto.CustomerId;
-                existingCustomer.Email = orderDto.Email;
-                existingCustomer.Phone = orderDto.Phone;
-                existingCustomer.City = orderDto.City;
-                existingCustomer.District = orderDto.District;
-                existingCustomer.Ward = orderDto.Ward;
-                existingCustomer.Name = orderDto.Name;
-                _context.Customers.Update(existingCustomer);
+                var listPayment = (from p in _context.Payments
+                                   select new Payment()
+                                   {
+                                       PaymentId = p.PaymentId,
+                                       PaymentName = p.PaymentName,
+                                       PaymentContent = p.PaymentContent
+                                   }).ToList();
+                ViewBag.ThanhToan = listPayment;
+                var selectedPaymentId = Request.Form["flexRadioDefault"];
+                var email = HttpContext.Session.GetString("Email");
+                var existingCustomer = _context.Customers.Where(x => x.Email == email).FirstOrDefault();
+                var order = new Order();
+                if (existingCustomer != null)
+                {
+                    existingCustomer.Email = orderDto.Email;
+                    existingCustomer.Phone = orderDto.Phone;
+                    existingCustomer.City = orderDto.City;
+                    existingCustomer.District = orderDto.District;
+                    existingCustomer.Ward = orderDto.Ward;
+                    existingCustomer.Road = orderDto.Road;
+                    existingCustomer.Name = orderDto.Name;
+                    order.CustomerId = existingCustomer.CustomerId;
+                    _context.Customers.Update(existingCustomer);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    var customer = new Customer();
+                    customer.Email = orderDto.Email;
+                    customer.Phone = orderDto.Phone;
+                    customer.City = orderDto.City;
+                    customer.District = orderDto.District;
+                    customer.Ward = orderDto.Ward;
+                    customer.Road = orderDto.Road;
+                    customer.Name = orderDto.Name;
+                    _context.Customers.Add(customer);
+                    _context.SaveChanges();
+                    order.CustomerId = customer.CustomerId;
+                }
+
+                order.ShipDate = DateTime.Now.AddDays(1);
+                order.PaymentId = orderDto.PaymentId;
+                order.Total = orderDto.Total;
+                order.Deleted = false;
+                order.Status = "Chờ xác nhận";
+                order.FeedbackId = null;
+                order.PaymentId = Convert.ToInt32(selectedPaymentId);
+                var orderCarts = new List<OrderDetail>();
+
+                foreach (var item in orderDto.ProductItems)
+                {
+                    orderCarts.Add(new OrderDetail
+                    {
+                        OrderId = order.OrderId,
+                        ProductId = item.ProductId,
+                        Quantity = item.Quantity
+                    });
+                }
+                order.OrderDetails = orderCarts;
                 _context.SaveChanges();
+                _context.Orders.Add(order);
+                _context.SaveChanges();
+                _notyfService.Success("Đặt hàng thành công!");
+                return View(orderDto);
             }
             else
             {
-                var customer = new Customer();
-                customer.CustomerId = orderDto.CustomerId;
-                customer.Email = orderDto.Email;
-                customer.Phone = orderDto.Phone;
-                customer.City = orderDto.City;
-                customer.District = orderDto.District;
-                customer.Ward = orderDto.Ward;
-                customer.Name = orderDto.Name;
-                _context.Customers.Update(customer);
-                _context.SaveChanges();
+                _notyfService.Warning("Vui lòng chọn sản phẩm");
+                return RedirectToAction("Index", "Product");
             }
-            
-            var order = new Order();
-            order.OrderId = orderDto.OrderId;
-            order.ShipDate = DateTime.Now.AddDays(1);
-            order.PaymentId = orderDto.PaymentId;
-            order.Total = orderDto.Total;
-            order.Deleted = false;
-            order.Status = "Chờ xác nhận";
-            order.FeedbackId = null;
-            order.CustomerId = orderDto.CustomerId;
-            order.PaymentId = orderDto.PaymentId;
-            var orderCarts = new List<OrderDetail>();
-            foreach (var item in orderDto.ProductItems)
-            {
-                orderCarts.Add(new OrderDetail
-                {
-                    OrderId = orderDto.OrderId,
-                    ProductId = item.ProductId,
-                    Quantity = item.Quantity
-                });
-            }
-            order.OrderDetails = orderCarts;
-            _context.SaveChanges();
-            _context.Orders.Add(order);
-            _context.SaveChanges();
-            return RedirectToAction("Index", "Order");
         }
+
     }
 }
