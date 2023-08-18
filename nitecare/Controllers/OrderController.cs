@@ -17,7 +17,7 @@ namespace nitecare.Controllers
         private readonly nitecareContext _context;
         public INotyfService _notyfService { get; }
 
-        public OrderController(nitecareContext context,INotyfService notyfService)
+        public OrderController(nitecareContext context, INotyfService notyfService)
         {
             _notyfService = notyfService;
             _context = context;
@@ -63,7 +63,10 @@ namespace nitecare.Controllers
         [Route("order")]
         public IActionResult SaveOrder(OrderDto orderDto)
         {
-            if (orderDto.ProductItems !=null)
+            if (orderDto.ProductItems != null && orderDto.Email != null
+                && orderDto.Phone != null && orderDto.Name != null
+                && orderDto.City != null && orderDto.District != null
+                && orderDto.Ward != null && orderDto.Road != null)
             {
                 var listPayment = (from p in _context.Payments
                                    select new Payment()
@@ -105,7 +108,7 @@ namespace nitecare.Controllers
                     order.CustomerId = customer.CustomerId;
                 }
 
-                order.ShipDate = DateTime.Now.AddDays(1);
+                order.ShipDate = DateTime.Now;
                 order.PaymentId = orderDto.PaymentId;
                 order.Total = orderDto.Total;
                 order.Deleted = false;
@@ -128,10 +131,12 @@ namespace nitecare.Controllers
                 _context.Orders.Add(order);
                 _context.SaveChanges();
                 _notyfService.Success("Đặt hàng thành công!");
+                ViewBag.Success = "true";
                 return View(orderDto);
             }
             else
             {
+                ViewBag.Success = "false";
                 _notyfService.Warning("Vui lòng chọn sản phẩm");
                 return RedirectToAction("Index", "Product");
             }

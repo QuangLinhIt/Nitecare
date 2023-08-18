@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using nitecare.BaseModel;
 using nitecare.Model;
 
 namespace nitecare.Areas.Admin.Controllers
@@ -20,74 +21,53 @@ namespace nitecare.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminOrders
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var nitecareContext = _context.Orders.Include(o => o.Feedback).Include(o => o.Payment);
-            return View(await nitecareContext.ToListAsync());
-        }
-
-        // GET: Admin/AdminOrders/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Orders
-                .Include(o => o.Feedback)
-                .Include(o => o.Payment)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
+            var order = _context.Orders
+                .Include(x => x.Customer)
+                .Include(x => x.Payment)
+                .Include(x => x.Feedback)
+                .Include(x => x.OrderDetails)
+                .ThenInclude(x => x.Product)
+                .OrderByDescending(x=>x.OrderId)
+                .ToList();
             return View(order);
         }
 
-        // GET: Admin/AdminOrders/Create
-        public IActionResult Create()
-        {
-            ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent");
-            ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentContent");
-            return View();
-        }
-
-        // POST: Admin/AdminOrders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,ShipDate,PaymentId,Total,Deleted,Status,FeedbackId,CustomerId")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent", order.FeedbackId);
-            ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentContent", order.PaymentId);
-            return View(order);
-        }
 
         // GET: Admin/AdminOrders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var order = await _context.Orders.FindAsync(id);
-            if (order == null)
+            var listCart = new List<CartVm>();
+            var orderVm = new OrderVm();
+            var order = _context.Orders.Include(x => x.OrderDetails).FirstOrDefault(x => x.OrderId == id);
+            foreach(var item in order.OrderDetails.ToList())
             {
-                return NotFound();
-            }
+                var cartVm = new CartVm()
+                {
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity
+                };
+                listCart.Add(cartVm);
+            };
+            orderVm.OrderId = order.OrderId;
+            orderVm.ShipDate = order.ShipDate;
+            orderVm.PaymentId = order.PaymentId;
+            orderVm.Deleted = order.Deleted;
+            orderVm.Total = order.Total;
+            orderVm.Status = order.Status;
+            orderVm.FeedbackId = order.FeedbackId;
+            orderVm.CustomerId = order.CustomerId;
+            orderVm.CartItems = listCart;
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Email", order.CustomerId);
             ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent", order.FeedbackId);
             ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentContent", order.PaymentId);
-            return View(order);
+            return View(orderVm);
         }
 
         // POST: Admin/AdminOrders/Edit/5
@@ -95,9 +75,9 @@ namespace nitecare.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ShipDate,PaymentId,Total,Deleted,Status,FeedbackId,CustomerId")] Order order)
+        public async Task<IActionResult> Edit(int id, OrderVm orderVm)
         {
-            if (id != order.OrderId)
+            if (id != orderVm.OrderId)
             {
                 return NotFound();
             }
@@ -106,12 +86,50 @@ namespace nitecare.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(order);
+                    var order = new Order();
+                    var listOrderDetail = new List<OrderDetail>();
+                    //find and remove
+                    order = _context.Orders.Include(x => x.OrderDetails).FirstOrDefault(x => x.OrderId == id);
+                    foreach(var item in order.OrderDetails.ToList())
+                    {
+                        var orderDetail = new OrderDetail()
+                        {
+                            OrderId = order.OrderId,
+                            ProductId = item.ProductId,
+                            Quantity = item.Quantity
+                        };
+                        listOrderDetail.Add(orderDetail);
+                    }
+                    _context.OrderDetails.RemoveRange(listOrderDetail);
                     await _context.SaveChangesAsync();
+
+                    //update
+                    order.OrderId = orderVm.OrderId;
+                    order.ShipDate = orderVm.ShipDate;
+                    order.PaymentId = orderVm.PaymentId;
+                    order.Total = orderVm.Total;
+                    order.Deleted = orderVm.Deleted;
+                    order.Status = orderVm.Status;
+                    order.FeedbackId = orderVm.FeedbackId;
+                    order.PaymentId = orderVm.PaymentId;
+                    if (orderVm.CartItems.Count > 0)
+                    {
+                        foreach(var item in orderVm.CartItems)
+                        {
+                            listOrderDetail.Add(new OrderDetail()
+                            {
+                                OrderId = order.OrderId,
+                                ProductId=item.ProductId,
+                                Quantity=item.Quantity
+                            });
+                        }
+                        order.OrderDetails = listOrderDetail;
+                    }
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrderExists(order.OrderId))
+                    if (!OrderExists(orderVm.OrderId))
                     {
                         return NotFound();
                     }
@@ -122,23 +140,21 @@ namespace nitecare.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent", order.FeedbackId);
-            ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentContent", order.PaymentId);
-            return View(order);
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Email", orderVm.CustomerId);
+            ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent", orderVm.FeedbackId);
+            ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentContent", orderVm.PaymentId);
+            return View(orderVm);
         }
 
         // GET: Admin/AdminOrders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var order = await _context.Orders
-                .Include(o => o.Feedback)
-                .Include(o => o.Payment)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
+            var order = _context.Orders.Include(x => x.OrderDetails).FirstOrDefault(x => x.OrderId == id);
             if (order == null)
             {
                 return NotFound();
@@ -152,7 +168,10 @@ namespace nitecare.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var orderDetail = _context.OrderDetails.Where(x => x.OrderId == id).ToList();
+            _context.OrderDetails.RemoveRange(orderDetail);
+            await _context.SaveChangesAsync();
+            var order = _context.Orders.FirstOrDefault(x => x.OrderId == id);
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

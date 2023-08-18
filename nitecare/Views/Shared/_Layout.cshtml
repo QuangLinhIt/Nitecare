@@ -52,6 +52,13 @@
             src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&amp;version=v12.0&amp;appId=1769235226437326&amp;autoLogAppEvents=1"
             nonce="qTkYIPYq"></script>
 
+    <script src="~/localstorage/function.js"></script>
+    <script>
+        var carts = GetCarts();
+        var countNav = carts.length;
+        var CountNavigation = document.getElementById('countCartItemNav');
+        CountNavigation.textContent = countNav;
+    </script>
     <!---->
     @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false)

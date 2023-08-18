@@ -49,6 +49,7 @@
                                 <div class="tt text-body fw-medium">Thành tiền</div>
                                 <div class="right text-right">
                                     <div class="price-origin fs-24 fw-medium" id="orderTotal"><u>đ</u></div>
+                                    <input class="form-control" type="hidden" asp-for="Total" value="" id="totalInput" />
                                     <div class="text-desc">(Giá trên chưa tính phí vận chuyển và VAT)</div>
                                 </div>
                             </div>
@@ -92,25 +93,25 @@
 
                             <div class="col-12 col-lg-6">
                                 <div class="form-group mb-3">
-                                    <input class="form-control" type="text" asp-for="City">
+                                    <input class="form-control" type="text" asp-for="City" required>
                                     <label class="label-text">Tỉnh/Thành Phố</label>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="form-group mb-3">
-                                    <input class="form-control" type="text" asp-for="District">
+                                    <input class="form-control" type="text" asp-for="District" required>
                                     <label class="label-text">Quận/Huyện</label>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="form-group mb-3">
-                                    <input class="form-control" type="text" asp-for="Ward">
+                                    <input class="form-control" type="text" asp-for="Ward" required>
                                     <label class="label-text">Phường/Xã</label>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="form-group mb-3">
-                                    <input class="form-control" type="text" asp-for="Road">
+                                    <input class="form-control" type="text" asp-for="Road" required>
                                     <label class="label-text">Số nhà, tên đường</label>
                                 </div>
                             </div>
@@ -123,7 +124,7 @@
                                     {
                                         <div class="form-check">
                                             <input class="form-check-input" id="radio1b" type="radio"
-                                                   name="flexRadioDefault" value="@item.PaymentId">
+                                                   name="flexRadioDefault" value="@item.PaymentId" required>
                                             <label class="form-check-label" for="radio1b">
                                                 @item.PaymentName
                                             </label>
@@ -141,7 +142,7 @@
                             </div>
 
                             <div class="col-12 text-right">
-                                <button class="btn btn-secondary px-4" type="submit" onclick="ResetAfterSaveOrder()">Đặt hàng</button>
+                                    <button class="btn btn-secondary px-4" type="submit">Đặt hàng</button>
                             </div>
                         </div>
                     </div>
@@ -185,7 +186,6 @@
     </div>
 </main>
 @section Scripts{
-    <script src="~/localstorage/function.js"></script>
     <script>
         var cartItems = GetCarts();
         function GetProductData(productId) {
@@ -221,31 +221,31 @@
             // Create the inner HTML structure for the cart item
             cartItemDiv.innerHTML =
                 `
-                                <div class="block-order">
-                                <div class="info">
-                                    <input type="hidden" name="ProductItems[${index}].ProductId" value="${item.productId}"/>
-                                    <input type="hidden" name="ProductItems[${index}].Quantity" value="${item.quantity}"/>
+                                        <div class="block-order">
+                                        <div class="info">
+                                            <input type="hidden" name="ProductItems[${index}].ProductId" value="${item.productId}"/>
+                                            <input type="hidden" name="ProductItems[${index}].Quantity" value="${item.quantity}"/>
 
-                                    <div class="tt" data-productId=${item.productId}>
+                                            <div class="tt" data-productId=${item.productId}>
+                                            </div>
+                                            <div class="flex-info">
+                                                <div class="color">
+                                                    <span class="ball"></span>Hồng đất
+                                                </div>
+                                                <div class="size">
+                                                    M - 73cm x 63cm x 22cm
+                                                </div>
+                                                <div class="count">
+                                                    ${item.quantity}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="price-origin">
+                                            ${item.price} <u> đ</u>
+                                        </div>
                                     </div>
-                                    <div class="flex-info">
-                                        <div class="color">
-                                            <span class="ball"></span>Hồng đất
-                                        </div>
-                                        <div class="size">
-                                            M - 73cm x 63cm x 22cm
-                                        </div>
-                                        <div class="count">
-                                            ${item.quantity}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="price-origin">
-                                    ${item.price} <u> đ</u>
-                                </div>
-                            </div>
 
-                            `;
+                                    `;
             // Append the cart item <div> to the cartItemsList <div>
             cartItemsList.appendChild(cartItemDiv);
         });
@@ -253,5 +253,8 @@
         var OrderTotal = document.getElementById('orderTotal');
         OrderTotal.textContent = total;
 
+        var valueTotal = document.getElementById("orderTotal").innerText;
+        document.getElementById('totalInput').value = valueTotal;
+        
     </script>
 }
