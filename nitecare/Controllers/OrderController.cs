@@ -132,7 +132,7 @@ namespace nitecare.Controllers
                 _context.SaveChanges();
                 _notyfService.Success("Đặt hàng thành công!");
                 ViewBag.Success = "true";
-                return View(orderDto);
+                return RedirectToAction("Index", "Product");
             }
             else
             {
