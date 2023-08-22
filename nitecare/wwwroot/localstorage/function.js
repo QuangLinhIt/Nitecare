@@ -26,6 +26,7 @@
     // Save the updated cart items to localStorage
     localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
     location.reload();
+
 }
 function GetCarts() {
     // Retrieve the cart items from localStorage

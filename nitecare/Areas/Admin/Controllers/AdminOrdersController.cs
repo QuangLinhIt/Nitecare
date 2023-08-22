@@ -35,7 +35,6 @@ namespace nitecare.Areas.Admin.Controllers
             return View(order);
         }
 
-
         // GET: Admin/AdminOrders/Edit/5
         public IActionResult Edit(int? id)
         {
@@ -45,12 +44,21 @@ namespace nitecare.Areas.Admin.Controllers
             }
             var listCart = new List<CartVm>();
             var orderVm = new OrderVm();
-            var order = _context.Orders.Include(x => x.OrderDetails).FirstOrDefault(x => x.OrderId == id);
-            foreach(var item in order.OrderDetails.ToList())
+            var order = _context.Orders
+                                .Include(x => x.Customer)
+                                .Include(x => x.OrderDetails)
+                                .ThenInclude(x => x.Product)
+                                .Where(x => x.OrderId == id)
+                                .FirstOrDefault();
+            foreach (var item in order.OrderDetails.ToList())
             {
                 var cartVm = new CartVm()
                 {
                     ProductId = item.ProductId,
+                    ProductName = item.Product.ProductName,
+                    ProductImage = item.Product.ProductImage,
+                    Price = item.Product.Price,
+                    OriginalPrice = item.Product.OriginalPrice,
                     Quantity = item.Quantity
                 };
                 listCart.Add(cartVm);
@@ -63,10 +71,38 @@ namespace nitecare.Areas.Admin.Controllers
             orderVm.Status = order.Status;
             orderVm.FeedbackId = order.FeedbackId;
             orderVm.CustomerId = order.CustomerId;
+            orderVm.Name = order.Customer.Name;
+            orderVm.Email = order.Customer.Email;
+            orderVm.Phone = order.Customer.Phone;
+            orderVm.City = order.Customer.City;
+            orderVm.District = order.Customer.District;
+            orderVm.Ward = order.Customer.Ward;
+            orderVm.Road = order.Customer.Road;
             orderVm.CartItems = listCart;
             ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Email", order.CustomerId);
             ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent", order.FeedbackId);
-            ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentContent", order.PaymentId);
+            ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentName", order.PaymentId);
+            var product = (from p in _context.Products
+                           orderby p.ProductId descending
+                           select new Product()
+                           {
+                               ProductId = p.ProductId,
+                               ProductName = p.ProductName,
+                               ProductImage = p.ProductImage,
+                               Price = p.Price,
+                               OriginalPrice = p.OriginalPrice,
+                               Voucher = p.Voucher
+                           }).ToList();
+            ViewBag.ListProduct = product;
+            var status = new List<SelectListItem>()
+            {
+                new SelectListItem { Value = "Chờ xác nhận", Text = "Chờ xác nhận" },
+                new SelectListItem { Value = "Đang giao hàng", Text = "Đang giao hàng" },
+                new SelectListItem { Value = "Giao hàng thành công", Text = "Giao hàng thành công" },
+            };
+
+            ViewData["Status"] = new SelectList(status, "Value", "Text");
+
             return View(orderVm);
         }
 
@@ -86,46 +122,68 @@ namespace nitecare.Areas.Admin.Controllers
             {
                 try
                 {
-                    var order = new Order();
+                    // data productid + quantity
+                    var product = (from p in _context.Products
+                                   orderby p.ProductId descending
+                                   select new Product()
+                                   {
+                                       ProductId = p.ProductId,
+                                       ProductImage = p.ProductImage,
+                                       ProductName = p.ProductName,
+                                       Price = p.Price,
+                                       OriginalPrice = p.OriginalPrice,
+                                       Voucher = p.Voucher
+                                   }).ToList();
+                    ViewBag.ListProduct = product;
+                    //find customer ->update
+                    var customer = _context.Customers.Where(x => x.CustomerId == orderVm.CustomerId).FirstOrDefault();
+                    customer.Name = orderVm.Name;
+                    customer.Email = orderVm.Email;
+                    customer.Phone = orderVm.Phone;
+                    customer.City = orderVm.City;
+                    customer.District = orderVm.District;
+                    customer.Ward = orderVm.Ward;
+                    customer.Road = orderVm.Road;
+                    _context.Customers.Update(customer);
+
                     var listOrderDetail = new List<OrderDetail>();
-                    //find and remove
-                    order = _context.Orders.Include(x => x.OrderDetails).FirstOrDefault(x => x.OrderId == id);
-                    foreach(var item in order.OrderDetails.ToList())
-                    {
-                        var orderDetail = new OrderDetail()
-                        {
-                            OrderId = order.OrderId,
-                            ProductId = item.ProductId,
-                            Quantity = item.Quantity
-                        };
-                        listOrderDetail.Add(orderDetail);
-                    }
+                    //find order -> remove
+                    var order = _context.Orders.Include(x => x.OrderDetails).FirstOrDefault(x => x.OrderId ==orderVm.OrderId );
+                    order.OrderDetails.ToList().ForEach(result => listOrderDetail.Add(result));
                     _context.OrderDetails.RemoveRange(listOrderDetail);
                     await _context.SaveChangesAsync();
 
-                    //update
+                    //update order
                     order.OrderId = orderVm.OrderId;
                     order.ShipDate = orderVm.ShipDate;
                     order.PaymentId = orderVm.PaymentId;
-                    order.Total = orderVm.Total;
                     order.Deleted = orderVm.Deleted;
                     order.Status = orderVm.Status;
                     order.FeedbackId = orderVm.FeedbackId;
                     order.PaymentId = orderVm.PaymentId;
                     if (orderVm.CartItems.Count > 0)
                     {
-                        foreach(var item in orderVm.CartItems)
+                        decimal totalHtml = 0;
+                        listOrderDetail = new List<OrderDetail>();
+                        foreach (var item in orderVm.CartItems)
                         {
+                            totalHtml += item.Price * item.Quantity;
                             listOrderDetail.Add(new OrderDetail()
                             {
                                 OrderId = order.OrderId,
-                                ProductId=item.ProductId,
-                                Quantity=item.Quantity
+                                ProductId = item.ProductId,
+                                Quantity = item.Quantity,
                             });
                         }
-                        order.OrderDetails = listOrderDetail;
+                        order.Total = totalHtml;
+                        //update orderDetails
+                        _context.OrderDetails.AddRange(listOrderDetail);
+                        _context.SaveChanges();
+                        _context.Orders.Update(order);
+                        _context.SaveChanges();
+
                     }
-                    _context.SaveChanges();
+                   
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -142,10 +200,17 @@ namespace nitecare.Areas.Admin.Controllers
             }
             ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Email", orderVm.CustomerId);
             ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent", orderVm.FeedbackId);
-            ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentContent", orderVm.PaymentId);
+            ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentName", orderVm.PaymentId);
+            var status = new List<SelectListItem>()
+            {
+                new SelectListItem { Value = "Chờ xác nhận", Text = "Chờ xác nhận" },
+                new SelectListItem { Value = "Đang giao hàng", Text = "Đang giao hàng" },
+                new SelectListItem { Value = "Giao hàng thành công", Text = "Giao hàng thành công" },
+            };
+
+            ViewData["Status"] = new SelectList(status, "Value", "Text"); 
             return View(orderVm);
         }
-
         // GET: Admin/AdminOrders/Delete/5
         public IActionResult Delete(int? id)
         {

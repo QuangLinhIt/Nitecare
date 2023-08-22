@@ -1,62 +1,183 @@
-﻿@model nitecare.Model.Order
+﻿@using nitecare.Model
+@model nitecare.BaseModel.OrderVm
 
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<Product> listProduct = ViewBag.ListProduct;
 }
 
-<h1>Edit</h1>
 
-<h4>Order</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="OrderId" />
-            <div class="form-group">
-                <label asp-for="ShipDate" class="control-label"></label>
-                <input asp-for="ShipDate" class="form-control" />
-                <span asp-validation-for="ShipDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PaymentId" class="control-label"></label>
-                <select asp-for="PaymentId" class="form-control" asp-items="ViewBag.PaymentId"></select>
-                <span asp-validation-for="PaymentId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Total" class="control-label"></label>
-                <input asp-for="Total" class="form-control" />
-                <span asp-validation-for="Total" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Deleted" /> @Html.DisplayNameFor(model => model.Deleted)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FeedbackId" class="control-label"></label>
-                <select asp-for="FeedbackId" class="form-control" asp-items="ViewBag.FeedbackId"></select>
-                <span asp-validation-for="FeedbackId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CustomerId" class="control-label"></label>
-                <input asp-for="CustomerId" class="form-control" />
-                <span asp-validation-for="CustomerId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="row mx-10">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="OrderId" />
+        <input type="hidden" asp-for="CustomerId" />
+        <input type="hidden" asp-for="FeedbackId" />
+
+        <h5 class="col-md-12">Thông tin khách hàng</h5>
+        <hr class="col-md-12" />
+        <div class="form-group col-md-6">
+            <label asp-for="Name" class="control-label">Tên khách hàng</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="Email" class="control-label">Email</label>
+            <input asp-for="Email" class="form-control" type="email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="Phone" class="control-label">Số điện thoại</label>
+            <input asp-for="Phone" class="form-control" type="number" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="City" class="control-label">Tỉnh/thành phố</label>
+            <input asp-for="City" class="form-control" type="text" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="District" class="control-label">Quận/huyện</label>
+            <input asp-for="District" class="form-control" type="text" />
+            <span asp-validation-for="District" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Ward" class="control-label">Phường/Xã</label>
+            <input asp-for="Ward" class="form-control" type="text" />
+            <span asp-validation-for="Ward" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Road" class="control-label">Số nhà/tên đường</label>
+            <input asp-for="Road" class="form-control" type="text" />
+            <span asp-validation-for="Road" class="text-danger"></span>
+        </div>
+        <h5 class="col-md-12 mt-20">Sản phẩm đã chọn</h5>
+        <hr class="col-md-12" />
+
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper mb-30">
+                <div class="form-inline align-items-center">
+                    <div class="col-auto form-group px-2 mb-3">
+                        <input type="text" class="form-control form-control-sm" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-sm btn-light ml-1" type="button"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="col-auto mb-3 px-2">
+                        <a class="btn btn-sm btn-info waves-effect waves-light" data-animation="fadein" data-plugin="custommodal" data-overlaycolor="#38414a" id="addNewProductToOrder"><i class="fas fa-layer-plus mr-1"></i>add new</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-wrap">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover mb-0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th class="py-3">#</th>
+                                            <th class="py-3">Hình ảnh</th>
+                                            <th class="py-3">Sản phẩm</th>
+                                            <th class="py-3">Giá nhập</th>
+                                            <th class="py-3">Giá bán</th>
+                                            <th class="py-3">Số lượng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="eachItemInOrder">
+                                        @{int index = 0;}
+                                        @foreach (var item in Model.CartItems)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <a id="deleteHtmlCart" data-toggle="tooltip" data-original-title="Xóa"><i class="far fa-trash-alt text-danger"></i></a>
+                                                </td>
+                                                <td><div class="avatar avatar-xs rounded" style="background-image: url('/product/@item.ProductImage');width:90px;height:50px;"></div></td>
+                                                <td>
+                                                    <input asp-for="CartItems[index].ProductId" value="@item.ProductId" hidden />
+                                                    <input class="form-control" type="text" value="@item.ProductName" readonly />
+                                                </td>
+                                                <td><input class="form-control" type="text" value="@item.OriginalPrice" readonly /></td>
+                                                <td><input class="form-control" type="text" asp-for="CartItems[index].Price" value="@item.Price" readonly /></td>
+                                                <td><input class="form-control" type="text" asp-for="CartItems[index].Quantity" value="@item.Quantity" /></td>
+                                            </tr>
+                                            index++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <hr class="col-md-12" />
+        <div class="form-group col-md-6">
+            <label asp-for="PaymentId" class="control-label">Phương thức thanh toán</label>
+            <select class="form-control" asp-for="PaymentId" asp-items="ViewBag.PaymentId"></select>
+            <span asp-validation-for="PaymentId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Status" class="control-label">Trạng thái đơn hàng</label>
+            <select class="form-control" asp-for="Status" asp-items="ViewBag.Status"></select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-12">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+        <div class="form-group col-md-12">
+            <a class="btn btn-dark" asp-action="Index">Back</a>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</form>
 
+@section Scripts{
+    <script>
+
+        document.getElementById('addNewProductToOrder').addEventListener('click', function () {
+            var tbody = document.getElementById('eachItemInOrder');
+            var indexDom = tbody.rows.length;
+            var addRow = document.createElement("tr");
+            addRow.innerHTML =
+                `
+                    <td>
+                        <a data-toggle="tooltip" data-original-title="Xóa"><i class="far fa-trash-alt text-danger"></i></a>
+                    </td>
+                    <td><div class="avatar avatar-xs rounded" style="width:90px;height:50px" id="productImage"></div></td>
+                    <td>
+                        <select class="form-control" id="productSelect">
+                                @foreach (var product in listProduct)
+                                {
+                                        <option data-info='{"productId":"@product.ProductId","image":"@product.ProductImage","price":"@product.Price","originalPrice":"@product.OriginalPrice"}'>@product.ProductName</option>
+                                }
+                        </select>
+                    </td>
+                    <td><input class="form-control" type="text" name="CartItems[${indexDom}].Price" readonly id="productPrice"/></td>
+                    <td><input class="form-control" type="text" readonly id="productOriginalPrice"/></td>
+                    <td>
+                        <input type="hidden" id="inputProductId" name="CartItems[${indexDom}].ProductId"/>
+                        <input class="form-control" type="text" name="CartItems[${indexDom}].Quantity" value = "1" />
+                    </td>
+                `;
+            tbody.appendChild(addRow);
+
+            var productSelect = addRow.querySelector("#productSelect");
+            productSelect.addEventListener('change', function () {
+                var selectedOption = productSelect.options[productSelect.selectedIndex];
+                var optionInfo = JSON.parse(selectedOption.getAttribute('data-info'));
+
+                var productId = parseInt(optionInfo.productId);
+                var price = parseInt(optionInfo.price);
+                var image = optionInfo.image;
+                var originalPrice = optionInfo.originalPrice;
+                addRow.querySelector("#inputProductId").value = productId;
+                addRow.querySelector("#productPrice").value = price;
+                addRow.querySelector("#productOriginalPrice").value = originalPrice;
+                addRow.querySelector("#productImage").style.backgroundImage = `url('/product/${image}')`;
+            });
+        });
+
+    </script>
+}

@@ -31,6 +31,7 @@ namespace nitecare.Model
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -173,7 +174,7 @@ namespace nitecare.Model
                     .WithMany(p => p.ProductCategories)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductCategories_Products");
+                    .HasConstraintName("FK_ProductCategories_Products1");
             });
 
             modelBuilder.Entity<ProductDetail>(entity =>
