@@ -89,7 +89,7 @@
                                         {
                                             <tr>
                                                 <td>
-                                                    <a id="deleteHtmlCart" data-toggle="tooltip" data-original-title="Xóa"><i class="far fa-trash-alt text-danger"></i></a>
+                                                    <a id="deleteHtmlCart"  data-toggle="tooltip" data-original-title="Xóa"><i class="far fa-trash-alt text-danger"></i></a>
                                                 </td>
                                                 <td><div class="avatar avatar-xs rounded" style="background-image: url('/product/@item.ProductImage');width:90px;height:50px;"></div></td>
                                                 <td>
@@ -101,6 +101,7 @@
                                                 <td><input class="form-control" type="text" asp-for="CartItems[index].Quantity" value="@item.Quantity" /></td>
                                             </tr>
                                             index++;
+
                                         }
                                     </tbody>
                                 </table>
@@ -137,6 +138,7 @@
     <script>
             document.getElementById('addNewProductToOrder').addEventListener('click', function () {
                 var tbody = document.getElementById('eachItemInOrder');
+                
                 var indexDom = tbody.rows.length;
                 var addRow = document.createElement("tr");
                 addRow.innerHTML =
