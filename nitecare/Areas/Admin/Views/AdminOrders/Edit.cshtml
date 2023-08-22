@@ -135,15 +135,14 @@
 
 @section Scripts{
     <script>
-
-        document.getElementById('addNewProductToOrder').addEventListener('click', function () {
-            var tbody = document.getElementById('eachItemInOrder');
-            var indexDom = tbody.rows.length;
-            var addRow = document.createElement("tr");
-            addRow.innerHTML =
-                `
+            document.getElementById('addNewProductToOrder').addEventListener('click', function () {
+                var tbody = document.getElementById('eachItemInOrder');
+                var indexDom = tbody.rows.length;
+                var addRow = document.createElement("tr");
+                addRow.innerHTML =
+                    `
                     <td>
-                        <a data-toggle="tooltip" data-original-title="Xóa"><i class="far fa-trash-alt text-danger"></i></a>
+                        <a id="deleteHtmlDomCart" data-toggle="tooltip" data-original-title="Xóa"><i class="far fa-trash-alt text-danger"></i></a>
                     </td>
                     <td><div class="avatar avatar-xs rounded" style="width:90px;height:50px" id="productImage"></div></td>
                     <td>
@@ -161,23 +160,25 @@
                         <input class="form-control" type="text" name="CartItems[${indexDom}].Quantity" value = "1" />
                     </td>
                 `;
-            tbody.appendChild(addRow);
+                tbody.appendChild(addRow);
+                var deleteRow = addRow.querySelector("#deleteHtmlDomCart");
+                deleteRow.addEventListener('click', function () {
+                    tbody.removeChild(addRow);
+                })
+                var productSelect = addRow.querySelector("#productSelect");
+                productSelect.addEventListener('change', function () {
+                    var selectedOption = productSelect.options[productSelect.selectedIndex];
+                    var optionInfo = JSON.parse(selectedOption.getAttribute('data-info'));
 
-            var productSelect = addRow.querySelector("#productSelect");
-            productSelect.addEventListener('change', function () {
-                var selectedOption = productSelect.options[productSelect.selectedIndex];
-                var optionInfo = JSON.parse(selectedOption.getAttribute('data-info'));
-
-                var productId = parseInt(optionInfo.productId);
-                var price = parseInt(optionInfo.price);
-                var image = optionInfo.image;
-                var originalPrice = optionInfo.originalPrice;
-                addRow.querySelector("#inputProductId").value = productId;
-                addRow.querySelector("#productPrice").value = price;
-                addRow.querySelector("#productOriginalPrice").value = originalPrice;
-                addRow.querySelector("#productImage").style.backgroundImage = `url('/product/${image}')`;
+                    var productId = parseInt(optionInfo.productId);
+                    var price = parseInt(optionInfo.price);
+                    var image = optionInfo.image;
+                    var originalPrice = optionInfo.originalPrice;
+                    addRow.querySelector("#inputProductId").value = productId;
+                    addRow.querySelector("#productPrice").value = price;
+                    addRow.querySelector("#productOriginalPrice").value = originalPrice;
+                    addRow.querySelector("#productImage").style.backgroundImage = `url('/product/${image}')`;
+                });
             });
-        });
-
     </script>
 }
