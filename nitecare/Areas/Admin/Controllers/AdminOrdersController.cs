@@ -30,7 +30,7 @@ namespace nitecare.Areas.Admin.Controllers
                 .Include(x => x.Feedback)
                 .Include(x => x.OrderDetails)
                 .ThenInclude(x => x.Product)
-                .OrderByDescending(x=>x.OrderId)
+                .OrderByDescending(x => x.OrderId)
                 .ToList();
             return View(order);
         }
@@ -135,34 +135,28 @@ namespace nitecare.Areas.Admin.Controllers
                                        Voucher = p.Voucher
                                    }).ToList();
                     ViewBag.ListProduct = product;
-                    //find customer ->update
-                    var customer = _context.Customers.Where(x => x.CustomerId == orderVm.CustomerId).FirstOrDefault();
-                    customer.Name = orderVm.Name;
-                    customer.Email = orderVm.Email;
-                    customer.Phone = orderVm.Phone;
-                    customer.City = orderVm.City;
-                    customer.District = orderVm.District;
-                    customer.Ward = orderVm.Ward;
-                    customer.Road = orderVm.Road;
-                    _context.Customers.Update(customer);
+                    
 
                     var listOrderDetail = new List<OrderDetail>();
                     //find order -> remove
-                    var order = _context.Orders.Include(x => x.OrderDetails).FirstOrDefault(x => x.OrderId ==orderVm.OrderId );
+                    var order = _context.Orders.Include(x => x.OrderDetails).FirstOrDefault(x => x.OrderId == orderVm.OrderId);
                     order.OrderDetails.ToList().ForEach(result => listOrderDetail.Add(result));
                     _context.OrderDetails.RemoveRange(listOrderDetail);
                     await _context.SaveChangesAsync();
 
-                    //update order
-                    order.OrderId = orderVm.OrderId;
-                    order.ShipDate = orderVm.ShipDate;
-                    order.PaymentId = orderVm.PaymentId;
-                    order.Deleted = orderVm.Deleted;
-                    order.Status = orderVm.Status;
-                    order.FeedbackId = orderVm.FeedbackId;
-                    order.PaymentId = orderVm.PaymentId;
-                    if (orderVm.CartItems.Count > 0)
+                    
+                    if (orderVm.CartItems !=null)
                     {
+                        //find customer ->update
+                        var customer = _context.Customers.Where(x => x.CustomerId == orderVm.CustomerId).FirstOrDefault();
+                        customer.Name = orderVm.Name;
+                        customer.Email = orderVm.Email;
+                        customer.Phone = orderVm.Phone;
+                        customer.City = orderVm.City;
+                        customer.District = orderVm.District;
+                        customer.Ward = orderVm.Ward;
+                        customer.Road = orderVm.Road;
+                        _context.Customers.Update(customer);
                         decimal totalHtml = 0;
                         listOrderDetail = new List<OrderDetail>();
                         foreach (var item in orderVm.CartItems)
@@ -175,15 +169,29 @@ namespace nitecare.Areas.Admin.Controllers
                                 Quantity = item.Quantity,
                             });
                         }
-                        order.Total = totalHtml;
                         //update orderDetails
                         _context.OrderDetails.AddRange(listOrderDetail);
                         _context.SaveChanges();
+                        //update order
+                        order.OrderId = orderVm.OrderId;
+                        order.ShipDate = orderVm.ShipDate;
+                        order.PaymentId = orderVm.PaymentId;
+                        order.Deleted = orderVm.Deleted;
+                        order.Status = orderVm.Status;
+                        order.FeedbackId = orderVm.FeedbackId;
+                        order.PaymentId = orderVm.PaymentId;
+                        order.Total = totalHtml;
                         _context.Orders.Update(order);
                         _context.SaveChanges();
 
                     }
-                   
+                    else
+                    {
+                        _context.Orders.Remove(order);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -198,7 +206,6 @@ namespace nitecare.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Email", orderVm.CustomerId);
             ViewData["FeedbackId"] = new SelectList(_context.Feedbacks, "FeedbackId", "FeedbackContent", orderVm.FeedbackId);
             ViewData["PaymentId"] = new SelectList(_context.Payments, "PaymentId", "PaymentName", orderVm.PaymentId);
             var status = new List<SelectListItem>()
@@ -208,7 +215,7 @@ namespace nitecare.Areas.Admin.Controllers
                 new SelectListItem { Value = "Giao hàng thành công", Text = "Giao hàng thành công" },
             };
 
-            ViewData["Status"] = new SelectList(status, "Value", "Text"); 
+            ViewData["Status"] = new SelectList(status, "Value", "Text");
             return View(orderVm);
         }
         // GET: Admin/AdminOrders/Delete/5

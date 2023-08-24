@@ -85,24 +85,28 @@
                                     </thead>
                                     <tbody id="eachItemInOrder">
                                         @{int index = 0;}
-                                        @foreach (var item in Model.CartItems)
+                                        @if (Model.CartItems != null)
                                         {
-                                            <tr>
-                                                <td>
-                                                    <a id="deleteHtmlCart"  data-toggle="tooltip" data-original-title="Xóa"><i class="far fa-trash-alt text-danger"></i></a>
-                                                </td>
-                                                <td><div class="avatar avatar-xs rounded" style="background-image: url('/product/@item.ProductImage');width:90px;height:50px;"></div></td>
-                                                <td>
-                                                    <input asp-for="CartItems[index].ProductId" value="@item.ProductId" hidden />
-                                                    <input class="form-control" type="text" value="@item.ProductName" readonly />
-                                                </td>
-                                                <td><input class="form-control" type="text" value="@item.OriginalPrice" readonly /></td>
-                                                <td><input class="form-control" type="text" asp-for="CartItems[index].Price" value="@item.Price" readonly /></td>
-                                                <td><input class="form-control" type="text" asp-for="CartItems[index].Quantity" value="@item.Quantity" /></td>
-                                            </tr>
-                                            index++;
+                                            @foreach (var item in Model.CartItems)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <a data-toggle="tooltip" data-original-title="Xóa" onclick="SomeDeleteRowFunction(this,@index)"><i class="far fa-trash-alt text-danger"></i></a>
+                                                    </td>
+                                                    <td><div class="avatar avatar-xs rounded" style="background-image: url('/product/@item.ProductImage');width:90px;height:50px;"></div></td>
+                                                    <td>
+                                                        <input asp-for="CartItems[index].ProductId" value="@item.ProductId" hidden />
+                                                        <input class="form-control" type="text" value="@item.ProductName" readonly />
+                                                    </td>
+                                                    <td><input class="form-control" type="text" value="@item.OriginalPrice" readonly /></td>
+                                                    <td><input class="form-control" type="text" asp-for="CartItems[index].Price" value="@item.Price" readonly /></td>
+                                                    <td><input class="form-control" type="text" asp-for="CartItems[index].Quantity" value="@item.Quantity" /></td>
+                                                </tr>
+                                                index++;
 
+                                            }
                                         }
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -136,9 +140,8 @@
 
 @section Scripts{
     <script>
-            document.getElementById('addNewProductToOrder').addEventListener('click', function () {
+        document.getElementById('addNewProductToOrder').addEventListener('click', function () {
                 var tbody = document.getElementById('eachItemInOrder');
-                
                 var indexDom = tbody.rows.length;
                 var addRow = document.createElement("tr");
                 addRow.innerHTML =
@@ -181,6 +184,29 @@
                     addRow.querySelector("#productOriginalPrice").value = originalPrice;
                     addRow.querySelector("#productImage").style.backgroundImage = `url('/product/${image}')`;
                 });
-            });
+        });
+    </script>
+    <script type="text/javascript">
+        function SomeDeleteRowFunction(o,index) {
+            //no clue what to put here?
+            console.log("check index", index);
+            var p = o.parentNode.parentNode;
+            p.parentNode.removeChild(p);
+
+            // Update index values of remaining rows
+            var tbody = document.getElementById("eachItemInOrder");
+            var rows = tbody.que("tr");
+            for (var i = index; i < rows.length; i++) {
+                var inputs = rows[i].getElementsByTagName("input");
+                for (var j = 0; j < inputs.length; j++) {
+                    var input = inputs[j];
+                    var name = input.getAttribute("name");
+                    if (name) {
+                        input.setAttribute("name", name.replace(/\[(\d+)\]/, "[" + (i - 1) + "]"));
+                    }
+                }
+            }
+
+        }
     </script>
 }
