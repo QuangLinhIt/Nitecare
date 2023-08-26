@@ -123,19 +123,6 @@
                 }
             })
         }
-        function IncreaseQuantity(productId, quantity) {
-            quantity++;
-            UpdateToCartOnOrder(productId, quantity);
-        }
-        function DecreaseQuantity(productId, quantity) {
-            if (quantity > 1) {
-                quantity--;
-                UpdateToCartOnOrder(productId, quantity);
-            }
-            else {
-                RemoveCart(productId);
-            }
-        }
         // Retrieve the cart items
         var cartItems = GetCarts();
         var count = cartItems.length;
@@ -165,59 +152,78 @@
 
             // Create the inner HTML structure for the cart item
             cartItemDiv.innerHTML = `
-                                                            <div class="cell cell-del">
-                                                              <a class="btn-del" alt="" title="" onclick="RemoveCart(${item.productId})" > <span class="fal fa-times"></span></a>
-                                                            </div>
-                                                            <div class="cell cell-img">
-                                                              <div class="thumb-res square">
-                                                                  <img >
-                                                              </div>
-                                                            </div>
-                                                            <div class="cell cell-info">
-                                                              <div class="tt fw-medium" data-productId="${item.productId}"></div>
-                                                              <div class="row gy-3 align-items-center">
-                                                                 <div class="col-4">
-                                                                     <div class="info">
-                                                                         Màu
-                                                                     </div>
-                                                                 </div>
-                                                              <div class="col-8">
-                                                                <div class="color">
-                                                                   <span class="ball" style="--color-ball:#ECC2C7;"></span>Hồng đất
-                                                                </div>
-                                                              </div>
-                                                              <div class="col-4">
-                                                                 <div class="info">
-                                                                     Kích thước
-                                                                  </div>
-                                                              </div>
-                                                              <div class="col-8">
-                                                                <div class="size">
-                                                                     M - 73cm x 63cm x 22cm
-                                                                </div>
-                                                              </div>
-                                                                <div class="col-4">
-                                                                  <div class="info">
-                                                                    Số lượng
-                                                                  </div>
-                                                                </div>
-                                                                <div class="col-8">
-                                                                  <div class="form-quantity">
-                                                                    <input class="form-control" type="text" value="${item.quantity}" id="quantityChange">
-                                                                    <a class="control-down fa fa-minus" role="button" onclick="DecreaseQuantity(${item.productId},${item.quantity})"></a>
-                                                                    <a class="control-up fa fa-plus" role="button" onclick="IncreaseQuantity(${item.productId},${item.quantity})"></a>
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                            <div class="cell cell-price">
-                                                              <div class="price-origin">${item.price}<u>đ</u></div>
-                                                              <del class="price-sale">${item.originalPrice}<u>đ</u></del>
-                                                            </div>
-                                                      `;
+                                                                    <div class="cell cell-del">
+                                                                      <a class="btn-del" alt="" title="" onclick="RemoveCart(${item.productId})" > <span class="fal fa-times"></span></a>
+                                                                    </div>
+                                                                    <div class="cell cell-img">
+                                                                      <div class="thumb-res square">
+                                                                          <img >
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="cell cell-info">
+                                                                      <div class="tt fw-medium" data-productId="${item.productId}"></div>
+                                                                      <div class="row gy-3 align-items-center">
+                                                                         <div class="col-4">
+                                                                             <div class="info">
+                                                                                 Màu
+                                                                             </div>
+                                                                         </div>
+                                                                      <div class="col-8">
+                                                                        <div class="color">
+                                                                           <span class="ball" style="--color-ball:#ECC2C7;"></span>Hồng đất
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="col-4">
+                                                                         <div class="info">
+                                                                             Kích thước
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-8">
+                                                                        <div class="size">
+                                                                             M - 73cm x 63cm x 22cm
+                                                                        </div>
+                                                                      </div>
+                                                                        <div class="col-4">
+                                                                          <div class="info">
+                                                                            Số lượng
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="col-8">
+                                                                          <div class="form-quantity">
+                                                                            <input class="form-control" type="text" value="${item.quantity}" id="quantityChangeHtmlDom">
+                                                                            <a class="control-down fa fa-minus" role="button" id="buttonDecreaseQuantity"></a>
+                                                                            <a class="control-up fa fa-plus" role="button" id="buttonIncreaseQuantity"></a>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="cell cell-price">
+                                                                      <div class="price-origin">${item.price}<u>đ</u></div>
+                                                                      <del class="price-sale">${item.originalPrice}<u>đ</u></del>
+                                                                    </div>
+                                                              `;
 
             // Append the cart item <div> to the cartItemsList <div>
             cartItemsList.appendChild(cartItemDiv);
+            // button decrease quantity
+            cartItemDiv.querySelector("#buttonDecreaseQuantity").addEventListener('click', function () {
+                var quantity = cartItemDiv.querySelector("#quantityChangeHtmlDom").value;
+                if (quantity > 1) {
+                    quantity--;
+                    UpdateToCartOnOrder(item.productId, quantity);
+                    cartItemDiv.querySelector("#quantityChangeHtmlDom").value = quantity;
+                }
+                else {
+                    RemoveCart(item.productId);
+                }
+            });
+            //button increase quantity
+            cartItemDiv.querySelector("#buttonIncreaseQuantity").addEventListener('click', function () {
+                var quantity = cartItemDiv.querySelector("#quantityChangeHtmlDom").value;
+                quantity++;
+                UpdateToCartOnOrder(item.productId, quantity);
+                cartItemDiv.querySelector("#quantityChangeHtmlDom").value = quantity;
+            });
 
         });
         var TotalOrder = document.getElementById('totalOrder');

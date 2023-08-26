@@ -1,0 +1,94 @@
+﻿@model List<nitecare.ViewModels.ManagerOrderDto>;
+@{
+    ViewData["Title"] = "ManagerOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="mainer">
+    <div class="block-bg block-user">
+        <div class="container py-4">
+            <div class="block-sidebar gy-3 mb-3" data-wrapper>
+                <div class="sidebar order-md-1 mb-4 mb-md-2" data-sidebar>
+                    <div data-stick data-width-fill>
+                        <div class="pane pane-menu pane-user">
+                            <div class="tt-xs tt-ball text-primary">Tài khoản</div>
+                            <ul class="menu-vertical">
+                                <li>
+                                    <a href="user.html" title="" alt="" target="_self">Thông tin cá nhân<i class="i-vertical fa fa-angle-right"></i></a>
+                                </li>
+                                <li class="active">
+                                    <a href="manager.html" title="" alt="" target="_self">Quản lý đơn hàng<i class="i-vertical fa fa-angle-right"></i></a>
+                                </li>
+                                <li>
+                                    <a href="login.html" title="" alt="" target="_self">Đăng xuất</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mainbody mb-4 mb-md-0 order-md-2" data-mainbody>
+                    <div class="tt-lg tt-icon fw-medium text-primary">Quản lý đơn hàng</div>
+                    <div class="table-responsive table-scroll">
+                        <table class="table table-manager">
+                            <thead>
+                            <th>Mã đơn hàng</th>
+                            <th>Ngày đặt</th>
+                            <th>Tình trạng</th>
+                            <th>Thanh toán</th>
+                            <th>Tổng tiền</th>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td># @item.OrderId</td>
+                                        <td>@item.ShipDate.ToShortDateString()</td>
+                                        <td>@item.StatusOrder</td>
+                                        <td>@item.StatusPayment</td>
+                                        <td><span class="price">@item.Total.ToString("#,###,###,##0") đ</span></td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-customer py-3">
+        <div class="container">
+            <div class="carousel-logo-o">
+                <div class="carousel-logo">
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-2.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-3.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-4.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-5.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+

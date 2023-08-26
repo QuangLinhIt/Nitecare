@@ -96,6 +96,7 @@
                                                     <td><div class="avatar avatar-xs rounded" style="background-image: url('/product/@item.ProductImage');width:90px;height:50px;"></div></td>
                                                     <td>
                                                         <input asp-for="CartItems[index].ProductId" value="@item.ProductId" hidden />
+                                                        <input asp-for="CartItems[index].isShow" value="true" hidden id="isShowHtmlCartItem" />
                                                         <input class="form-control" type="text" value="@item.ProductName" readonly />
                                                     </td>
                                                     <td><input class="form-control" type="text" value="@item.OriginalPrice" readonly /></td>
@@ -161,6 +162,7 @@
                     <td><input class="form-control" type="text" name="CartItems[${indexDom}].Price" readonly id="productPrice"/></td>
                     <td><input class="form-control" type="text" readonly id="productOriginalPrice"/></td>
                     <td>
+                        <input type="hidden" id="inputIsShow" name="CartItems[${indexDom}].isShow" value="true"/>
                         <input type="hidden" id="inputProductId" name="CartItems[${indexDom}].ProductId"/>
                         <input class="form-control" type="text" name="CartItems[${indexDom}].Quantity" value = "1" />
                     </td>
@@ -168,7 +170,8 @@
                 tbody.appendChild(addRow);
                 var deleteRow = addRow.querySelector("#deleteHtmlDomCart");
                 deleteRow.addEventListener('click', function () {
-                    tbody.removeChild(addRow);
+                    addRow.style.display = 'none';
+                    addRow.querySelector("#inputIsShow").value = "false";
                 })
                 var productSelect = addRow.querySelector("#productSelect");
                 productSelect.addEventListener('change', function () {
@@ -191,22 +194,8 @@
             //no clue what to put here?
             console.log("check index", index);
             var p = o.parentNode.parentNode;
-            p.parentNode.removeChild(p);
-
-            // Update index values of remaining rows
-            var tbody = document.getElementById("eachItemInOrder");
-            var rows = tbody.que("tr");
-            for (var i = index; i < rows.length; i++) {
-                var inputs = rows[i].getElementsByTagName("input");
-                for (var j = 0; j < inputs.length; j++) {
-                    var input = inputs[j];
-                    var name = input.getAttribute("name");
-                    if (name) {
-                        input.setAttribute("name", name.replace(/\[(\d+)\]/, "[" + (i - 1) + "]"));
-                    }
-                }
-            }
-
+            p.style.display = 'none';
+            p.querySelector("#isShowHtmlCartItem").value = "false";
         }
     </script>
 }

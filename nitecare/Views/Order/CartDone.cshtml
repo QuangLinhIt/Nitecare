@@ -1,0 +1,91 @@
+﻿@model nitecare.Model.Order
+@{
+    ViewData["Title"] = "CartDone";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="banner-lg block-bg" style="background-image: url('css/skin/slider/banner-cart.png')">
+    <div class="container d-flex align-items-center h-100">
+        <div class="text-banner">
+            <h1 class="tt-md text-uppercase">Giỏ hàng</h1>
+            <nav arial-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html" title="" alt="" target="_self">Trang chủ</a>
+                    </li>
+                    <li class="breadcrumb-item active"><a href="index.html" title="" alt="" target="_self">Giỏ hàng</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<main class="mainer">
+    <div class="block-bg">
+        <div class="container py-5">
+            <div class="row gy-3">
+                <div class="col-12 col-md-6 wow fadeIn order-md-2">
+                    <div class="thumb-res wide-lg">
+                        <img src="css/skin/cart-done.png">
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 wow fadeIn order-md-1">
+                    <div class="tt-lg tt-icon text-primary">Đặt hàng thành công</div>
+                    <div class="desc text-desc mb-3">
+                        Cám ơn bạn đã đặt hàng tại Nitecare. Đơn hàng của bạn đang được xử lý, chúng tôi sẽ liên hệ với bạn
+                        trong thời gian sớm nhất.
+                    </div>
+                    <div class="block block-cart-done">
+                        <div class="text-desc">Đơn hàng: <span class="text-primary"># @Model.OrderId</span></div>
+                        <ul>
+                            <li class="text-desc">Người nhận: <span class="fw-medium text-body">@Model.Customer.Name</span></li>
+                            <li class="text-desc">Số điện thoại: <span class="fw-medium text-body">@Model.Customer.Phone</span></li>
+                            <li class="text-desc">
+                                Địa chỉ: <span class="fw-medium text-body">
+                                    @Model.Customer.Road, @Model.Customer.Ward, @Model.Customer.District, @Model.Customer.City
+                                </span>
+                            </li>
+                            <li class="text-desc">Tổng tiền: <span class="fw-medium price-origin">@Model.Total.ToString("#,###,###,##0")<u>đ</u></span></li>
+                        </ul>
+                    </div>
+                    <div class="d-flex align-items-center flex-wrap justify-content-center">
+                        <a class="btn btn-outline-primary mr-sm-2 mb-2" alt="" title="" href="manager">Quản lý đơn hàng</a>
+                        <a class="btn btn-secondary mb-2" alt="" title="" href="product">Tiếp tục mua hàng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-bg block-customer py-3">
+        <div class="container">
+            <div class="carousel-logo-o">
+                <div class="carousel-logo">
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-2.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-3.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-4.png">
+                        </a>
+                    </div>
+                    <div class="carousel-cell">
+                        <a class="thumb-res wide-sm" alt="" title="" href="#">
+                            <img src="css/skin/Company logo/Company logo-5.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

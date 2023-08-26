@@ -25,7 +25,7 @@
 
     // Save the updated cart items to localStorage
     localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
-    location.reload();
+    location.href = '/product';
 
 }
 function GetCarts() {
@@ -67,7 +67,6 @@ function UpdateToCartOnOrder(productId, quantity) {
 
     // Save the updated cart items to localStorage
     localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
-    location.reload();
 }
 function ResetAfterSaveOrder() {
     localStorage.setItem('cartItems', "[]");

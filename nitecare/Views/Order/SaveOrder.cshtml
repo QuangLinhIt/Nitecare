@@ -1,10 +1,13 @@
-﻿@using nitecare.Model
+﻿﻿@using nitecare.Model
+
 @model nitecare.ViewModels.OrderDto
+
 
 @{
     ViewData["Title"] = "Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<Payment> listPayment = ViewBag.ThanhToan;
+
 }
 
 <div class="banner-lg block-bg" style="background-image: url('css/skin/slider/banner-cart.png')">
@@ -40,10 +43,10 @@
                         <div class="block-color block-cart">
                             <div class="d-sm-flex justify-content-between mb-3">
                                 <div class="tt-ball tt-xs text-primary fw-medium">Đơn hàng</div>
-                                @*<div class="text-desc">#12345</div>*@
+                                 @*<div class="text-desc">#12345</div>*@
                             </div>
                             <div id="cartListItemOrder">
-                                @*danh sach san pham*@
+                                 @*danh sach san pham*@
                             </div>
                             <div class="d-flex align-items-start justify-content-between mb-3">
                                 <div class="tt text-body fw-medium">Thành tiền</div>
@@ -125,18 +128,13 @@
                                         <div class="form-check">
                                             <input class="form-check-input" id="radio1b" type="radio"
                                                    name="flexRadioDefault" value="@item.PaymentId" required>
-                                            <label class="form-check-label" for="radio1b">
-                                                @item.PaymentName
-                                            </label>
+                                            <label class="form-check-label" for="radio1b">@item.PaymentName</label>
                                             <div class="form-tax-o">
                                                 <div class="form-tax">
-                                                    <div class="text-dark mb-2">
-                                                        @item.PaymentContent
-                                                    </div>
+                                                    <div class="text-dark mb-2">@item.PaymentContent</div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     }
                                 </div>
                             </div>
@@ -185,6 +183,7 @@
         </div>
     </div>
 </main>
+
 @section Scripts{
     <script>
         var cartItems = GetCarts();
@@ -221,31 +220,31 @@
             // Create the inner HTML structure for the cart item
             cartItemDiv.innerHTML =
                 `
-                                        <div class="block-order">
-                                        <div class="info">
-                                            <input type="hidden" name="ProductItems[${index}].ProductId" value="${item.productId}"/>
-                                            <input type="hidden" name="ProductItems[${index}].Quantity" value="${item.quantity}"/>
+                                            <div class="block-order">
+                                            <div class="info">
+                                                <input type="hidden" name="ProductItems[${index}].ProductId" value="${item.productId}"/>
+                                                <input type="hidden" name="ProductItems[${index}].Quantity" value="${item.quantity}"/>
 
-                                            <div class="tt" data-productId=${item.productId}>
+                                                <div class="tt" data-productId=${item.productId}>
+                                                </div>
+                                                <div class="flex-info">
+                                                    <div class="color">
+                                                        <span class="ball"></span>Hồng đất
+                                                    </div>
+                                                    <div class="size">
+                                                        M - 73cm x 63cm x 22cm
+                                                    </div>
+                                                    <div class="count">
+                                                        ${item.quantity}
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="flex-info">
-                                                <div class="color">
-                                                    <span class="ball"></span>Hồng đất
-                                                </div>
-                                                <div class="size">
-                                                    M - 73cm x 63cm x 22cm
-                                                </div>
-                                                <div class="count">
-                                                    ${item.quantity}
-                                                </div>
+                                            <div class="price-origin">
+                                                ${item.price} <u> đ</u>
                                             </div>
                                         </div>
-                                        <div class="price-origin">
-                                            ${item.price} <u> đ</u>
-                                        </div>
-                                    </div>
 
-                                    `;
+                                        `;
             // Append the cart item <div> to the cartItemsList <div>
             cartItemsList.appendChild(cartItemDiv);
         });
@@ -255,6 +254,7 @@
 
         var valueTotal = document.getElementById("orderTotal").innerText;
         document.getElementById('totalInput').value = valueTotal;
-        
+
     </script>
+
 }

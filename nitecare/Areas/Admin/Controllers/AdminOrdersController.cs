@@ -59,7 +59,8 @@ namespace nitecare.Areas.Admin.Controllers
                     ProductImage = item.Product.ProductImage,
                     Price = item.Product.Price,
                     OriginalPrice = item.Product.OriginalPrice,
-                    Quantity = item.Quantity
+                    Quantity = item.Quantity,
+                    isShow = true
                 };
                 listCart.Add(cartVm);
             };
@@ -135,7 +136,7 @@ namespace nitecare.Areas.Admin.Controllers
                                        Voucher = p.Voucher
                                    }).ToList();
                     ViewBag.ListProduct = product;
-                    
+
 
                     var listOrderDetail = new List<OrderDetail>();
                     //find order -> remove
@@ -144,8 +145,8 @@ namespace nitecare.Areas.Admin.Controllers
                     _context.OrderDetails.RemoveRange(listOrderDetail);
                     await _context.SaveChangesAsync();
 
-                    
-                    if (orderVm.CartItems !=null)
+
+                    if (orderVm.CartItems != null)
                     {
                         //find customer ->update
                         var customer = _context.Customers.Where(x => x.CustomerId == orderVm.CustomerId).FirstOrDefault();
@@ -157,9 +158,36 @@ namespace nitecare.Areas.Admin.Controllers
                         customer.Ward = orderVm.Ward;
                         customer.Road = orderVm.Road;
                         _context.Customers.Update(customer);
+
+                        //add data for table orderdetail
                         decimal totalHtml = 0;
                         listOrderDetail = new List<OrderDetail>();
-                        foreach (var item in orderVm.CartItems)
+                        var checkAllIsShow = false;
+                        //foreach (var item in orderVm.CartItems)
+                        //{
+                        //    if (item.isShow == true)
+                        //    {
+                        //        totalHtml += item.Price * item.Quantity;
+                        //        listOrderDetail.Add(new OrderDetail()
+                        //        {
+                        //            OrderId = order.OrderId,
+                        //            ProductId = item.ProductId,
+                        //            Quantity = item.Quantity,
+                        //        });
+                        //        checkAllIsShow = true;
+                        //    };
+                        //}
+                        var newCartItems = orderVm.CartItems
+                                                    .Where(x=>x.isShow==true)
+                                                    .GroupBy(p => p.ProductId)
+                                                    .Select(g => new CartVm
+                                                        {
+                                                            ProductId = g.Key,
+                                                            Price=g.First().Price,
+                                                            Quantity = g.Sum(p => p.Quantity)
+                                                        })
+                                                    .ToList();
+                        foreach(var item in newCartItems)
                         {
                             totalHtml += item.Price * item.Quantity;
                             listOrderDetail.Add(new OrderDetail()
@@ -168,10 +196,21 @@ namespace nitecare.Areas.Admin.Controllers
                                 ProductId = item.ProductId,
                                 Quantity = item.Quantity,
                             });
+                            checkAllIsShow = true;
                         }
+
+                        if (checkAllIsShow == false)
+                        {
+                            _context.Orders.Remove(order);
+                            await _context.SaveChangesAsync();
+                            return RedirectToAction(nameof(Index));
+                        }
+
                         //update orderDetails
                         _context.OrderDetails.AddRange(listOrderDetail);
                         _context.SaveChanges();
+                        //set productId same
+
                         //update order
                         order.OrderId = orderVm.OrderId;
                         order.ShipDate = orderVm.ShipDate;

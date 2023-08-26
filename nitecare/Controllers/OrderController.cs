@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using nitecare.Helpper;
 using nitecare.Model;
 using nitecare.ViewModels;
 using System;
@@ -108,7 +110,7 @@ namespace nitecare.Controllers
                     order.CustomerId = customer.CustomerId;
                 }
 
-                order.ShipDate = DateTime.Now;
+                order.ShipDate = DateTime.Today;
                 order.PaymentId = orderDto.PaymentId;
                 order.Total = orderDto.Total;
                 order.Deleted = false;
@@ -132,7 +134,7 @@ namespace nitecare.Controllers
                 _context.SaveChanges();
                 _notyfService.Success("Đặt hàng thành công!");
                 ViewBag.Success = "true";
-                return RedirectToAction("Index", "Product");
+                return RedirectToAction("CartDone", "Order",new { orderId=order.OrderId});
             }
             else
             {
@@ -141,6 +143,31 @@ namespace nitecare.Controllers
                 return RedirectToAction("Index", "Product");
             }
         }
-
+        [HttpGet]
+        [Route("cart-done")]
+        public IActionResult CartDone(int orderId)
+        {
+            var order = _context.Orders.Include(x => x.Customer).Where(x => x.OrderId == orderId).FirstOrDefault();
+            return View(order);
+        }
+        [Route("manager")]
+        [Authentication]
+        public IActionResult ManagerOrder()
+        {
+            var email = HttpContext.Session.GetString("Email");
+            var orders = (from o in _context.Orders
+                         join c in _context.Customers on o.CustomerId equals c.CustomerId
+                         join p in _context.Payments on o.PaymentId equals p.PaymentId
+                         where c.Email == email
+                         select new ManagerOrderDto()
+                         {
+                             OrderId = o.OrderId,
+                             ShipDate = o.ShipDate,
+                             StatusOrder = o.Status,
+                             StatusPayment = p.PaymentName,
+                             Total=o.Total
+                         }).ToList();
+            return View(orders);
+        }
     }
 }
