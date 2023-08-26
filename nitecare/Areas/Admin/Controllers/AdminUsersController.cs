@@ -61,36 +61,6 @@ namespace nitecare.Areas.Admin.Controllers
             return Json(new { status = "success", redirectUrl = url });
         }
 
-        // GET: Admin/AdminUsers/Create
-        public IActionResult Create()
-        {
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleName");
-            return View();
-        }
-
-        // POST: Admin/AdminUsers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( User user)
-        {
-            if (ModelState.IsValid)
-            {
-                    user.CreateDate = DateTime.Now;
-                    _context.Add(user);
-                    await _context.SaveChangesAsync();
-                    _notyfService.Success("Tạo mới người dùng thành công");
-                    return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                _notyfService.Warning("Lỗi tạo mới người dùng");
-            }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleName", user.RoleId);
-            return View(user);
-        }
-
         // GET: Admin/AdminUsers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

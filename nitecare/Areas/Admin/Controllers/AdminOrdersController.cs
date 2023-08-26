@@ -163,20 +163,7 @@ namespace nitecare.Areas.Admin.Controllers
                         decimal totalHtml = 0;
                         listOrderDetail = new List<OrderDetail>();
                         var checkAllIsShow = false;
-                        //foreach (var item in orderVm.CartItems)
-                        //{
-                        //    if (item.isShow == true)
-                        //    {
-                        //        totalHtml += item.Price * item.Quantity;
-                        //        listOrderDetail.Add(new OrderDetail()
-                        //        {
-                        //            OrderId = order.OrderId,
-                        //            ProductId = item.ProductId,
-                        //            Quantity = item.Quantity,
-                        //        });
-                        //        checkAllIsShow = true;
-                        //    };
-                        //}
+                        //find CartItem have iShow=true and arrange cartItem have ProductId same
                         var newCartItems = orderVm.CartItems
                                                     .Where(x=>x.isShow==true)
                                                     .GroupBy(p => p.ProductId)
