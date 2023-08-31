@@ -1,4 +1,4 @@
-﻿@model nitecare.Model.User
+﻿@model nitecare.BaseModel.RegisterVm
 @{
     ViewData["Title"] = "Register";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -6,14 +6,19 @@
 
 
 <div class="container-fluid d-flex justify-content-center">
-    <div class="col-xl-7 pa-0">
+    <div class="col-xl-9 pa-0">
         <div class="auth-form-wrap py-xl-0 py-50">
             <div class="auth-form w-xxl-55 w-xl-75 w-sm-90 w-100">
-                <form>
+                <form method="post">
                     <h1 class="display-4 mb-10">Sign up for free</h1>
                     <p class="mb-30">Create your account and start your free trial today</p>
-                    <div class="form-group">
-                        <input class="form-control" placeholder="Tên" type="text" asp-for="UserName" >
+                    <div class="form-row">
+                        <div class="col-md-6 form-group">
+                            <input class="form-control" placeholder="First name" value="" type="text" asp-for="FirstName">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <input class="form-control" placeholder="Last name" value="" type="text" asp-for="LastName">
+                        </div>
                     </div>
                     <div class="form-group">
                         <input class="form-control" placeholder="Email" type="email" asp-for="Email">
@@ -23,9 +28,9 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control" placeholder="Confirm Password" type="password">
+                            <input class="form-control" placeholder="Confirm Password" type="password" asp-for="ConfirmPassword" id="confirmpasswordHtml">
                             <div class="input-group-append">
-                                <span class="input-group-text"><span class="feather-icon"><i data-feather="eye-off"></i></span></span>
+                                <span class="input-group-text"><span class="feather-icon"><i data-feather="eye-off" id="iconEyeHtml" onclick="ShowHideConfirmPassword()"></i></span></span>
                             </div>
                         </div>
                     </div>
@@ -51,3 +56,19 @@
 </div>
 
 <!-- /Main Content -->
+@section Scripts{
+    <script>
+    function ShowHideConfirmPassword() {
+        var confirmPass = document.getElementById("confirmpasswordHtml");
+        var iconChange = document.getElementById("iconEyeHtml");
+        if (confirmPass.type === "password") {
+            confirmPass.type = "text";
+            iconChange.setAttribute("data-feather", "eye");
+        } else {
+            confirmPass.type = "password";
+            iconChange.setAttribute("data-feather", "eye-off");
+        }
+        feather.replace();
+    }
+    </script>
+}

@@ -6,6 +6,7 @@ using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using nitecare.Helpper;
 using nitecare.Model;
 using PagedList.Core;
 
@@ -21,7 +22,9 @@ namespace nitecare.Areas.Admin.Controllers
             _context = context;
             _notyfService = notyfService;
         }
-
+        
+        [HttpGet]
+        [AdminAuthentication]
         // GET: Admin/AdminCategories
         public IActionResult Index(int? page)
         {
@@ -35,6 +38,8 @@ namespace nitecare.Areas.Admin.Controllers
             return View(models);
         }
 
+        [HttpGet]
+        [AdminAuthentication]
         // GET: Admin/AdminCategories/Create
         public IActionResult Create()
         {
@@ -45,6 +50,7 @@ namespace nitecare.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AdminAuthentication]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Category category)
         {
@@ -59,6 +65,8 @@ namespace nitecare.Areas.Admin.Controllers
             return View(category);
         }
 
+        [HttpGet]
+        [AdminAuthentication]
         // GET: Admin/AdminCategories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -80,6 +88,7 @@ namespace nitecare.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AdminAuthentication]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Category category)
         {
@@ -113,6 +122,8 @@ namespace nitecare.Areas.Admin.Controllers
             return View(category);
         }
 
+        [HttpGet]
+        [AdminAuthentication]
         // GET: Admin/AdminCategories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -133,6 +144,7 @@ namespace nitecare.Areas.Admin.Controllers
 
         // POST: Admin/AdminCategories/Delete/5
         [HttpPost, ActionName("Delete")]
+        [AdminAuthentication]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {

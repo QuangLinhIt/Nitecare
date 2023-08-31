@@ -10,6 +10,7 @@ using nitecare.BaseModel;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using nitecare.Helpper;
 
 namespace nitecare.Areas.Admin.Controllers
 {
@@ -24,6 +25,8 @@ namespace nitecare.Areas.Admin.Controllers
             this._hostEnvironment = hostEnvironment;
         }
 
+        [HttpGet]
+        [AdminAuthentication]
         // GET: Admin/AdminProducts
         public IActionResult Index()
         {
@@ -31,6 +34,8 @@ namespace nitecare.Areas.Admin.Controllers
             return View(productList);
         }
 
+        [HttpGet]
+        [AdminAuthentication]
         // GET: Admin/AdminProducts/Create
         public IActionResult Create()
         {
@@ -47,6 +52,7 @@ namespace nitecare.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AdminAuthentication]
         [ValidateAntiForgeryToken]
         public IActionResult Create(ProductVm productVm)
         {
@@ -75,6 +81,9 @@ namespace nitecare.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        [AdminAuthentication]
         // GET: Admin/AdminProducts/Edit/5
         public IActionResult Edit(int? Id)
         {
@@ -108,6 +117,7 @@ namespace nitecare.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AdminAuthentication]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, ProductVm productVm)
         {
@@ -173,6 +183,7 @@ namespace nitecare.Areas.Admin.Controllers
 
         // POST: Admin/AdminProducts/Delete/5
         [HttpPost, ActionName("Delete")]
+        [AdminAuthentication]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

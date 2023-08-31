@@ -40,8 +40,12 @@
                                         <td><img class="circle" src="~/feedback/avatar/@item.FeedbackAvatar" width="100px" height="100px"/></td>
 
                                         <td>
-                                            <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.FeedbackId">Edit</a>
-                                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FeedbackId">Delete</a>
+                                            <a asp-action="Edit" asp-route-id="@item.FeedbackId">
+                                                <span class="feather-icon" style="color:black"><i data-feather="edit"></i></span>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.FeedbackId">
+                                                <span class="feather-icon" style="color:red"><i data-feather="trash-2"></i></span>
+                                            </a>
                                         </td>
                                     </tr>
                                         }

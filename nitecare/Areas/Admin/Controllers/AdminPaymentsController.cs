@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using nitecare.Helpper;
 using nitecare.Model;
 
 namespace nitecare.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AdminAuthentication]
     public class AdminPaymentsController : Controller
     {
         private readonly nitecareContext _context;
@@ -24,7 +26,6 @@ namespace nitecare.Areas.Admin.Controllers
         {
             return View(await _context.Payments.ToListAsync());
         }
-
 
         // GET: Admin/AdminPayments/Create
         public IActionResult Create()
@@ -48,6 +49,7 @@ namespace nitecare.Areas.Admin.Controllers
             return View(payment);
         }
 
+        [HttpGet]
         // GET: Admin/AdminPayments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -69,7 +71,7 @@ namespace nitecare.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,  Payment payment)
+        public async Task<IActionResult> Edit(int id, Payment payment)
         {
             if (id != payment.PaymentId)
             {

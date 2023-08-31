@@ -38,8 +38,12 @@
                                         <td>@item.PageName</td>
                                         <td>@item.Title</td>
                                         <td>
-                                            <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.PageId">Edit</a>
-                                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PageId">Delete</a>
+                                            <a asp-action="Edit" asp-route-id="@item.PageId">
+                                                <span class="feather-icon" style="color:black"><i data-feather="edit"></i></span>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.PageId">
+                                                <span class="feather-icon" style="color:red"><i data-feather="trash-2"></i></span>
+                                            </a>
                                         </td>
                                     </tr>
                                         }

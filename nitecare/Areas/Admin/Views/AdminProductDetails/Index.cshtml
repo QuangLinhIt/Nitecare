@@ -37,8 +37,12 @@
 
 
                                             <td>
-                                                <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.ProductDetailId">Edit</a>
-                                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ProductDetailId">Delete</a>
+                                                <a asp-action="Edit" asp-route-id="@item.ProductDetailId">
+                                                    <span class="feather-icon" style="color:black"><i data-feather="edit"></i></span>
+                                                </a>
+                                                <a asp-action="Delete" asp-route-id="@item.ProductDetailId">
+                                                    <span class="feather-icon" style="color:red"><i data-feather="trash-2"></i></span>
+                                                </a>
                                             </td>
                                         </tr>
                                     }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using nitecare.BaseModel;
+using nitecare.Helpper;
 using nitecare.Model;
 
 namespace nitecare.Areas.Admin.Controllers
@@ -20,6 +21,8 @@ namespace nitecare.Areas.Admin.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        [AdminAuthentication]
         // GET: Admin/AdminOrders
         public IActionResult Index()
         {
@@ -35,6 +38,8 @@ namespace nitecare.Areas.Admin.Controllers
             return View(order);
         }
 
+        [HttpGet]
+        [AdminAuthentication]
         // GET: Admin/AdminOrders/Edit/5
         public IActionResult Edit(int? id)
         {
@@ -111,6 +116,7 @@ namespace nitecare.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AdminAuthentication]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, OrderVm orderVm)
         {
@@ -244,6 +250,9 @@ namespace nitecare.Areas.Admin.Controllers
             ViewData["Status"] = new SelectList(status, "Value", "Text");
             return View(orderVm);
         }
+        
+        [HttpGet]
+        [AdminAuthentication]
         // GET: Admin/AdminOrders/Delete/5
         public IActionResult Delete(int? id)
         {
@@ -263,6 +272,7 @@ namespace nitecare.Areas.Admin.Controllers
 
         // POST: Admin/AdminOrders/Delete/5
         [HttpPost, ActionName("Delete")]
+        [AdminAuthentication]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

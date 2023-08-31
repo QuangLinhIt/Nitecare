@@ -53,8 +53,15 @@
                                                 <td>@item.Active</td>
                                                 <td>@item.CreateDate</td>
                                                 <td>
-                                                    <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.UserId">Edit</a>
-                                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.UserId">Delete</a>
+                                                    <a asp-action="Edit" asp-route-id="@item.UserId">
+                                                        <span class="feather-icon" style="color:black"><i data-feather="edit"></i></span>
+                                                    </a>
+                                                    <a  asp-action="ForgotPassword" asp-route-id="@item.UserId">
+                                                        <span class="feather-icon"><i data-feather="shield-off"></i></span>
+                                                    </a>
+                                                    <a asp-action="Delete" asp-route-id="@item.UserId">
+                                                        <span class="feather-icon" style="color:red"><i data-feather="trash-2"></i></span>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         }
